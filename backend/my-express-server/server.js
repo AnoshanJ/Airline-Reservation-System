@@ -1,21 +1,18 @@
 //jshint esversion:6
 
 const express = require("express");
-const bodyParser = require("body-parser")
-// const config = require("config")
-var mysql = require('mysql2')
-const port = 3000;
+const bodyParser = require("body-parser");
+const config = require("./config/config.js");
+var mysql = require('mysql2');
+
 const app = express();
 
 app.set('view engine', 'ejs');
+
 app.use(bodyParser.urlencoded({extended: true}));
 
-var con = mysql.createConnection({
-host : "localhost",
-user : "root",
-password : "1234",
-database: "airline_res"
-});
+const port = config.port;
+var con = mysql.createConnection(config.db);
 
 var flight_result = 0;
 
