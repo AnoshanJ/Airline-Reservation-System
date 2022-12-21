@@ -2,19 +2,22 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const config = require("./config/config.js");
+const config = require(__dirname+"/config/config.js");
+
 var mysql = require('mysql2');
 
 const app = express();
 
 app.set('view engine', 'ejs');
 
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
 const port = config.port;
 var con = mysql.createConnection(config.db);
 
 var flight_result = 0;
+var destination = "";
 
 app.get("/", function(req, res){
     // console.log(request);
@@ -26,14 +29,14 @@ app.get("/search", function(req,res){
 })
 
 app.get("/report", function(req,res){
-    res.render("report", {flights: flight_result});
+    res.render("report", {docTitle: "REPORTS", flights: flight_result, searchDestination: destination});
 })
 
 app.post("/report", function(req,res){
     con.connect(function(err){
         if (err) throw err;
         console.log("Connected!");
-        var destination = req.body.destination;
+        destination = req.body.destination;
         sql = "SELECT * FROM flight WHERE Destination = ?";
         con.query(sql, [destination], function(err, result, fields){
             if (err) throw err;

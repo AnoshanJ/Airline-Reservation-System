@@ -1,37 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report</title>
-</head>
-<body>
+<%- include("header") -%>
     <h1>Managerial Reports</h1>
+    <br>
     <button><a href="/">Home</a></button>
     <button><a href="/report">Search</a></button>
     <button><a href="/report">Booking</a></button>
+    <br>
+    <br>
     <form action="/report" method="POST">
         <label for="name">Number of Passengers Travelling To(Destination Code)</label>
         <input type="text" name="destination" id="destination">
         <button type="submit">Submit</button>
 
     </form>
-    <h2>Flight List</h2>
+    <br>
+    <% if (flights.length > 0) { %>
+        <h2>Flight List</h2>
         <table>
             <tr>
                 <th>Flight ID</th>
-                <th>Origin</th>
+                <th>Destination</th>
             
             </tr>
             <% for (let i = 0; i < flights.length; i++) { %>
                 <tr>
                     <td><%= flights[i].Flight_ID %></td>
                     
-                    <td><%= flights[i].Origin %></td>
+                    <td><%= flights[i].Destination %></td>
                 </tr>
             <% } %>
         </table>
+    <% } 
+    else if (flights.length == 0) { %>
+        <h2>No flights found for <%=searchDestination%> </h2>
+    <% } %>
 
-</body>
-</html>
+<%- include("footer") -%>

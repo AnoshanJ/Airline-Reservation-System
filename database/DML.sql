@@ -10,4 +10,11 @@ insert into Flight values ("F0000001", "2022-10-10", '2022-10-10 12:45:56', "202
 insert into Booking values ("R0000001", "B0000001", "Booked");
 insert into Ticket values ("T0000001", "2022-10-10", "B0000001", "F0000001");
 insert into Passenger values("P0000001", "T0000001", "Emily", "Tina","148, Hilltop Ave.Far Rockaway, New York", "emil123@gmail.com", "(555) 555-1234", "1989-12-12", "R0000001" )
-
+-- Updated entries
+insert into Plane_Type values("T00002", "747", "Boeing", 500, 9000);
+insert into Aircraft values("A00002", "0005AB", "2022-10-10", "2010-10-05", "T00002");
+insert into Pilot values ("P00002", "Capt. John");
+insert into Airport values("BAE", "China", "Beijing", null);
+insert into Airport values("LHR", "UK", "London", "England");
+insert into Flight values ("F0000002", "2022-10-12", '2022-10-10 12:45:56', "2022-10-10", '2022-10-10 12:00:00', "A00002", "P00002" , "BAE", "JFK");
+insert into Flight values ("F0000003", "2022-10-12", '2022-10-10 12:45:56', "2022-10-10", '2022-10-10 12:00:00', "A00001", "P00002" , "LHR", "JFK");

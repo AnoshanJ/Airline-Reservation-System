@@ -1,0 +1,42 @@
+html {
+  box-sizing: border-box;
+  background-color: lightblue;
+  min-height: 1000px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+  color: rgb(0, 0, 0);
+  padding: 10px;
+}
+
+
+
+#heading {  
+  text-align: center;
+  font-size: 50px;
+  font-weight: 200;
+  color: #00204a;
+
+}
+
+
+
+p {
+  margin: 0;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 200;
+  color: #00204a;
+}
+
+::placeholder {
+  color: grey;
+  opacity: 1;
+}
+
+footer {
+  color: white;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
