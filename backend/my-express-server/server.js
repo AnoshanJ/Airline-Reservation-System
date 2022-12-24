@@ -25,9 +25,7 @@ app.get("/booking", function(req,res){
     res.send("Booking Page");
 })
 
-
 app.use("/", router);
-
 
 app.listen(port, function(){
     console.log("Server started on port: "+port);
