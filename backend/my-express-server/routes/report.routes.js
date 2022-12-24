@@ -12,6 +12,7 @@ router.get('/report', function(req, res) {
     }
 });
 
+
 router.post('/report', function(req, res) {
     try {
         console.log("Route post");
