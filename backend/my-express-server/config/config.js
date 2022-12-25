@@ -2,7 +2,7 @@ const config = {
     db : {
     host : "localhost",
     user : "root",
-    password : "Thusy#0819",
+    password : "1234",
     database: "airline_res"},
     
     port : 3000

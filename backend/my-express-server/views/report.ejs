@@ -1,10 +1,88 @@
 <%- include("header") -%>
-    <h1>Managerial Reports</h1>
-    <br>
+    <center>
     <button><a href="/">Home</a></button>
     <button><a href="/report">Search</a></button>
     <button><a href="/booking">Booking</a></button>
+    </center>
     <br>
+    <br>
+    <div>
+        <h2>Total Revenue by Each Model</h2>
+        <table>
+            <tr>
+                <th>Model</th>
+                <th>Revenue</th>
+            </tr>
+            <% if (revenue.length > 0) { %>
+            <% for (let i = 0; i < revenue.length; i++) { %>
+                <tr>
+                    <td><%= revenue[i].Model %></td>
+                    <td><%= revenue[i].Revenue %></td>
+                </tr>
+            <% }} %>
+        </table>
+    </div>
+    <br>
+    <div>
+        <h2>Passenger Count</h2>
+        <form action="/report" method="POST">  
+            <label for="name">Number of Passengers Travelling To(Destination Code)</label>
+            <input type="text" name="destination" id="destination">
+            <h3>Between</h3>
+            <label for="name">Start Date</label>
+            <input type="date" name="start" id="start">
+            <label for="name">End Date</label>
+            <input type="date" name="end" id="end">
+            <button type="submit">Get Count</button>
+        </form>
+        <% if (passengerCount.length > 0) { %>
+            <h3>Passenger Count : <%= passengerCount %></h3>
+        <% } %>
+    </div>
+    <br>
+    <div>
+        <h2>Booking Count</h2>
+        <form action="/report" method="POST">  
+            <label for="name">Number of Booking by each Customer type</label>
+            <input type="text" name="destination" id="destination">
+            <h3>Between</h3>
+            <label for="name">Start Date</label>
+            <input type="date" name="start" id="start">
+            <label for="name">End Date</label>
+            <input type="date" name="end" id="end">
+            <button type="submit">Get Count</button>
+            <% if (bookingCount.length > 0) { %>
+                <h3>Booking Count : <%= bookingCount %></h3>
+            <% } %>
+    </div>
+    <br>
+    <div>
+        <h2>Next Flight Passenger Details</h2>
+        <form action="/report" method="POST">  
+            <label for="name">Select Flight Route</label>
+            <select id="route" name="route">
+                <option value="1">BIA to JFK</option>
+                <option value="2">BIA to HEA</option>
+            </select>
+            <button type="submit">Get Count</button>
+        </form>
+        <% if (nextFlight.length > 0) { %>
+            <table>
+                <tr>
+                    <th>Flight ID</th>
+                    <th>Destination</th>
+                    <th>Passenger Count</th>
+                </tr>
+                <% for (let i = 0; i < nextFlight.length; i++) { %>
+                    <tr>
+                        <td><%= nextFlight[i].Flight_ID %></td>
+                        <td><%= nextFlight[i].Dest %></td>
+                        <td><%= nextFlight[i].Passenger_Count %></td>
+                    </tr>
+                <% } %>
+            </table>
+        <% } %>
+    </div>
     <br>
     <form action="/report" method="POST">
         <label for="name">Number of Passengers Travelling To(Destination Code)</label>
