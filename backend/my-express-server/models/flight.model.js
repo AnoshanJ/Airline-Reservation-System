@@ -9,22 +9,22 @@ const Flight = function(flight){
     this.AircraftID = flight.AircraftID;
     this.PilotID = flight.PilotID;
     this.Origin = flight.Origin;
-    this.Destination = flight.Destination;
-    
+    this.Destination = flight.Destination;    
 }
 
-Flight.findbyDestination = (destination, result) => {
-    sql = "SELECT * FROM flight WHERE Destination = ?";
-    con.query(sql, [destination], function(err, res) {
-      if (err) {
-        console.log("error: ", err);
-        return result(err, null);
-      }
-      if (res.length) {
-        console.log("Flight: ", res);
-        return result(null, res);
-      }
-      result({ kind: "not_found" }, null);
+Flight.getFlightCount= function(destination,start,end,result){
+    sql = "SELECT count(flight.Flight_ID) as count FROM flight where flight.Destination=? and Flight.Departure_Date between ? and ?";
+    con.query(sql,[destination,start,end],function(err,res){
+    if(err){
+            console.log("error: ",err);
+            return result(err,null);
+        }
+        else{
+            console.log("Count: ",res);
+            return result(null,res);
+        }
     });
-  };
-  module.exports = Flight;
+};
+
+ module.exports = Flight;
+
