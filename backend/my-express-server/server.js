@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const router = require("./routes/report.routes.js");
+const port = require("./config/config").port;
 
 const app = express();
 
@@ -14,7 +15,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 
-const port = 3000;
 
 app.get("/", function(req, res){
     res.sendFile(__dirname+"/index.html");
