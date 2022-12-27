@@ -28,3 +28,20 @@ const Flight = require("../models/flight.model.js");
       res.send("500");
     }
   }
+  exports.getPlaneModelRevenue = (req, res) => {
+    try { 
+
+      Flight.getPlaneModelRevenue((err, result) => {
+        if (err) {
+          console.log("Model Error"+err);
+          res.send("500");
+        } else {
+          responseValues.revenue = result;
+          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues});
+        }
+      });
+    } catch (err) {
+      console.log("Controller Error"+err);
+      res.send("500");
+    }
+  }

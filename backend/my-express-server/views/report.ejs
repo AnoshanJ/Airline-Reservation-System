@@ -11,13 +11,15 @@
         <table>
             <tr>
                 <th>Model</th>
+                <th>Variant</th>
                 <th>Revenue</th>
             </tr>
             <% if (data.revenue.length > 0) { %>
             <% for (let i = 0; i < data.revenue.length; i++) { %>
                 <tr>
-                    <td><%= data.revenue[i].Model %></td>
-                    <td><%= data.revenue[i].Revenue %></td>
+                    <td><%= data.revenue[i].model_name %></td>
+                    <td><%= data.revenue[i].variant %></td>
+                    <td><%= data.revenue[i].sum %></td>
                 </tr>
             <% }} %>
         </table>
