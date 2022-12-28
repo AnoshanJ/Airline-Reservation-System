@@ -12,14 +12,17 @@ const responseValues = {
   }
 
 //default Page
-// router.get('/report', function(req, res) {
-//     try {
-//         res.render("report", {formData: "", docTitle: "REPORTS", data: responseValues});
-//     } catch (err) {
-//         console.log(err);
-//         res.send("500");
-//     }
-// });
+router.get('/report', function(req, res) {
+    try {
+        const formData = req.body;
+        flightController.getPlaneModelRevenue(formData, res);
+  
+    } catch (err) {
+        console.log(err);
+        res.send("500");
+    }
+});
+
 
 router.post('/report/passengerCount', function(req, res) {
     try {
@@ -31,15 +34,8 @@ router.post('/report/passengerCount', function(req, res) {
         res.send("500");
     }
 });
-router.get('/report', function(req, res) {
-    try {
-        const formData = req.body;
-        flightController.getPlaneModelRevenue(formData, res);
-  
-    } catch (err) {
-        console.log(err);
-        res.send("500");
-    }
-});
+
+
+
 module.exports = router;
 
