@@ -1,9 +1,10 @@
 'use strict';
 
-var mysql = require('mysql2');
-const config = require("./../config/config.js");
+// var mysql = require('mysql2');
+// const config = require("./../config/config.js");
 
-var con = mysql.createConnection(config.db);
+// var con = mysql.createConnection(config.db);
+const con = require("./db.js");
 
 // Booking object create
 var Booking = function(booking){

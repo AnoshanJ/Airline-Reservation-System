@@ -5,7 +5,9 @@ const flightController = require('../controllers/flight.controller.js');
 
 router.get('/report', function(req, res) {
     try {
-        res.render("report", {docTitle: "REPORTS", flights: 0, searchDestination: "", revenue: 0, passengerCount: 0, flightCount: 0, bookingCount: 0, nextFlight: 0});
+        const formData = req.body;
+        flightController.getPlaneModelRevenue(formData, res);
+  
     } catch (err) {
         console.log(err);
         res.send("500");
@@ -13,7 +15,7 @@ router.get('/report', function(req, res) {
 });
 
 
-router.post('/report', function(req, res) {
+router.post('/report/passengerCount', function(req, res) {
     try {
         console.log("Route post");
         destination = req.body.destination;
@@ -24,5 +26,8 @@ router.post('/report', function(req, res) {
         res.send("500");
     }
 });
+
+
+
 module.exports = router;
 

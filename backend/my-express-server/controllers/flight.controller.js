@@ -1,19 +1,47 @@
 const Flight = require("../models/flight.model.js");
 
-exports.getFlightByDestination = (destination, res) => {
-    try {
-      console.log("Destination: " + destination);
-      Flight.findbyDestination(destination, (err, result) => {
+  const responseValues = {
+    revenue: 0, 
+    passengerCount: 0, 
+    flightCount: 0 , 
+    bookingCount: 0, 
+    nextFlight: 0
+  }
+ 
+  exports.getFlightCount = (req, res) => {
+    try { 
+      const destination = req.destination;
+      const start = req.start;
+      const end = req.end;
+         
+      Flight.getFlightCount(destination,start,end, (err, result) => {
         if (err) {
-          console.log(err);
-          res.render("report", { docTitle: "REPORTS", flights: [], searchDestination: destination, revenue: 0, passengerCount: 0, flightCount: 0 , bookingCount: 0, nextFlight: 0});
+          console.log("Model Error"+err);
+          res.send("500");
         } else {
-          console.log("FLIGHT: " + result);
-          res.render("report", { docTitle: "REPORTS", flights: result, searchDestination: destination, revenue: 0, passengerCount: 0,  flightCount: 0, bookingCount: 0, nextFlight: 0});
+          responseValues.passengerCount = String(result[0].count);
+          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues});
         }
       });
     } catch (err) {
-      console.log(err);
-      res.send("Controller ERROR");
+      console.log("Controller Error"+err);
+      res.send("500");
     }
-  };
+  }
+  exports.getPlaneModelRevenue = (req, res) => {
+    try { 
+
+      Flight.getPlaneModelRevenue((err, result) => {
+        if (err) {
+          console.log("Model Error"+err);
+          res.send("500");
+        } else {
+          responseValues.revenue = result;
+          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues});
+        }
+      });
+    } catch (err) {
+      console.log("Controller Error"+err);
+      res.send("500");
+    }
+  }
