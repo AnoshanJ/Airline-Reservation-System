@@ -9,8 +9,7 @@ const Flight = function(flight){
     this.AircraftID = flight.AircraftID;
     this.PilotID = flight.PilotID;
     this.Origin = flight.Origin;
-    this.Destination = flight.Destination;
-    
+    this.Destination = flight.Destination;    
 }
 
 Flight.getFlightCount= function(destination,start,end,result){

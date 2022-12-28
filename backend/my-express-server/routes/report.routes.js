@@ -1,8 +1,17 @@
 const express = require("express");
 const router = express.Router();
+//flightController to access Flight Table
 const flightController = require('../controllers/flight.controller.js');
 
+const responseValues = {
+    revenue: 0, 
+    passengerCount: 0, 
+    flightCount: 0 , 
+    bookingCount: 0, 
+    nextFlight: 0
+  }
 
+//default Page
 router.get('/report', function(req, res) {
     try {
         const formData = req.body;
@@ -17,9 +26,8 @@ router.get('/report', function(req, res) {
 
 router.post('/report/passengerCount', function(req, res) {
     try {
-        console.log("Route post");
-        destination = req.body.destination;
-        flightController.getFlightByDestination(destination, res);
+        const formData = req.body;
+        flightController.getFlightCount(formData, res);
   
     } catch (err) {
         console.log(err);
