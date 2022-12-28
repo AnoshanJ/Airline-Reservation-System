@@ -14,8 +14,8 @@
                 <th>Variant</th>
                 <th>Revenue</th>
             </tr>
-            <% if (revenue.length > 0) { %>
-            <% for (let i = 0; i < revenue.length; i++) { %>
+            <% if (data.revenue.length > 0) { %>
+            <% for (let i = 0; i < data.revenue.length; i++) { %>
                 <tr>
                     <td><%= data.revenue[i].model_name %></td>
                     <td><%= data.revenue[i].variant %></td>
@@ -27,24 +27,24 @@
     <br>
     <div>
         <h2>Passenger Count</h2>
-        <form action="/report" method="POST">  
+        <form action="/report/passengerCount" method="POST">  
             <label for="name">Number of Passengers Travelling To(Destination Code)</label>
-            <input type="text" name="destination" id="destination">
+            <input type="text" name="destination" id="destination" value=<%=formData.destination%>>
             <h3>Between</h3>
             <label for="name">Start Date</label>
-            <input type="date" name="start" id="start">
+            <input type="date" name="start" id="start" value=<%=formData.start%>>
             <label for="name">End Date</label>
-            <input type="date" name="end" id="end">
+            <input type="date" name="end" id="end" value=<%=formData.end%>>
             <button type="submit">Get Count</button>
         </form>
-        <% if (passengerCount.length > 0) { %>
-            <h3>Passenger Count : <%= passengerCount %></h3>
+        <% if (data.passengerCount.length > 0) { %>
+            <h3>Passenger Count : <%= data.passengerCount %></h3>
         <% } %>
     </div>
     <br>
     <div>
         <h2>Booking Count</h2>
-        <form action="/report" method="POST">  
+        <form action="/report/bookingCount" method="POST">  
             <label for="name">Number of Booking by each Customer type</label>
             <input type="text" name="destination" id="destination">
             <h3>Between</h3>
@@ -53,14 +53,14 @@
             <label for="name">End Date</label>
             <input type="date" name="end" id="end">
             <button type="submit">Get Count</button>
-            <% if (bookingCount.length > 0) { %>
-                <h3>Booking Count : <%= bookingCount %></h3>
+            <% if (data.bookingCount.length > 0) { %>
+                <h3>Booking Count : <%= data.bookingCount %></h3>
             <% } %>
     </div>
     <br>
     <div>
         <h2>Next Flight Passenger Details</h2>
-        <form action="/report" method="POST">  
+        <form action="/report/nextFlight" method="POST">  
             <label for="name">Select Flight Route</label>
             <select id="route" name="route">
                 <option value="1">BIA to JFK</option>
@@ -68,50 +68,21 @@
             </select>
             <button type="submit">Get Count</button>
         </form>
-        <% if (nextFlight.length > 0) { %>
+        <% if (data.nextFlight.length > 0) { %>
             <table>
                 <tr>
                     <th>Flight ID</th>
                     <th>Destination</th>
                     <th>Passenger Count</th>
                 </tr>
-                <% for (let i = 0; i < nextFlight.length; i++) { %>
+                <% for (let i = 0; i < data.nextFlight.length; i++) { %>
                     <tr>
-                        <td><%= nextFlight[i].Flight_ID %></td>
-                        <td><%= nextFlight[i].Dest %></td>
-                        <td><%= nextFlight[i].Passenger_Count %></td>
+                        <td><%= data.nextFlight[i].Flight_ID %></td>
+                        <td><%= data.nextFlight[i].Dest %></td>
+                        <td><%= data.nextFlight[i].Passenger_Count %></td>
                     </tr>
                 <% } %>
             </table>
         <% } %>
     </div>
-    <br>
-    <form action="/report" method="POST">
-        <label for="name">Number of Passengers Travelling To(Destination Code)</label>
-        <input type="text" name="destination" id="destination">
-        <button type="submit">Submit</button>
-
-    </form>
-    <br>
-    <% if (flights.length > 0) { %>
-        <h2>Flight List</h2>
-        <table>
-            <tr>
-                <th>Flight ID</th>
-                <th>Destination</th>
-            
-            </tr>
-            <% for (let i = 0; i < flights.length; i++) { %>
-                <tr>
-                    <td><%= flights[i].Flight_ID %></td>
-                    
-                    <td><%= flights[i].Destination %></td>
-                </tr>
-            <% } %>
-        </table>
-    <% } 
-    else if (flights.length == 0) { %>
-        <h2>No flights found for <%=searchDestination%> </h2>
-    <% } %>
-
 <%- include("footer") -%>
