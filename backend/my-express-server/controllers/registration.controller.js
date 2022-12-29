@@ -26,11 +26,11 @@ exports.createRegisteredUser = (req, res) => {
 
   // Save registered user in the database
   RegisteredUser.createUser(registeredUser, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "An error occurred while creating the Registered User.",
-      });
+    if (err){
+
+      res.status(500).send("<p>There was an error creating the user. Redirecting to registration page in 3 seconds...</p>" +
+      "<script>setTimeout(function () { window.location.href = '/register'; }, 3000);</script>");
+    }
     else {
 // Display a successful creation box
 res.send("<p>User created successfully! Redirecting to login page in 3 seconds...</p>" +

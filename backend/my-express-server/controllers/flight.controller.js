@@ -9,32 +9,40 @@ const Flight = require("../models/flight.model.js");
     route : 0
   }
 
-  exports.getDetails = (req, res) => {
-    try{
-      Flight.getPlaneModelRevenue((err, result) => {
-        if (err) {
-          console.log("Model Error"+err);
-          res.send("500");
-        } else {
-          responseValues.revenue = result;
-        }
-      });
-      Flight.getFlightRoutes((err, result) => {
-        if (err) {
-          console.log("Model Error"+err);
-          res.send("500");
-        } else {
-          responseValues.route = result;
-        }
-      });
-      res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues});
+  exports.getDetails = async (req, res) => {
+    try {
+      responseValues.revenue = await new Promise((resolve, reject) => {
+        Flight.getPlaneModelRevenue((err, result) => {
+          if (err) {
+            console.log("Model Error" + err);
+            reject(err);
+          } else {
+            resolve(result);
           }
-    catch (err) {
-      console.log("Controller Error"+err);
+        });
+      });
+      responseValues.route = await new Promise((resolve, reject) => {
+        Flight.getFlightRoutes((err, result) => {
+          if (err) {
+            console.log("Model Error" + err);
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      });
+
+      res.render("report", {
+        formData: req,
+        docTitle: "REPORTS",
+        data: responseValues,
+      });
+    } catch (err) {
+      console.log("Controller Error" + err);
       res.send("500");
     }
-
-  }
+  };
+  
 
   exports.getFlightCount = (req, res) => {
     try { 
