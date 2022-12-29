@@ -28,6 +28,26 @@ Flight.getFlightCount= function(destination,start,end,result){
 };
 
 Flight.getPlaneModelRevenue= function(result){
+    sql = "SELECT plane_type.model_name, plane_type.variant, SUM(COALESCE(booking.final_price,0)) "+
+    "FROM plane_type "+
+    "LEFT JOIN aircraft_instance ON plane_type.model_id=aircraft_instance.model_id "+
+    "LEFT JOIN flight_schedule ON aircraft_instance.aircraft_id=flight_schedule.aircraft_id "+
+    "LEFT JOIN booking ON flight_schedule.flight_id=booking.flight_id "+
+    "GROUP BY plane_type.model_name, plane_type.variant;";
+    pool.query(sql, function(err,res){
+    if(err){
+            console.log("error: ",err);
+            return result(err,null);
+        }
+        else{
+            console.log("Revenue Details: ",res.rows);
+            return result(null,res.rows);
+        }
+    });
+}
+
+//work in progress
+Flight.getBookingCount= function(result){
     sql = "SELECT plane_type.model_name, plane_type.variant, SUM(booking.final_price) "+
     "FROM plane_type "+
     "LEFT JOIN aircraft_instance ON plane_type.model_id=aircraft_instance.model_id "+
@@ -44,6 +64,21 @@ Flight.getPlaneModelRevenue= function(result){
             return result(null,res.rows);
         }
     });
+}
+
+Flight.getFlightRoutes= function(result){
+    sql = "SELECT route.origin, route.destination from route";
+    pool.query(sql, function(err,res){
+    if(err){
+            console.log("error: ",err);
+            return result(err,null);
+        }
+        else{
+            console.log("Route Details: ",res.rows);
+            return result(null,res.rows);
+        }
+    });
+
 }
 
  module.exports = Flight;

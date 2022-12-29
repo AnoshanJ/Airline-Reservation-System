@@ -31,6 +31,13 @@ p {
   opacity: 1;
 }
 
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+td {
+  border: 1px solid black;
+}
 footer {
   color: white;
   color: rgba(0, 0, 0, 0.5);

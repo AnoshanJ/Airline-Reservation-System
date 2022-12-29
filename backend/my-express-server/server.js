@@ -17,7 +17,7 @@ app.use(bodyParser.json())
 
 
 app.get("/", function(req, res){
-    res.sendFile(__dirname+"/index.html");
+    res.render("home", {docTitle: "B-Airways"});
 })
 
 app.get("/search", function(req,res){
@@ -25,6 +25,15 @@ app.get("/search", function(req,res){
 })
 
 app.use("/", router);
+
+app.get("/login", function(req, res){
+    res.render("login", {docTitle: "LOGIN"});
+  });
+
+app.get("/register", function(req, res){
+    res.render("register", {docTitle: "REGISTER"});
+});
+
 
 router.get('/booking', function(req, res) {
     try {

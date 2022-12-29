@@ -1,4 +1,4 @@
-<%- include("header") -%>
+<%- include("partials/header") -%>
     <center>
     <button><a href="/">Home</a></button>
     <button><a href="/report">Search</a></button>
@@ -46,7 +46,6 @@
         <h2>Booking Count</h2>
         <form action="/report/bookingCount" method="POST">  
             <label for="name">Number of Booking by each Customer type</label>
-            <input type="text" name="destination" id="destination">
             <h3>Between</h3>
             <label for="name">Start Date</label>
             <input type="date" name="start" id="start">
@@ -62,11 +61,17 @@
         <h2>Next Flight Passenger Details</h2>
         <form action="/report/nextFlight" method="POST">  
             <label for="name">Select Flight Route</label>
-            <select id="route" name="route">
-                <option value="1">BIA to JFK</option>
-                <option value="2">BIA to HEA</option>
-            </select>
-            <button type="submit">Get Count</button>
+            <% if (data.route.length > 0) { %>
+                <select id="route" name="route">
+                    <% for (let i = 0; i < data.route.length; i++) { %>
+                        <option value="<%= data.route[i].origin %> to <%= data.route[i].destination %>"><%= data.route[i].origin %> to <%= data.route[i].destination %></option>    
+                    <% } %>
+                </select>
+                <button type="submit">Get Count</button>
+            <% } else { %> 
+                <h4>No Flights Available</h4>
+            <% } %>
+
         </form>
         <% if (data.nextFlight.length > 0) { %>
             <table>

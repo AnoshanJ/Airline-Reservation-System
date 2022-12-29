@@ -8,14 +8,16 @@ const responseValues = {
     passengerCount: 0, 
     flightCount: 0 , 
     bookingCount: 0, 
-    nextFlight: 0
+    nextFlight: 0,
+    route : 0
   }
 
 //default Page
 router.get('/report', function(req, res) {
     try {
         const formData = req.body;
-        flightController.getPlaneModelRevenue(formData, res);
+        // flightController.getPlaneModelRevenue(formData, res);
+        flightController.getDetails(formData, res);
   
     } catch (err) {
         console.log(err);
