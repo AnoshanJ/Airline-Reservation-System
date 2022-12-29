@@ -1,6 +1,6 @@
 html {
   box-sizing: border-box;
-  background-color: lightblue;
+  background-color: #4caf50;
   min-height: 1000px;
   font-family: 'Open Sans', sans-serif;
 }
@@ -13,7 +13,7 @@ body {
 
   flex-direction: column;
   width: 100%;
-  max-width: 800px;
+  max-width: 60%;
   background-color: white;
   padding: 20px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -47,7 +47,7 @@ div {
 
 }
 .centered-div {
-  width: 50%; /* Set a fixed width for the div */
+  width: 70%; /* Set a fixed width for the div */
   margin: 0 auto; /* Center the div */
   padding: 10px; /* Add some padding */
   border: 1px solid #333; /* Add a border */
@@ -56,14 +56,8 @@ div {
 }
 
 /* Style text fields */
-input[type="text"] {
-  /* Add padding, border, and font size */
-  padding: 10px;
-  border: 1px solid #ccc;
-  font-size: 16px;
 
-}
-input[type="email"], input[type="password"] {
+input[type="text"], [type="email"], input[type="password"] {
   width: 100%; /* Set the width of the input fields to 100% */
   padding: 12px 20px; /* Add padding to the input fields */
   margin: 8px 0; /* Add a margin to the input fields */
@@ -132,12 +126,7 @@ h2 {
 
 }
 
-#heading {  
-  text-align: center;
-  font-size: 50px;
-  font-weight: 200;
-  color: #00204a;
-}
+
 
 
 p {
@@ -187,29 +176,76 @@ th {
   color: #fff;
   font-weight: bold;
 }
-
+/* Footer styles */
+/* Footer styles */
 footer {
-  color: white;
-  color: rgba(0, 0, 0, 0.5);
-  text-align: center;
+  background-color: #333;
+  color: #fff;
+  padding: 30px 0;
+  text-align: center; /* add this line to center align footer content */
 }
+
+
+footer h4 {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+footer p,
+footer ul {
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #ccc;
+}
+
+footer .copyright {
+  background-color: #222;
+  color: #999;
+  font-size: 12px;
+
+  margin: 0 auto; /* add this line to center align copyright text horizontally */
+}
+
+/* Navbar styles */
 .navbar {
+  background-color: #333;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
 }
 
 .nav-item {
-  padding: 10px 20px;
+  background-color: transparent;
   border: none;
-  background-color: #333;
   color: #fff;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
 }
 
 .nav-item:hover {
-  background-color: #444;
+  color: #ccc;
 }
+
+/* Heading styles */
+#heading {
+  color: #333;
+  font-size: 36px;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+
 
 /* Style create account button */
 .create-account-button {
@@ -226,5 +262,4 @@ footer {
   cursor: pointer;
 
 }
-
 
