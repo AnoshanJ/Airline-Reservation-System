@@ -1,0 +1,21 @@
+<%- include ('partials/header') %>
+<%- include ('partials/nav_bar') %>
+<div ">
+<form action="/login" method="POST">
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" style="display: block;">
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" style="display: block;">
+    <center><button type="submit" style="display: block;">Login</button></center>
+  </form>
+</div>
+  
+<br>
+<div class="centered-div">
+    <a href="/register"></a><button class="create-account-button">Register Account</button></a>
+    <a href="/guest"></a><button class="create-account-button">Continue as Guest</button></a>
+    <a href="/staff_login"></a><button class="create-account-button">Staff Login</button></a>
+</div>
+
+
+<%- include ('partials/footer') %>
