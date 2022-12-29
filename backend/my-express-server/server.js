@@ -30,10 +30,6 @@ app.get("/login", function(req, res){
     res.render("login", {docTitle: "LOGIN"});
   });
 
-app.get("/register", function(req, res){
-    res.render("register", {docTitle: "REGISTER"});
-});
-
 
 router.get('/booking', function(req, res) {
     try {
@@ -44,11 +40,17 @@ router.get('/booking', function(req, res) {
     }
 });
 
-app.listen(port, function(){
-    console.log("Server started on port: "+port);
-});
 
 // Require employee routes
 const bookingroutes = require('./routes/booking.routes')
 // using as middleware
 app.use('/booking', bookingroutes)
+
+const registerRoutes = require('./routes/register.routes')
+app.use('/register', registerRoutes)
+
+
+
+app.listen(port, function(){
+    console.log("Server started on port: "+port);
+});
