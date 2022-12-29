@@ -5,9 +5,131 @@ html {
   font-family: 'Open Sans', sans-serif;
 }
 
+body {
+  margin: auto;
+
+  /* align all content to center */
+  display: flex;
+
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+div {
+  /* Add padding and margin */
+  padding: 20px;
+  width : 80%;
+  margin: 20px 0;
+
+  /* Add font size and color */
+  font-size: 16px;
+  color: #333;
+
+  /* Add background color and border */
+  background-color: #f5f5f5;
+  border: 1px solid #333;
+
+  /* Add font size and color */
+  font-size: 16px;
+  color: #333;
+
+  /* Add box shadow */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+
+}
+.centered-div {
+  width: 50%; /* Set a fixed width for the div */
+  margin: 0 auto; /* Center the div */
+  padding: 10px; /* Add some padding */
+  border: 1px solid #333; /* Add a border */
+  text-align: center; /* Center the text inside the div */
+
+}
+
+/* Style text fields */
+input[type="text"] {
+  /* Add padding, border, and font size */
+  padding: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+
+}
+input[type="email"], input[type="password"] {
+  width: 100%; /* Set the width of the input fields to 100% */
+  padding: 12px 20px; /* Add padding to the input fields */
+  margin: 8px 0; /* Add a margin to the input fields */
+  box-sizing: border-box; /* Include the padding and border in the total width and height of the input fields */
+  border: 1px solid #ccc; /* Add a border to the input fields */
+  border-radius: 4px; /* Add rounded corners to the input fields */
+}
+/* Style drop down boxes */
+select {
+  /* Add padding, border, and font size */
+  padding: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+
+
+}
+
+/* Style date pickers */
+input[type="date"] {
+  /* Add padding, border, and font size */
+  padding: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+
+
+}
+
+/* Style buttons */
+button {
+  /* Add padding, border, and background color */
+  padding: 10px 20px;
+  border: none;
+  background-color: #333;
+
+  /* Add font size and color */
+  font-size: 16px;
+  color: #fff;
+
+  /* Add cursor */
+  cursor: pointer;
+
+  }
+
+
 h1 {
   color: rgb(0, 0, 0);
   padding: 10px;
+  text-align: center;
+  margin: auto;
+  display: block;
+}
+h2 {
+  /* Add padding and margin */
+  padding: 10px;
+  margin: 20px 0;
+  text-align: center;
+
+  /* Add font size and color */
+  font-size: 20px;
+  color: #333;
+
+  /* Add text decoration */
+  text-decoration: underline;
+
+  /* Add hover effect */
+
 }
 
 #heading {  
@@ -32,14 +154,77 @@ p {
 }
 
 table {
-  border: 1px solid black;
-  border-collapse: collapse;
+  /* Center the table */
+
+  width: 100%;
+
+  /* Add border, padding, and background color */
+  border: 1px solid #333;
+  padding: 10px;
+  background-color: #f5f5f5;
+
+  /* Add font size and color */
+  font-size: 16px;
+  color: #333;
+
+  /* Add box shadow */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+
+/* Style the table cells */
 td {
-  border: 1px solid black;
+  /* Add padding and border */
+  padding: 10px;
+  border: 1px solid #ccc;
+
+
 }
+
+/* Style the table header cells */
+th {
+  /* Add background color and font weight */
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+}
+
 footer {
   color: white;
   color: rgba(0, 0, 0, 0.5);
   text-align: center;
 }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-item {
+  padding: 10px 20px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  background-color: #444;
+}
+
+/* Style create account button */
+.create-account-button {
+  /* Add padding, border, and background color */
+  padding: 10px 20px;
+  border: none;
+  background-color: #4caf50;
+
+  /* Add font size and color */
+  font-size: 16px;
+  color: #fff;
+
+  /* Add cursor */
+  cursor: pointer;
+
+}
+
+

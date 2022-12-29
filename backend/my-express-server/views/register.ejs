@@ -1,15 +1,14 @@
 <%- include ('partials/header') %>
+<%- include ('partials/nav_bar') %>
 <h1>Register</h1>
+<div>
 <form action="/register" method="POST">
-  <div>
     <label for="email">Email</label>
-    <input type="email" name="email" id="email">
-  </div>
-  <div>
+    <input type="email" name="email" id="email" style="display: block;">
     <label for="password">Password</label>
-    <input type="password" name="password" id="password">
-  </div>
+    <input type="password" name="password" id="password" style="display: block;">
   <button type="submit">Register</button>
 </form>
+</div>
 
 <%- include ('partials/footer') %>
