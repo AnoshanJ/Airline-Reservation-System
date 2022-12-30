@@ -2,7 +2,7 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const router = require("./routes/report.routes.js");
+const fs = require('fs');
 const port = require("./config/config").port;
 
 const app = express();
@@ -15,40 +15,18 @@ app.use(bodyParser.urlencoded({extended: true}));
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 
-
 app.get("/", function(req, res){
     res.render("home", {docTitle: "B-Airways"});
 })
 
-app.get("/search", function(req,res){
-    res.send("Search Page Here");
-})
+// Get all files in the routes folder
+const files = fs.readdirSync('./routes');
 
-app.use("/", router);
-
-app.get("/login", function(req, res){
-    res.render("login", {docTitle: "LOGIN"});
-  });
-
-
-router.get('/booking', function(req, res) {
-    try {
-        res.render("booking", {docTitle: "BOOKING"});
-    } catch (err) {
-        console.log(err);
-        res.send("500");
-    }
+// Loop through each file and require it
+files.forEach(file => {
+  const routes = require(`./routes/${file}`);
+  app.use(routes);
 });
-
-
-// Require employee routes
-const bookingroutes = require('./routes/booking.routes')
-// using as middleware
-app.use('/booking', bookingroutes)
-
-const registerRoutes = require('./routes/register.routes')
-app.use('/register', registerRoutes)
-
 
 
 app.listen(port, function(){

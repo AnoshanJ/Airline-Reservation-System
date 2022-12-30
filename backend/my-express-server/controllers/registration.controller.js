@@ -1,5 +1,40 @@
 const RegisteredUser = require("../models/registeredUser.model.js");
 
+exports.getUserByEmail = (req, res) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({ message: "Content can not be empty!" });
+    return;
+  }
+
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Check if email and password match those of a registered user
+  RegisteredUser.getUserByEmail(email, (err, data) => {
+    if (err) {
+      res.status(500).send({ message: "Error retrieving user" });
+      return;
+    }
+
+    if (data.length === 0) {
+      res.status(404).send({ message: "User not found" });
+      return;
+    }
+
+    if (password !== data[0].password) {
+      res.status(401).send({ message: "Incorrect password" });
+      return;
+    }
+
+    // Set session or create JWT token to authenticate user
+    // ...
+
+    res.send({ message: "Logged in successfully" });
+  });
+};
+
+
 exports.createRegisteredUser = (req, res) => {
   // Validate request
   if (!req.body) {
