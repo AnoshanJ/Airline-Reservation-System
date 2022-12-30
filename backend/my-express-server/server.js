@@ -1,9 +1,13 @@
 //jshint esversion:6
-
+// require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require('fs');
 const port = require("./config/config").port;
+
+// const session = require('express-session');
+// const passport = require('passport');
+// const passportLocal = require('passport-local');
 
 const app = express();
 
@@ -14,6 +18,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
+
+// app.use(session({
+//     secret: 'secret',
+//     resave: false,
+//     saveUninitialized: false
+// }));
+
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.get("/", function(req, res){
     res.render("home", {docTitle: "B-Airways"});

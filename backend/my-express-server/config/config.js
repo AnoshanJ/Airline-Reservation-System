@@ -3,7 +3,7 @@ const config = {
     host : "localhost",
     user : "admin",
     password : "1234",
-    database: "postgres",
+    database: "airline_res",
     port: 5432},
     
     port : 3000
