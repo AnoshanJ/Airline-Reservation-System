@@ -58,7 +58,7 @@ RegisteredUserAccount.createUser = function (newUser, result) {
           const queryParams2 = [
             newUser.password,
             newUser.first_name,
-            newUser.last_name,
+            newUser.last_name,  
             newUser.gender,
             newUser.dob,
             newUser.email,

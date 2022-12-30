@@ -1,5 +1,5 @@
-psql -U postgres -h localhost : to connect to database
-postgres=# CREATE ROLE admin WITH LOGIN PASSWORD '1234';
+psql -U airline_res -h localhost : to connect to database
+CREATE ROLE admin WITH LOGIN PASSWORD '1234';
 GRANT ALL ON ALL TABLES IN SCHEMA public TO admin;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO admin;
 GRANT ALL ON ALL FUNCTIONS IN SCHEMA public TO admin;
