@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const checkRole = require('../middleware/auth');
 //flightController to access Flight Table
 const flightController = require('../controllers/flight.controller.js');
 
@@ -13,7 +14,7 @@ const responseValues = {
   }
 
 //default Page
-router.get('/report', function(req, res) {
+router.get('/report', checkRole('Manager'),function(req, res) {
     try {
         const formData = req.body;
         // flightController.getPlaneModelRevenue(formData, res);
@@ -26,7 +27,7 @@ router.get('/report', function(req, res) {
 });
 
 
-router.post('/report/passengerCount', function(req, res) {
+router.post('/report/passengerCount',checkRole('Manager'), function(req, res) {
     try {
         const formData = req.body;
         flightController.getFlightCount(formData, res);

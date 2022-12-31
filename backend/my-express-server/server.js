@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/", function(req, res){
-    res.render("home", {docTitle: "B-Airways"});
+    res.render("home", {docTitle: "B-Airways", userRole: req.cookies.userRole});
 })
 
 // Get all files in the routes folder

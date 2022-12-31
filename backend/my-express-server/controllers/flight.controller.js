@@ -35,7 +35,8 @@ const Flight = require("../models/flight.model.js");
       res.render("report", {
         formData: req,
         docTitle: "REPORTS",
-        data: responseValues,
+        data: responseValues
+
       });
     } catch (err) {
       console.log("Controller Error" + err);

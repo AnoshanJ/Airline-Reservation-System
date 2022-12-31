@@ -72,8 +72,10 @@ exports.getStaffByEmail = (req, res) => {
  
         if (result) {
         // Set the user's role in the session and in a cookie
-        req.session.userRole = data[0].category;
-        res.cookie('userRole', 'data[0].category', { maxAge: 900000, httpOnly: true });
+        // req.session.userRole = data[0].category;
+        // res.cookie('userRole', 'data[0].category', { maxAge: 900000, httpOnly: true });
+        req.session.userRole = "Manager";
+        res.cookie('userRole', "Manager", { maxAge: 900000, httpOnly: true });
         console.log(req.session.userRole);
         res.redirect('/managerDashboard');
         return;
