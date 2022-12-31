@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const RegisteredUser = require("../models/registeredUser.model.js");
+const Staff = require("../models/staff_work.model.js");
 
 exports.getUserByEmail = (req, res) => {
   // Validate request
@@ -25,15 +26,19 @@ exports.getUserByEmail = (req, res) => {
     }
     // Check if password matches
       bcrypt.compare(password, data[0].password, function (err, result) {
-        const NP = data[0].password;
+ 
         if (result) {
-          res.send({ message: "Logged in successfully" });
-          return;
+        // Set the user's role in the session and in a cookie
+        req.session.userRole = "user";
+        res.cookie('userRole', 'user', { maxAge: 900000, httpOnly: true });
+        console.log(req.session.userRole);
+        res.redirect('/userDashboard');
+        return;
         }
         else {
-          //res.status(401).send({ message: "Incorrect password",NP });
-          res.send("<p>Login! Redirecting to user dashboard in 3 seconds...</p>" +
-          "<script>setTimeout(function () { window.location.href = '/userDashboard'; }, 3000);</script>");
+        
+          req.flash('error', 'Incorrect password');
+          res.redirect('/login');
           return;
         }
 
@@ -41,7 +46,48 @@ exports.getUserByEmail = (req, res) => {
     
   });
 };
+exports.getStaffByEmail = (req, res) => {
+  // Validate request
+  if (!req.body) {
+    res.status(400).send({ message: "Content can not be empty!" });
+    return;
+  }
 
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Check if email and password match those of a registered user
+  Staff.getStaffByEmail(email, (err, data) => {
+    if (err) {
+      res.status(500).send({ message: "Error retrieving user" });
+      return;
+    }
+
+    if (data.length === 0) {
+      res.status(404).send({ message: "User not found" });
+      return;
+    }
+    // Check if password matches
+      bcrypt.compare(password, data[0].password, function (err, result) {
+ 
+        if (result) {
+        // Set the user's role in the session and in a cookie
+        req.session.userRole = data[0].category;
+        res.cookie('userRole', 'data[0].category', { maxAge: 900000, httpOnly: true });
+        console.log(req.session.userRole);
+        res.redirect('/managerDashboard');
+        return;
+        }
+        else {        
+          req.flash('error', 'Incorrect password');
+          res.redirect('/staff_login');
+          return;
+        }
+
+    });
+    
+  });
+};
 
 exports.createRegisteredUser = (req, res) => {
   // Validate request

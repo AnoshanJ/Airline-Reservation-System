@@ -126,6 +126,15 @@ h2 {
 
 }
 
+.success {
+  color: green;
+}
+.error {
+  color: red;
+}
+.warning {
+  color: yellow;
+}
 
 
 

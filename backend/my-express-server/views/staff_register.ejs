@@ -1,0 +1,77 @@
+<%- include ('partials/header') %> 
+<%- include ('partials/nav_bar') %>
+<h1>Fill in the following details</h1>
+<div>
+  <form action="/staff_register" method="POST">
+    <div>
+      <label for="first_name">First Name</label>
+      <input
+        type="text"
+        name="first_name"
+        id="first_name"
+        required
+        style="display: block"
+      />
+
+      <label for="last_name">Last Name</label>
+      <input
+        type="text"
+        name="last_name"
+        id="last_name"
+        required
+        style="display: block"
+      />
+
+      <label for="gender">Gender</label>
+      <select name="gender" id="gender" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="date_of_birth">Date of Birth</label>
+      <input type="date" name="date_of_birth" id="date_of_birth" required />
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        required
+        style="display: block"
+      />
+      <label for="password">Password</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        required
+        style="display: block"
+      />
+      <label for="mobile">Mobile</label>
+      <input
+        type="text"
+        name="mobile"
+        id="mobile"
+        required
+        style="display: block"
+      />
+
+      <label for="user_type">Category</label>
+      <select name="category" id="category" required style="display: block">
+        <option value="Manager">Manger</option>
+        <option value="Admin">Admin</option>
+        <option value="Pilot">Pilot</option>
+        <option value="General">General</option>
+      </select>
+    </div>
+    <center>
+        <button class="create-account-button type="submit">Register</button>
+      </center>
+      </form>
+    </div>
+
+  
+
+<%- include ('partials/footer') %>
