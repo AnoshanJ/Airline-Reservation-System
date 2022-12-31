@@ -1,0 +1,52 @@
+<%- include("partials/header") -%>
+<%- include("partials/nav_bar") -%>
+    <div>
+        <form action="/staff_work/getbystateFlights" method="post">
+            <label>Details of Flights by State</label>
+            <select id="state" name="state">
+                <option selected disabled>--Choose one--</option>
+                <%
+                var state = [ "Scheduled", "Departed-On-Time", "Delayed-Departure", "Landed", "Cancelled" ];
+                for ( let i = 0; i < state.length; i++ )
+                {
+                    var selected = formData.state;
+                    %><option value="<%=state[i] %>" <%=selected %>><%=state[i] %></option><%
+                }
+                %>
+            </select>
+            <button type="submit">Get Flight Details</button>
+            <table>
+                <tr>
+                    <th>Flight Schedule ID</th>
+                    <th>Aircraft ID</th>
+                    <th>Departure Date</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Date</th>
+                    <th>Arrival Time</th>
+                    <th>Duration</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                </tr>
+                <% if (data.arrivalflights.length > 0) { %>
+                <h3>Flight Details</h3>
+                <% for (let i = 0; i < data.arrivalflights.length; i++) { %>
+                    <tr>
+                        <td><%= data.arrivalflights[i].flight_id %></td>
+                        <td><%= data.arrivalflights[i].aircraft_id %></td>
+                        <td><%= data.arrivalflights[i].departure_date %></td>
+                        <td><%= data.arrivalflights[i].departure_time %></td>
+                        <td><%= data.arrivalflights[i].arrival_date %></td>
+                        <td><%= data.arrivalflights[i].arrival_time %></td>
+                        <td><%= data.arrivalflights[i].duration%></td>
+                        <td><%= data.arrivalflights[i].origin %></td>
+                        <td><%= data.arrivalflights[i].destination %></td>
+                    </tr>
+                <% }} %>
+            </table>
+        </form>
+    </div>
+
+
+
+
+<%- include("partials/footer") -%>

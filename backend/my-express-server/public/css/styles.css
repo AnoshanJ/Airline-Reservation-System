@@ -263,3 +263,98 @@ footer .copyright {
 
 }
 
+/* TJ */
+.book{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Lato', 'sans-serif';
+} 
+
+.seatclass{
+  align-items: center;
+  justify-content: center;
+}
+
+.seat{
+  background-color: white;
+  height: 10px;
+  width: 15px;
+  margin: 3px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+
+}
+
+.row{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seat.selected{
+  background-color: #444451;
+}
+
+.seat.occupied{
+  background-color: darkblue;
+}
+
+.seat:nth-of-type(3){
+  margin-right: 18px;
+}
+
+.seat:nth-of-type(4){
+  margin-left: 18px;
+}
+
+.seat:not(.occupied):hover{
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.showcase .seat:not(.occupied):hover{
+  cursor: default;
+  transform: scale(1);
+}
+
+.showcase{
+  background-color: rgba(0,0,0,0.1);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #777;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.showcase li{
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  margin: 0 10px;
+}
+
+.showcase li small{
+  margin-left: 10px
+}
+
+p.text{
+  margin: 5px 0;
+}
+
+p.text span{
+  color: darkblue
+}
+
+.container{
+  background-color: #777;
+  
+}
+
+
+.business{
+
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
