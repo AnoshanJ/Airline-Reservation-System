@@ -25,4 +25,27 @@ router.post('/staff_work/getbystateFlights',function(req,res){
     }
 });
 
+// ADD new Plane
+router.post('/staff_work/addnewplanetype',function(req,res){
+    try{
+        const formData = req;
+        staff_workController.addnewplanetype(formData,res);
+    }catch(err){
+        console.log(err);
+        res.send("500");
+    }
+});
+
+// ADD new Aircraft Instance
+router.post('/staff_work/addnewaircraftinstance',function(req,res){
+    try{
+        const formData = req;
+        staff_workController.addnewaircraftinstance(formData,res);
+    }catch(err){
+        console.log(err);
+        res.send("500");
+    }
+})
+
+
 module.exports = router;

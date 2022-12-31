@@ -46,6 +46,76 @@
         </form>
     </div>
 
+    <div>
+        <h3>Add Plane</h3>
+        <form action="/staff_work/addnewplanetype" method="post">
+            <label for="name">Model Name</label>
+                <input type="text" name="model_name" id="model_name" required value=<%=formData.model_name%>>
+            <label for="name">variant </label>
+                <input type="text" name="variant" id="variant" required value=<%=formData.variant%>>
+            <label for="name">manufacturer</label>
+                <input type="text" name="manufacturer" id="manufacturer" required value=<%=formData.manufacturer%>>
+            <label for="name">Economy_Seat_Capacity</label>
+                <input type="text" name="economy_seat_capacity" id="economy_seat_capacity" required value=<%=formData.economy_seat_capacity%>>
+            <label for="name">business_seat_capacity</label>
+                <input type="text" name="business_seat_capacity" id="business_seat_capacity" required value=<%=formData.business_seat_capacity%>>
+            <label for="name">platinum_seat_capacity</label>
+                <input type="text" name="platinum_seat_capacity" id="platinum_seat_capacity" required value=<%=formData.platinum_seat_capacity%>>
+            <label for="name">e_seats_per_row</label>
+                <input type="text" name="e_seats_per_row" id="e_seats_per_row" required value=<%=formData.e_seats_per_row%>>
+            <label for="name">b_seats_per_row</label>
+                <input type="text" name="b_seats_per_row" id="b_seats_per_row" required value=<%=formData.b_seats_per_row%>>
+            <label for="name">p_seats_per_row</label>
+                <input type="text" name="p_seats_per_row" id="p_seats_per_row" required value=<%=formData.p_seats_per_row%>>
+            <label for="name">max_load</label>
+                <input type="text" name="max_load" id="max_load" required value=<%=formData.max_load%>>
+            <label for="name">fuel_capacity</label>
+                <input type="text" name="fuel_capacity" id="fuel_capacity" required value=<%=formData.fuel_capacity%>>
+            <button type="submit">Add Plane</button>
+            
+            <% if (message=="Flight added successfully!") { %>
+                <h3><%data.planetype%></h3>
+            <% } %>
+        </form>
+    </div>
+<!-- //   Aircraft_ID VARCHAR(10),
+//   Model_ID int NOT NULL,
+//   Airline_Name varchar(15) NOT NULL,
+//   Aircraft_Status aircraft_status_enum NOT NULL,
+//   Maintenance_Date Date NOT NULL,
+//   Purchase_Date -->
+    <div>
+        <h3>ADD Flight Instance</h3>
+        <form action="/staff_work/addnewaircraftinstance" method="post">
+            <label for="name">Aircraft_ID</label>
+            <input type="text" name="Aircraft_ID" id="Aircraft_ID" required value=<%=formData.Aircraft_ID%>>
+            <label for="name">Model_ID</label>
+            <input type="text" name="Model_ID" id="Model_ID" required value=<%=formData.Model_ID%>>
+            <label for="name">Airline_Name</label>
+            <input type="text" name="Airline_Name" id="Airline_Name" required value=<%=formData.Airline_Name%>>
+            <label for="name">Aircraft_Status</label>
+            <select id="Aircraft_Status" name="Aircraft_Status">
+                <option selected disabled>--Choose one--</option>
+                <%
+                var Aircraft_Status = [ "On-Ground", "In-Air" ];
+                for ( let i = 0; i < state.length; i++ )
+                {
+                    var selected = formData.Aircraft_Status;
+                    %><option value="<%=Aircraft_Status[i] %>" <%=selected %>><%=Aircraft_Status[i] %></option><%
+                }
+                %>
+            </select>
+            <br>
+            <br>
+            <label for="name">Maintenance_Date</label>
+            <input type="date" name="Maintenance_Date" id="Maintenance_Date" required value=<%=formData.Maintenance_Date%>>
+            <label for="name">Purchase_Date</label>
+            <input type="date" name="Purchase_Date" id="Purchase_Date" required value=<%=formData.Purchase_Date%>>
+            <br>
+            <br>
+            <button type="submit">Add Flight Instance</button>
+        </form>
+    </div>
 
 
 
