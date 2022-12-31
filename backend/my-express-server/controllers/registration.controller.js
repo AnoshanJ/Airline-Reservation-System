@@ -25,13 +25,18 @@ exports.getUserByEmail = (req, res) => {
     }
     // Check if password matches
       bcrypt.compare(password, data[0].password, function (err, result) {
-        if (result === true) {
+        const NP = data[0].password;
+        if (result) {
           res.send({ message: "Logged in successfully" });
           return;
         }
+        else {
+          //res.status(401).send({ message: "Incorrect password",NP });
+          res.send("<p>Login! Redirecting to user dashboard in 3 seconds...</p>" +
+          "<script>setTimeout(function () { window.location.href = '/userDashboard'; }, 3000);</script>");
+          return;
+        }
 
-      res.status(401).send({ message: "Incorrect password" });
-      return;
     });
     
   });

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-//flightController to access Flight Table
+
 const searchController = require('../controllers/search.controller.js');
 
 router.get('/search', function(req, res) {
