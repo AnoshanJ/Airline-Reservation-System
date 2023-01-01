@@ -44,7 +44,7 @@ exports.getUserByEmail = (req, res) => {
             res.send("2500");
           } else {
             //responseValues.revenue = result;
-            res.render("userDashboard", { formData: req, docTitle: "Details of the user",title:"User Dashboard", sampleData : result,action:'list',});
+            res.render("userDashboard", { formData: req, docTitle: "",title:"User Dashboard", sampleData : result,action:'list',});
             console.log("userDashboard controller")
           }
         });  
