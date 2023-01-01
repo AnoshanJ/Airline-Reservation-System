@@ -74,5 +74,5 @@ Staff_work.getStaffByEmail = function (email, result) {
     });
 };
 
-module.exports = Staff_flightwork;
+module.exports = Staff_work;
 

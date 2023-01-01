@@ -1,18 +1,12 @@
 <%- include ('partials/header') %> 
 <%- include ('partials/nav_bar') %>
+
 <h1>Fill in the following details</h1>
 <div>
-  <form action="/staff_register" method="POST">
+  <form action="/staff_register/registerstaff" method="POST">
     <div>
       <label for="first_name">First Name</label>
-      <input
-        type="text"
-        name="first_name"
-        id="first_name"
-        required
-        style="display: block"
-      />
-
+      <input type="text" name="first_name" id="first_name" required value=<%=formData.First_Name%>>
       <label for="last_name">Last Name</label>
       <input
         type="text"
@@ -20,17 +14,22 @@
         id="last_name"
         required
         style="display: block"
-      />
+        value=<%=formData.Last_Name%>>
 
       <label for="gender">Gender</label>
-      <select name="gender" id="gender" required>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
+      <select id="Gender" name="Gender">
+        <option selected disabled>--Choose one--</option>
+        <%
+        var Gender = ["Female","Male","Other"];
+        for( let i=0; i< Gender.length; i++){
+          var selected = formData.Gender;
+          %><option value="<%=Gender[i] %>" <%=selected %>><%=Gender[i] %></option><%
+        }
+        %>
       </select>
 
       <label for="date_of_birth">Date of Birth</label>
-      <input type="date" name="date_of_birth" id="date_of_birth" required />
+      <input type="date" name="date_of_birth" id="date_of_birth" required value=<%=formData.DOB%>>
     </div>
     <div>
       <label for="email">Email</label>
@@ -40,7 +39,8 @@
         id="email"
         required
         style="display: block"
-      />
+        value=<%=formData.Email%>
+      >
       <label for="password">Password</label>
       <input
         type="password"
@@ -48,7 +48,8 @@
         id="password"
         required
         style="display: block"
-      />
+        value=<%=formData.Password%>
+      >
       <label for="mobile">Mobile</label>
       <input
         type="text"
@@ -56,14 +57,19 @@
         id="mobile"
         required
         style="display: block"
-      />
+        value=<%=formData.Contact%>
+      >
 
       <label for="user_type">Category</label>
-      <select name="category" id="category" required style="display: block">
-        <option value="Manager">Manger</option>
-        <option value="Admin">Admin</option>
-        <option value="Pilot">Pilot</option>
-        <option value="General">General</option>
+      <select id="Category" name="Category">
+        <option selected disabled>--Choose one--</option>
+        <%
+        var Category = ["Female","Male","Other"];
+        for( let i=0; i< Category.length; i++){
+          var selected = formData.Category;
+          %><option value="<%=Category[i] %>" <%=selected %>><%=Category[i] %></option><%
+        }
+        %>
       </select>
     </div>
     <center>
