@@ -34,25 +34,84 @@
             <button type="submit">Get Count</button>
         </form>
         <% if (data.passengerCount.length > 0) { %>
-            <h3>Passenger Count : <%= data.passengerCount %></h3>
+            <h4>Passenger Count : <%= data.passengerCount %></h4>
         <% } %>
     </div>
     <br>
     <div>
         <h2>Booking Count</h2>
         <form action="/report/bookingCount" method="POST">  
-            <label for="name">Number of Booking by each Customer type</label>
-            <h3>Between</h3>
+            <h3>Number of Booking by each Customer type Between</h3>
             <label for="name">Start Date</label>
-            <input type="date" name="start" id="start">
+            <input type="date" name="start2" id="start2" value=<%=formData.start2%>>
             <label for="name">End Date</label>
-            <input type="date" name="end" id="end">
+            <input type="date" name="end2" id="end2" value=<%=formData.end2%>>
             <button type="submit">Get Count</button>
+        </form>
             <% if (data.bookingCount.length > 0) { %>
-                <h3>Booking Count : <%= data.bookingCount %></h3>
-            <% } %>
+                <h3>Booking Count by User Types</h3>
+                <table>
+                    <tr>
+                        <th>User Type</th>
+                        <th>Booking Count</th>
+                    </tr>
+                    <% for (let i = 0; i < data.bookingCount.length; i++) { %>
+                        <tr>
+                            <td><%= data.bookingCount[i].user_type %></td>
+                            <td><%= data.bookingCount[i].count %></td>
+                        </tr>
+                    <% } %>
+                </table>
+            <% } else { %> 
+            <h4>No Bookings Available</h4>
+        <% } %>
     </div>
     <br>
+
+    <div>
+        <h2>Past Flight Statistics</h2>
+        <form action="/report/pastFlight" method="POST">  
+            <label for="name">Select Flight Route</label>
+            <% if (data.route.length > 0) { %>
+                <select id="route" name="route2">
+                    <% for (let i = 0; i < data.route.length; i++) { %>
+                        <option value="<%= data.route[i].origin %> to <%= data.route[i].destination %>"><%= data.route[i].origin %> to <%= data.route[i].destination %></option>    
+                    <% } %>
+                </select>
+                <button type="submit">Get Details</button>
+            <% } else { %> 
+                <h4>No Flights Available</h4>
+            <% } %>
+
+        </form>
+        <% if (data.pastFlight.length > 0) { %>
+            <h3>Details of Past Flights</h3>
+            <table>
+                <thead>
+                  <tr>
+                    <th>Flight ID</th>
+                    <th>Flight Status</th>
+                    <th>Departure Date</th>
+                    <th>Total Passenger Count</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% data.pastFlight.forEach(function(flight) { %>
+                    <tr>
+                        <td><%= flight.flight_id %></td>
+                        <td><%= flight.flight_status %></td>
+                        <td><%= flight.departure_date %></td>
+                        <td><%= flight.passenger_count %></td>          
+                    </tr>
+                  <% }); %>
+                </tbody>
+            </table>
+        <% } else {%>
+            <h4>No Flights Available</h4>
+        <% } %>
+        
+    </div>
+
     <div>
         <h2>Next Flight Passenger Details</h2>
         <form action="/report/nextFlight" method="POST">  
@@ -70,20 +129,67 @@
 
         </form>
         <% if (data.nextFlight.length > 0) { %>
+            <h3>Details of Under 18 Passengers</h3>
             <table>
-                <tr>
+                <thead>
+                  <tr>
+                    <th>Booking ID</th>
+                    <th>Passport No.</th>
                     <th>Flight ID</th>
-                    <th>Destination</th>
-                    <th>Passenger Count</th>
-                </tr>
-                <% for (let i = 0; i < data.nextFlight.length; i++) { %>
-                    <tr>
-                        <td><%= data.nextFlight[i].Flight_ID %></td>
-                        <td><%= data.nextFlight[i].Dest %></td>
-                        <td><%= data.nextFlight[i].Passenger_Count %></td>
-                    </tr>
-                <% } %>
-            </table>
+                    <th>Seat ID</th>
+                    <th>Booking Status</th>
+                    <th>Booking Date</th>
+                    <th>Age</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% data.nextFlight.forEach(function(passenger) { %>
+                    <% if (passenger.age < 18) { %>
+                      <tr>
+                        <td><%= passenger.booking_id %></td>
+                        <td><%= passenger.passport_no %></td>
+                        <td><%= passenger.flight_id %></td>
+                        <td><%= passenger.seat_id %></td>
+                        <td><%= passenger.booking_status %></td>
+                        <td><%= passenger.booking_date.toDateString() %></td>
+                        <td><%= passenger.age %></td>
+                      </tr>
+                    <% } %>
+                  <% }); %>
+                </tbody>
+              </table>
+
+              <h3>Details of Over 18 Passengers</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Booking ID</th>
+                    <th>Passport No.</th>
+                    <th>Flight ID</th>
+                    <th>Seat ID</th>
+                    <th>Booking Status</th>
+                    <th>Booking Date</th>
+                    <th>Age</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% data.nextFlight.forEach(function(passenger) { %>
+                    <% if (passenger.age >= 18) { %>
+                      <tr>
+                        <td><%= passenger.booking_id %></td>
+                        <td><%= passenger.passport_no %></td>
+                        <td><%= passenger.flight_id %></td>
+                        <td><%= passenger.seat_id %></td>
+                        <td><%= passenger.booking_status %></td>
+                        <td><%= passenger.booking_date.toDateString() %></td>
+                        <td><%= passenger.age %></td>
+                      </tr>
+                    <% } %>
+                  <% }); %>
+                </tbody>
+              </table>
+        <% } else {%>
+            <h4>No Passengers Available</h4>
         <% } %>
     </div>
 <%- include("partials/footer") -%>

@@ -4,6 +4,8 @@ CREATE DATABASE airline_res;
 \c airline_res
 
 DROP TRIGGER IF EXISTS insert_seats_for_new_model ON Plane_Type;
+DROP TRIGGER IF EXISTS update_customer_bookings  ON Booking;
+DROP TRIGGER IF EXISTS update_customer_category ON registered_customer_account;
 
 DROP PROCEDURE IF EXISTS insert_seats;
 
@@ -33,6 +35,13 @@ DROP TYPE IF EXISTS  customer_category_Enum;
 DROP TYPE IF EXISTS  registered_customer_category;
 DROP TYPE IF EXISTS class_type_Enum;
 DROP TYPE IF EXISTS Staff_Category;
+
+DROP FUNCTION IF EXISTS insertBooking;
+
+DROP DOMAIN IF EXISTS UUID4 CASCADE;
+
+SET TIME ZONE 'Etc/UTC';
+
 
 /*
 ---------------------------------------------------------------
@@ -118,6 +127,18 @@ $$
 LANGUAGE PLpgSQL;
 
 
+/*function to calculate age */
+
+CREATE OR REPLACE FUNCTION get_age( dob date )
+RETURNS int
+AS $CODE$
+BEGIN
+    RETURN date_part('year', age(dob))::int;
+END
+$CODE$
+LANGUAGE plpgsql IMMUTABLE;
+
+
 
 /*inserting seats to seat table */
 
@@ -177,6 +198,192 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
+----- Function to get a time stamp from date and time
+
+CREATE OR REPLACE FUNCTION get_timestamp(val_date DATE, val_time TIME)
+RETURNS timestamp
+AS $CODE$
+DECLARE
+val_datetime timestamp;
+BEGIN
+  val_datetime := (val_date||' '||val_time)::timestamp ;
+  RETURN val_datetime;
+END
+$CODE$
+LANGUAGE plpgsql IMMUTABLE;
+
+
+----Function to calculate arrival time for a flight
+
+CREATE OR REPLACE FUNCTION get_arrival(val_route_id VARCHAR(4), val_departure_datetime timestamp)
+RETURNS timestamp
+AS $CODE$
+DECLARE
+  val_duration interval;
+  val_arrival_datetime timestamp;
+BEGIN
+  SELECT Duration INTO val_duration FROM route WHERE Route_ID=val_route_id;
+  val_arrival_datetime = val_departure_datetime + val_duration;
+  RETURN val_arrival_datetime;
+END
+$CODE$
+LANGUAGE plpgsql IMMUTABLE;
+
+--------Function to get the price of a seat----------
+CREATE OR REPLACE FUNCTION get_seat_price(val_flight_id int, val_seat_id text)
+RETURNS numeric
+AS $CODE$
+DECLARE
+    val_route_id VARCHAR(4);
+    val_model_id int;
+    val_aircraft_id VARCHAR(4);
+    val_traveler_class_id int;
+    val_price numeric;
+BEGIN
+    SELECT Route_ID, Aircraft_ID INTO val_route_id, val_aircraft_id FROM Flight_Schedule WHERE Flight_ID = val_flight_id;
+    SELECT Model_ID INTO val_model_id FROM aircraft_instance WHERE Aircraft_ID = val_aircraft_id;
+    SELECT class_ID INTO val_traveler_class_id FROM Aircraft_Seat WHERE Model_ID = val_model_id AND Seat_ID = val_seat_id;
+    SELECT price into val_price FROM Seat_Price WHERE Route_ID = val_route_id AND traveler_class_id = val_traveler_class_id;
+    RETURN val_price;
+END
+$CODE$
+LANGUAGE plpgsql IMMUTABLE;
+
+------Function to check for seat overlaps--------
+CREATE OR REPLACE FUNCTION check_seat_overlaps(val_flight_id varchar(4), seatNo varchar(10)[])
+RETURNS bool
+LANGUAGE plpgsql
+AS $$
+DECLARE
+	bookingIDs int[];
+	bookedSeats varchar(10)[];
+	bookingID int;
+BEGIN
+	bookingIDs := ARRAY (SELECT Booking_ID FROM Booking WHERE Flight_ID=val_flight_id);
+
+	FOREACH bookingID in ARRAY bookingIDs
+	LOOP
+		bookedSeats := bookedSeats || ARRAY (SELECT Seat_ID FROM passenger_seat WHERE Booking_ID = bookingID);
+	END LOOP;
+
+	IF (seatNo && bookedSeats) THEN
+		RETURN true;
+	ELSE
+	    RETURN false;
+	END IF;
+END;
+$$;
+
+-----------Function to create a booking ----------
+CREATE OR REPLACE FUNCTION insertBooking(
+  	val_Passport_no varchar(9),
+    val_flight_id varchar(4),
+    passName text[],
+    passPassport text[],
+    passDob date[],
+    seatNo varchar(10)[],
+    val_First_Name VARCHAR(25),
+  	val_Last_Name VARCHAR(25),
+  	val_gender gender_type_enum,
+    val_dob DATE,
+  	val_email VARCHAR(50),
+  	val_mobile VARCHAR(15),
+    val_type VARCHAR(20)
+)
+RETURNS int
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    pass_count int := array_length(passName, 1);
+    i int = 1;
+    j int = 1;
+    tot_price numeric(10,2) = 0;
+    seat_price numeric(10,2)[];
+    temp_price numeric(10,2);
+    val_booking_id int;
+    val_model_id int;
+    Final_Price numeric(10,2);
+    val_discount_percentage numeric(10,2);
+
+BEGIN
+
+    IF (check_seat_overlaps(val_flight_id, seatNo) = true) THEN
+        RAISE EXCEPTION 'The selected seat has been taken. Please select a different seat';
+    END IF;
+
+    IF (val_type = 'guest') THEN
+        INSERT INTO customer values (val_Passport_no,'guest');
+        INSERT INTO guest_customer_account(First_Name,Last_name,Gender,DOB,Passport_no,Email,Mobile)
+        values (val_First_Name, val_Last_Name, val_gender, val_dob, val_passport_no, val_email, val_mobile);
+    END IF;
+
+    WHILE i < pass_count+1 LOOP
+            temp_price = get_seat_price(val_flight_id, seatNo[i]);
+            tot_price = tot_price + temp_price;
+            seat_price = array_append(seat_price, temp_price);
+            i = i + 1;
+    END LOOP;
+
+    Final_Price = tot_price;
+
+    IF (val_type = 'registered') THEN
+        SELECT Discount INTO val_discount_percentage FROM registered_customer_account JOIN User_Category ON user_type = cat_name WHERE passport_no = val_Passport_no;
+        Final_Price = tot_price * (1 - val_discount_percentage/100);
+    END IF;
+
+
+
+    SELECT Model_ID INTO val_model_id FROM Aircraft_Instance NATURAL JOIN Flight_Schedule WHERE Flight=val_flight_id;
+
+    INSERT INTO Booking(Passport_no, Flight_ID, model_id, seat_id,Seat_Price,Discount ,Final_Price, Booking_Status) VALUES(val_Passport_no, val_flight_id, val_model_id, seatNo[j],tot_price, val_discount_percentage,Final_Price, 'Not paid') RETURNING Booking_ID INTO val_booking_id;
+
+
+    WHILE j < pass_count+1 LOOP
+            INSERT INTO Passenger_Seat VALUES(val_booking_id, val_model_id, seatNo[j], seat_price[j], passName[j], passPassport[j], passDob[j]);
+            j = j + 1;
+    END LOOP;
+    RETURN val_booking_id;
+END;
+$$;
+
+--------FUNCTION TO INCREMENT BOOKINGS WITH TRIGGER____________________
+CREATE OR REPLACE FUNCTION increment_customer_bookings() RETURNS TRIGGER AS $$
+DECLARE
+   cust_type customer_category_Enum;
+BEGIN
+    IF (NEW.Booking_Status = 'Paid') THEN
+        SELECT type INTO cust_type FROM Customer WHERE Passport_no = NEW.Passport_no;
+           IF (cust_type = 'registered') THEN
+               UPDATE Registered_Customer_Account SET No_of_Bookings = No_of_Bookings + 1 WHERE Passport_no = NEW.Passport_no;
+           END IF;
+    END IF;
+    RETURN NULL; -- result is ignored since this is an AFTER trigger
+END;
+$$ LANGUAGE plpgsql;
+
+--------FUNCTION TO INCREMENT BOOKINGS WITH TRIGGER____________________
+CREATE OR REPLACE FUNCTION change_customer_category() RETURNS TRIGGER AS $$
+DECLARE
+   frequent_min INT;
+   gold_min INT;
+BEGIN
+
+    SELECT minimum_bookings INTO frequent_min FROM user_category WHERE user_type='Frequent';
+    SELECT minimum_bookings INTO gold_min FROM user_category WHERE user_type='Gold';
+
+    IF (NEW.No_of_Bookings >= gold_min) THEN
+        UPDATE registered_customer_account SET user_type = 'Gold' WHERE Passport_no = NEW.Passport_no;
+        RETURN NULL;
+    ELSIF (NEW.No_of_Bookings >= frequent_min) THEN
+        UPDATE registered_customer_account SET user_type = 'Frequent' WHERE Passport_no = NEW.Passport_no;
+        RETURN NULL;
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+
 
 /*
 ---------------------------------------------------------------
@@ -326,11 +533,11 @@ CREATE TABLE Flight_Schedule (
   Flight_ID VARCHAR(5),
   Route_ID VARCHAR(4) NOT NULL,
   Aircraft_ID VARCHAR(10) NOT NULL,
-  Arrival_Date Date NOT NULL,
-  Arrival_Time TIME NOT NULL,
+  Arrival_Date Date generated always as (get_arrival(route_id,get_timestamp(departure_date,departure_time))::DATE) stored NOT NULL,
+  Arrival_Time TIME generated always as (get_arrival(route_id,get_timestamp(departure_date,departure_time))::TIME) stored NOT NULL,
   Departure_Date Date NOT NULL,
   Departure_Time TIME NOT NULL,
-  Flight_Status Flight_Status_Enum NOT NULL,
+  Flight_Status Flight_Status_Enum NOT NULL DEFAULT 'Scheduled',
   PRIMARY KEY (Flight_ID),
   FOREIGN KEY (Route_ID) REFERENCES Route(Route_ID) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(Aircraft_ID) REFERENCES Aircraft_Instance(Aircraft_ID) ON DELETE CASCADE ON UPDATE CASCADE
@@ -393,6 +600,18 @@ CREATE INDEX "IDX_session_expire" ON "session" ("expire");
 
 /* TRIGGERS */
 
+CREATE TRIGGER update_customer_bookings
+AFTER UPDATE OF booking_status ON Booking
+    FOR EACH ROW EXECUTE PROCEDURE increment_customer_bookings();
+    
+CREATE TRIGGER update_customer_category
+AFTER UPDATE OF no_of_bookings ON registered_customer_account
+    FOR EACH ROW EXECUTE PROCEDURE change_customer_category();
+    
 CREATE TRIGGER insert_seats_for_new_model AFTER INSERT ON Plane_Type
     FOR EACH ROW EXECUTE PROCEDURE insert_seats_func();
 
+/* INDEX */
+
+CREATE INDEX INDEX_Schedule_Route_ID ON Flight_Schedule (Route_ID);
+CREATE INDEX INDEX_Booking_Schedule_ID ON Booking (Flight_ID);

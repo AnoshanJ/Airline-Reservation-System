@@ -77,7 +77,7 @@ exports.getStaffByEmail = (req, res) => {
         req.session.userRole = "Manager";
         res.cookie('userRole', "Manager", { maxAge: 900000, httpOnly: true });
         console.log(req.session.userRole);
-        res.redirect('/managerDashboard');
+        res.redirect('/staff_work');
         return;
         }
         else {        

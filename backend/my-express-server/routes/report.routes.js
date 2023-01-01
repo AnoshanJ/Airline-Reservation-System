@@ -10,6 +10,7 @@ const responseValues = {
     flightCount: 0 , 
     bookingCount: 0, 
     nextFlight: 0,
+    pastFlight: 0,
     route : 0
   }
 
@@ -26,7 +27,6 @@ router.get('/report', checkRole('Manager'),function(req, res) {
     }
 });
 
-
 router.post('/report/passengerCount',checkRole('Manager'), function(req, res) {
     try {
         const formData = req.body;
@@ -37,6 +37,41 @@ router.post('/report/passengerCount',checkRole('Manager'), function(req, res) {
         res.send("500");
     }
 });
+router.post('/report/bookingCount',checkRole('Manager'), function(req, res) {
+    try {
+        const formData = req.body;
+        flightController.getBookingCount(formData, res);
+  
+    } catch (err) {
+        console.log(err);
+        res.send("500");
+    }
+});
+
+router.post('/report/nextFlight',checkRole('Manager'), function(req, res) {
+    try {
+        const formData = req.body;
+        flightController.getNextFlight(formData, res);
+        
+    }
+    catch (err) {
+        console.log(err);
+        res.send("500");
+    }
+});
+
+router.post('/report/pastFlight',checkRole('Manager'), function(req, res) {
+    try {
+        const formData = req.body;
+        flightController.getPastFlight(formData, res);
+        
+    }
+    catch (err) {
+        console.log(err);
+        res.send("500");
+    }
+});
+
 
 
 

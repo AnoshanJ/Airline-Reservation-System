@@ -6,6 +6,7 @@ const Flight = require("../models/flight.model.js");
     flightCount: 0 , 
     bookingCount: 0, 
     nextFlight: 0,
+    pastFlight: 0,
     route : 0
   }
 
@@ -58,13 +59,81 @@ const Flight = require("../models/flight.model.js");
         } else {
           responseValues.passengerCount = String(result[0].count);
           res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues});
+
         }
       });
     } catch (err) {
       console.log("Controller Error"+err);
       res.send("500");
+
     }
   }
 
+  exports.getBookingCount = (req, res) => {
+    try { 
 
+      const start = req.start2;
+      const end = req.end2;
+         
+      Flight.getBookingCount(start,end, (err, result) => {
+        if (err) {
+          console.log("Model Error: "+err);
+          res.send("500");
+        } else {
+          console.log(result);
+          // EDIT
+          responseValues.bookingCount = result;
+          console.log(responseValues);
+          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues});
+  
+        }
+      });
+    } catch (err) {
+      console.log("Controller Error: "+err);
+      res.send("500");
+    }
+  }
 
+  exports.getNextFlight = (req, res) => {
+    try { 
+      const route = req.route;
+      const [origin, destination] = route.split(" to ");
+      console.log(origin, destination);
+      Flight.getNextFlight(origin,destination,(err, result) => {
+        if (err) {
+          console.log("Model Error: "+err);
+          res.send("500");
+        } else {
+          responseValues.nextFlight = result;
+          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues});
+
+        }
+      });
+    } catch (err) {
+      console.log("Controller Error: "+err);
+      res.send("500");
+
+    }
+  }
+
+  exports.getPastFlight = (req, res) => {
+    try { 
+      const route = req.route2;
+      const [origin, destination] = route.split(" to ");
+      console.log(origin, destination);
+      Flight.getPastFlight(origin,destination,(err, result) => {
+        if (err) {
+          console.log("Model Error: "+err);
+          res.send("500");
+        } else {
+          responseValues.pastFlight = result;
+          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues});
+
+        }
+      });
+    } catch (err) {
+      console.log("Controller Error: "+err);
+      res.send("500");
+
+    }
+  }
