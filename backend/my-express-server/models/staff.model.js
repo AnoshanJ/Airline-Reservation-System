@@ -1,3 +1,4 @@
+
 const pool = require("./db.js");
 
 var Staff = function(staff){
@@ -13,7 +14,7 @@ var Staff = function(staff){
     this.Assigned_Airport = staff.Assigned_Airport;
     this.Country = staff.Country;
 }
-
+// register new staff
 Staff.registerstaff = function(newstaff,result){
     pool.connect(function (err, client, release) {
         if (err) {
@@ -54,8 +55,8 @@ Staff.registerstaff = function(newstaff,result){
                       return result(err, null);
                     });
                   } else{
-                    console.log("Created staff: ", { id: res.insertId, ...newstaff });
-                    return result(null, { id: res.insertId, ...newstaff });
+                    console.log("Created staff: ",newstaff );
+                    return result(null, newstaff);
                   }
                 });
             });
@@ -63,6 +64,19 @@ Staff.registerstaff = function(newstaff,result){
         release();
     });
 };
+
+// Staff.registerstaff = function(newstaff,result){
+//     pool.query("INSERT INTO Staff (Category,Password,First_Name,Last_Name,Contact,Email,DOB,Gender,Assigned_Airport,Country) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",[newstaff.Category,newstaff.Password,newstaff.First_Name,newstaff.Last_Name,newstaff.Contact,newstaff.Email,newstaff.DOB,newstaff.Gender,newstaff.Assigned_Airport,newstaff.Country],function(err,res){
+//       if (err) {
+//           console.log("error: ", err);
+//           return result(err, null);
+//       } else {
+//           console.log(res.rows)
+//           return result(null, res.rows);
+//       }      
+//     });
+
+// };
 
 Staff.getstaffbyemail = function(email,password,result){
   const sql = "SELECT * FROM Staff WHERE email = $1 and password = $2";
@@ -78,8 +92,10 @@ Staff.getstaffbyemail = function(email,password,result){
   });
 };
 
+
+// 
 Staff.firestaff = function(Staff_ID,Category,result){
-  const sql = "DELETE * FROM Staff WHERE Staff_ID = $1 and Category = $2";
+  const sql = "DELETE FROM Staff WHERE Staff_ID = $1 and Category = $2";
   const queryParams = [Staff_ID,Category];
   pool.query(sql,queryParams,function(err,res){
       if(err) {
@@ -92,3 +108,4 @@ Staff.firestaff = function(Staff_ID,Category,result){
   });
 };
 
+module.exports = Staff;

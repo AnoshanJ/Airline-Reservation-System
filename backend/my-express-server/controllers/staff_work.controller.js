@@ -63,12 +63,15 @@ exports.addnewplanetype = (req,res) => {
         }else{
             Staff_work.addnewplanetype(new_flight,function(err,flight){
                 if(err){
-                    res.send(err);
+                    res.send("<p>Error in Flight Added!</p>" +
+                    "<script>setTimeout(function () { window.location.href = '/staff_work'; }, 2000);</script>");
                 }
                 else{
+                    res.send("<p>Flight added successfully!</p>" +
+                    "<script>setTimeout(function () { window.location.href = '/staff_work'; }, 2000);</script>");
                     // res.json({err:false,message:"Flight added successfully!",data:flight});
-                    responseValues.planetype = "Flight added successfully!";
-                    res.render("staff_work", { formData: req.body, message:"Flight added successfully!",docTitle: "STAFF_FLIGHT_WORK", data: responseValues, content:2 });
+                    // responseValues.planetype = "Flight added successfully!";
+                    // res.render("staff_work", { formData: req.body, message:"Flight added successfully!",docTitle: "STAFF_FLIGHT_WORK", data: responseValues, content:2 });
                 }
             });
         }
@@ -88,13 +91,12 @@ exports.addnewaircraftinstance = (req,res)=>{
         }else{
             Staff_work.addnewaircraftinstance(new_aircraft,function(err,aircraft){
                 if(err){
-                    responseValues.aircraftinstance = "Error in Aircraft Instance Added!";
-                    res.render("staff_work",{formData:req.body, message:"Error in Aircraft Instance Added!",docTitle:"STAFF_AIRCRAFT_WORK",data:responseValues,content:3});
-                    
+                    res.send("<p>Error in Aircraft Instance Added!</p>" +
+                    "<script>setTimeout(function () { window.location.href = '/staff_work'; }, 2000);</script>");
                 }
                 else{
-                    responseValues.aircraftinstance = "Aircraft Instance Added Successfully!";
-                    res.render("staff_work",{formData:req.body, message:"Aircraft Instance Added Successfully!",docTitle:"STAFF_AIRCRAFT_WORK",data:responseValues,content:3});
+                    res.send("<p>Aircraft Instance added successfully!</p>" +
+                    "<script>setTimeout(function () { window.location.href = '/staff_work'; }, 2000);</script>");
                 }
             });
         }

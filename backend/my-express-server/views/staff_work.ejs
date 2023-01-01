@@ -98,7 +98,7 @@
                 <option selected disabled>--Choose one--</option>
                 <%
                 var Aircraft_Status = [ "On-Ground", "In-Air" ];
-                for ( let i = 0; i < state.length; i++ )
+                for ( let i = 0; i < Aircraft_Status.length; i++ )
                 {
                     var selected = formData.Aircraft_Status;
                     %><option value="<%=Aircraft_Status[i] %>" <%=selected %>><%=Aircraft_Status[i] %></option><%
