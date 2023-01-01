@@ -32,7 +32,7 @@ exports.getUserByEmail = (req, res) => {
         req.session.userRole = "user";
         res.cookie('userRole', 'user', { maxAge: 900000, httpOnly: true });
         console.log(req.session.userRole);
-        res.redirect('/userDashboard');
+        //res.redirect('/userDashboard');
         return;
         }
         else {

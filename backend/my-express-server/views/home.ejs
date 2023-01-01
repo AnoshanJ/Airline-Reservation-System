@@ -1,4 +1,155 @@
 <%- include ('partials/header') %>
 <%- include ('partials/nav_bar') %>
-<h1>Home</h1>
+
+<style>
+
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    .bgimage{
+        background: linear-gradient(rgba(25, 34, 41, 0.55), rgba(142, 138, 182, 0.55)),url("BG.jpg");
+        background-size: 100%;
+        background-image: url("https://wallpaperaccess.com/full/254361.jpg");
+        width: 100%;
+        height: 100vh;
+    }
+    .menu{
+        width: 100%;
+        height: 100px;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    .leftmenu{
+        width: 20%;
+        line-height: 100Px;
+        float: left;
+    }
+    .leftmenu h4{
+        padding-left: 70px;
+        font-weight: bold;
+        color: white;
+        font-size: 22px;
+        font-family: 'montserrat', sans-serif;
+    }
+    .rightmenu{
+        width: 60%;
+        height: 100Px;
+        float: right;
+    }
+    .rightmenu ul{
+        margin-left: 200px;
+    }
+    .rightmenu ul li{
+        display: inline-block;
+        font-family: 'montserrat', sans-serif ;
+        list-style: none;
+        font-size: 15px;
+        color: white;
+        font-weight: bold;
+        line-height: 100px;
+        margin-left: 40px;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+    .rightmenu ul li:hover{
+        color: #00ccff;
+    }
+    #firstlist{
+    color: #00ccff; 
+    }
+    .text{
+        width: 100%;
+        margin-top:185px ;
+        text-transform: uppercase;
+        text-align: center;
+        color: white;
+
+    }
+    .text h4{
+        font-size: 14px;
+        font-family: 'open sans', sans-serif;
+    }
+    .text h1{
+        font-size: 62px;
+        font-family: 'montserrat', sans-serif ;
+        font-weight: 700px;
+        margin: 14px 0px;
+    }
+    .text h3{
+        font-size: 15px;
+        font-family: 'open sans', sans-serif;
+    }
+    .btn{
+        display:inline-block;
+        background-color: rgba(255,255,255, 0.164);
+        color: white;
+        font-family: 'montserrat', sans-serif ;
+        border: none;
+        font-size: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 40px;
+        width: 150px;
+        margin-top: 25px;
+        border: 3px solid white;
+        cursor: pointer;
+    }
+    .btn1{
+        display:inline-block;
+        background-color: rgba(16, 77, 22, 0.164);
+        color: rgb(57, 129, 74);
+        font-family: 'montserrat', sans-serif ;
+        border: none;
+        font-size: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 40px;
+        width: 250px;
+        margin-top: 25px;
+        border: 3px solid rgb(16, 70, 13);
+        cursor: pointer;
+    }
+    .btn:hover{
+        background-color: white;
+        color: black;
+    }
+    .btn1:hover{
+        background-color: white;
+        color: black;
+    }
+
+</style>
+<body>
+    <section class="bgimage">
+        <section class="menu">
+
+            <section class="leftmenu">
+                <h4> B-Airways </h4>
+            </section>
+
+            <section class="rightmenu">
+                <ul>
+
+                    <li id="firstlist"> <a href="/"><button class="nav-item">Home</button></a></li>
+                    <li><a href="/about"><button class="nav-item">About</button></a></li>
+                    <li></li><a href="/contact"><button class="nav-item">Contact</button></a></li>
+
+                    <li> <a href="/booking"><button class="nav-item">Booking</button></a></li>
+                    <li><a href="/search"><button class="nav-item">Search</button></a></li>
+                </ul>
+            </section>
+
+        </section>
+        <section class="text">
+            <h4>REMEMBER TO LIVE</h4>
+            <h1> PROFFESSIONAL & EXPERIENCED </h1>
+            <h3> WE ARE THE ONE OF THE WORLD'S TOP AIRLINE AGENCIES </h3>
+            <li></li><a href="/login"><button class="btn">Login</button></a></li>
+            <a href="/register"><button class="btn1">Register Account</button></a>
+        </section>
+
+    </section>
+    <!-- /* coding with nick */ -->
+</body>
+
 <%- include ('partials/footer') %>
