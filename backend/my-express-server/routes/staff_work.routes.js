@@ -7,7 +7,7 @@ const staff_workController = require('../controllers/staff_work.controller');
 router.get('/staff_work',function(req,res){
     try{
         const formData = req.body;
-        staff_workController.run(formData,res);
+        staff_workController.run(formData,res, req.cookies.userRole);
     } catch(err){
         console.log(err);
         res.send("500");
@@ -18,7 +18,7 @@ router.get('/staff_work',function(req,res){
 router.post('/staff_work/getbystateFlights',function(req,res){
     try{
         const formData = req.body;
-        staff_workController.getbystateFlights(formData,res);
+        staff_workController.getbystateFlights(formData,res,req.cookies.userRole);
     }catch(err){
         console.log(err);
         res.send("500");        
@@ -29,7 +29,7 @@ router.post('/staff_work/getbystateFlights',function(req,res){
 router.post('/staff_work/addnewplanetype',function(req,res){
     try{
         const formData = req;
-        staff_workController.addnewplanetype(formData,res);
+        staff_workController.addnewplanetype(formData,res,req.cookies.userRole);
     }catch(err){
         console.log(err);
         res.send("500");
@@ -40,7 +40,7 @@ router.post('/staff_work/addnewplanetype',function(req,res){
 router.post('/staff_work/addnewaircraftinstance',function(req,res){
     try{
         const formData = req;
-        staff_workController.addnewaircraftinstance(formData,res);
+        staff_workController.addnewaircraftinstance(formData,res,req.cookies.userRole);
     }catch(err){
         console.log(err);
         res.send("500");

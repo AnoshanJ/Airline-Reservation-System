@@ -10,7 +10,7 @@ const Flight = require("../models/flight.model.js");
     route : 0
   }
 
-  exports.getDetails = async (req, res) => {
+  exports.getDetails = async (req, res, cookies) => {
     try {
       responseValues.revenue = await new Promise((resolve, reject) => {
         Flight.getPlaneModelRevenue((err, result) => {
@@ -36,7 +36,8 @@ const Flight = require("../models/flight.model.js");
       res.render("report", {
         formData: req,
         docTitle: "REPORTS",
-        data: responseValues
+        data: responseValues,
+        userRole: cookies
 
       });
     } catch (err) {
@@ -46,7 +47,7 @@ const Flight = require("../models/flight.model.js");
   };
   
 
-  exports.getFlightCount = (req, res) => {
+  exports.getFlightCount = (req, res, cookies) => {
     try { 
       const destination = req.destination;
       const start = req.start;
@@ -58,7 +59,7 @@ const Flight = require("../models/flight.model.js");
           res.send("500");
         } else {
           responseValues.passengerCount = String(result[0].count);
-          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues});
+          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues, userRole: cookies});
 
         }
       });
@@ -69,7 +70,7 @@ const Flight = require("../models/flight.model.js");
     }
   }
 
-  exports.getBookingCount = (req, res) => {
+  exports.getBookingCount = (req, res, cookies) => {
     try { 
 
       const start = req.start2;
@@ -84,7 +85,7 @@ const Flight = require("../models/flight.model.js");
           // EDIT
           responseValues.bookingCount = result;
           console.log(responseValues);
-          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues});
+          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues, userRole: cookies});
   
         }
       });
@@ -94,7 +95,7 @@ const Flight = require("../models/flight.model.js");
     }
   }
 
-  exports.getNextFlight = (req, res) => {
+  exports.getNextFlight = (req, res, cookies) => {
     try { 
       const route = req.route;
       const [origin, destination] = route.split(" to ");
@@ -105,7 +106,7 @@ const Flight = require("../models/flight.model.js");
           res.send("500");
         } else {
           responseValues.nextFlight = result;
-          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues});
+          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues, userRole: cookies});
 
         }
       });
@@ -116,7 +117,7 @@ const Flight = require("../models/flight.model.js");
     }
   }
 
-  exports.getPastFlight = (req, res) => {
+  exports.getPastFlight = (req, res, cookies) => {
     try { 
       const route = req.route2;
       const [origin, destination] = route.split(" to ");
@@ -127,7 +128,7 @@ const Flight = require("../models/flight.model.js");
           res.send("500");
         } else {
           responseValues.pastFlight = result;
-          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues});
+          res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues, userRole: cookies});
 
         }
       });

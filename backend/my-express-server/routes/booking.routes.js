@@ -12,7 +12,7 @@ router.get('/booking', function(req, res) {
     
     try {
         const formData = req.body;
-        bookingController.run(formData,res);
+        bookingController.run(formData,res, req.cookies.userRole);
     } catch (err) {
         console.log(err);
         res.send("500");
@@ -24,7 +24,7 @@ router.get('/booking', function(req, res) {
 router.post('/booking/geatseat_bookid',function(req,res){
     try{
         const formData = req.body;
-        bookingController.findbyid(formData,res);
+        bookingController.findbyid(formData,res, req.cookies.userRole);
     }catch(err){
         console.log(err);
         res.send("500");
@@ -35,7 +35,7 @@ router.post('/booking/geatseat_bookid',function(req,res){
 router.post('/booking/getseat_customid',function(req,res){
     try{
         const formData = req.body;
-        bookingController.findbycustomerid(formData,res);
+        bookingController.findbycustomerid(formData,res, req.cookies.userRole);
     }catch(err){
         console.log(err);
         res.send("500");

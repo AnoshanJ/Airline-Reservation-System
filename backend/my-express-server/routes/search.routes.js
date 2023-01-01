@@ -6,7 +6,7 @@ const searchController = require('../controllers/search.controller.js');
 router.get('/search', function(req, res) {
     try {
         const formData = req.body;
-        searchController.getFlightSchedule(formData, res);
+        searchController.getFlightSchedule(formData, res, req.cookies.userRole);
   
     } catch (err) {
         console.log(err);

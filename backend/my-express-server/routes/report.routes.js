@@ -19,7 +19,7 @@ router.get('/report', checkRole('Manager'),function(req, res) {
     try {
         const formData = req.body;
         // flightController.getPlaneModelRevenue(formData, res);
-        flightController.getDetails(formData, res);
+        flightController.getDetails(formData, res, req.cookies.userRole);
   
     } catch (err) {
         console.log(err);
@@ -30,7 +30,7 @@ router.get('/report', checkRole('Manager'),function(req, res) {
 router.post('/report/passengerCount',checkRole('Manager'), function(req, res) {
     try {
         const formData = req.body;
-        flightController.getFlightCount(formData, res);
+        flightController.getFlightCount(formData, res, req.cookies.userRole);
   
     } catch (err) {
         console.log(err);
@@ -40,7 +40,7 @@ router.post('/report/passengerCount',checkRole('Manager'), function(req, res) {
 router.post('/report/bookingCount',checkRole('Manager'), function(req, res) {
     try {
         const formData = req.body;
-        flightController.getBookingCount(formData, res);
+        flightController.getBookingCount(formData, res, req.cookies.userRole);
   
     } catch (err) {
         console.log(err);
@@ -51,7 +51,7 @@ router.post('/report/bookingCount',checkRole('Manager'), function(req, res) {
 router.post('/report/nextFlight',checkRole('Manager'), function(req, res) {
     try {
         const formData = req.body;
-        flightController.getNextFlight(formData, res);
+        flightController.getNextFlight(formData, res, req.cookies.userRole);
         
     }
     catch (err) {
@@ -63,7 +63,7 @@ router.post('/report/nextFlight',checkRole('Manager'), function(req, res) {
 router.post('/report/pastFlight',checkRole('Manager'), function(req, res) {
     try {
         const formData = req.body;
-        flightController.getPastFlight(formData, res);
+        flightController.getPastFlight(formData, res, req.cookies.userRole);
         
     }
     catch (err) {

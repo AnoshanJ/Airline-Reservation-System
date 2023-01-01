@@ -11,7 +11,7 @@ const responseValues = {
 
 
 
-exports.run = (req,res) => {
+exports.run = (req,res, cookies) => {
     try{
         responseValues.arrivalflights = [
             {
@@ -28,13 +28,13 @@ exports.run = (req,res) => {
         ];
         responseValues.planetype = null;
         console.log(responseValues.arrivalflights);
-        res.render("staff_work",{ formData: req, message:null, docTitle: "STAFF_FLIGHT_WORK", data: responseValues, content:0 });
+        res.render("staff_work",{ formData: req, message:null, docTitle: "STAFF_FLIGHT_WORK", data: responseValues, content:0, userRole: cookies});
     }catch(err){
         res.send("500");
     }
 }
 
-exports.getbystateFlights = (req,res) => {
+exports.getbystateFlights = (req,res, cookies) => {
     try{
         const state = req.state;
         Staff_work.getbystateFlights(state,(err,result)=>{
@@ -44,7 +44,7 @@ exports.getbystateFlights = (req,res) => {
             }else{
                 responseValues.arrivalflights = result;
                 console.log(responseValues.arrivalflights[0]);
-                res.render("staff_work", { formData: req, message:null,docTitle: "STAFF_FLIGHT_WORK", data: responseValues, content:1 });
+                res.render("staff_work", { formData: req, message:null,docTitle: "STAFF_FLIGHT_WORK", data: responseValues, content:1, userRole: cookies});
             }
         });
     }catch(err){
@@ -53,7 +53,7 @@ exports.getbystateFlights = (req,res) => {
     }
 }
 
-exports.addnewplanetype = (req,res) => {
+exports.addnewplanetype = (req,res, cookies) => {
     try{
 
         const new_flight = new Staff_work(req.body);
@@ -82,7 +82,7 @@ exports.addnewplanetype = (req,res) => {
     }
 };
 
-exports.addnewaircraftinstance = (req,res)=>{
+exports.addnewaircraftinstance = (req,res, cookies)=>{
     try{
         const new_aircraft = new Staff_work(req.body);
         //handlle null error

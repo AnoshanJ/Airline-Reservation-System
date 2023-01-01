@@ -8,7 +8,7 @@ const responseValues = {
     customerseatdetail : 0
   }
 
-exports.run = (req,res) => {
+exports.run = (req,res, cookies) => {
     try{
 
         responseValues.seatdetail = [
@@ -25,13 +25,13 @@ exports.run = (req,res) => {
             }
           ];
         console.log(responseValues.seatdetail)
-        res.render("booking", { formData: req, docTitle: "BOOKING", data: responseValues, content: 0});
+        res.render("booking", { formData: req, docTitle: "BOOKING", data: responseValues, content: 0, userRole: cookies});
     }catch(err){
         res.send("500");
     }
 }
 
-exports.findbyid = (req,res) => {
+exports.findbyid = (req,res, cookies) => {
     try{
         const bid = req.bid;
         Booking.findbyid(bid,(err,result)=>{
@@ -41,7 +41,7 @@ exports.findbyid = (req,res) => {
             }else{
                 responseValues.seatdetail = result;
                 console.log(responseValues)
-                res.render("booking", { formData: req, docTitle: "BOOKING", data: responseValues, content:1});
+                res.render("booking", { formData: req, docTitle: "BOOKING", data: responseValues, content:1, userRole: cookies});
 
             }
         });
@@ -52,7 +52,7 @@ exports.findbyid = (req,res) => {
 
 }
 
-exports.findbycustomerid = (req,res) => {
+exports.findbycustomerid = (req,res, cookies) => {
     try{
         const cid = req.cid;
         Booking.findbycustomerid(cid,(err,result)=>{
@@ -62,7 +62,7 @@ exports.findbycustomerid = (req,res) => {
             }else{
                 responseValues.customerseatdetail = result;
                 console.log(responseValues)
-                res.render("booking", { formData: req, docTitle: "BOOKING", data: responseValues, content:2});
+                res.render("booking", { formData: req, docTitle: "BOOKING", data: responseValues, content:2, userRole: cookies});
             }
         });
     }catch(err){
