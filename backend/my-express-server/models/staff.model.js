@@ -14,6 +14,7 @@ var Staff = function(staff){
     this.Assigned_Airport = staff.Assigned_Airport;
     this.Country = staff.Country;
 }
+
 // register new staff
 Staff.registerstaff = function(newstaff,result){
     pool.connect(function (err, client, release) {
@@ -55,8 +56,8 @@ Staff.registerstaff = function(newstaff,result){
                       return result(err, null);
                     });
                   } else{
-                    console.log("Created staff: ",newstaff );
-                    return result(null, newstaff);
+                    console.log("Created staff: ",{ id: res.insertId, ...newstaff } );
+                    return result(null, { id: res.insertId, ...newstaff });
                   }
                 });
             });
@@ -65,29 +66,17 @@ Staff.registerstaff = function(newstaff,result){
     });
 };
 
-// Staff.registerstaff = function(newstaff,result){
-//     pool.query("INSERT INTO Staff (Category,Password,First_Name,Last_Name,Contact,Email,DOB,Gender,Assigned_Airport,Country) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",[newstaff.Category,newstaff.Password,newstaff.First_Name,newstaff.Last_Name,newstaff.Contact,newstaff.Email,newstaff.DOB,newstaff.Gender,newstaff.Assigned_Airport,newstaff.Country],function(err,res){
-//       if (err) {
-//           console.log("error: ", err);
-//           return result(err, null);
-//       } else {
-//           console.log(res.rows)
-//           return result(null, res.rows);
-//       }      
-//     });
 
-// };
-
-Staff.getstaffbyemail = function(email,password,result){
-  const sql = "SELECT * FROM Staff WHERE email = $1 and password = $2";
-  const queryParams = [email,password];
+Staff.getStaffByEmail = function(email,result){
+  const sql = "SELECT * FROM Staff WHERE email = $1";
+  const queryParams = [email];
   pool.query(sql,queryParams,function(err,res){
       if (err) {
           console.log("error: ", err);
-          return result(err, null);
+          result = null;
       } else {
-          console.log("Retrieved user: ", res.rows);
-          return result(null, res.rows);
+          console.log("Retrieved Staff: ", res.rows);
+          result = res.rows;
       }
   });
 };

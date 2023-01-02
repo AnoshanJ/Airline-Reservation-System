@@ -72,6 +72,20 @@ exports.findbycustomerid = (req,res, cookies) => {
 
 }
 
+exports.createbooking = (req,res)=>{
+    try{
+        const booking_id = Booking.createbooking(req.body);
+        req.session.booking_id = booking_id.inserbooking;
+        res.send("<p>createbooking Successfully!</p>" +
+        "<script>setTimeout(function () { window.location.href = '/booking'; }, 2000);</script>")
+        // return res.status(200).send({result: 'redirect', url:'/payment'});
+    } catch (err){
+        console.log(err)
+        res.send("<p>Error in createbooking!</p>" +
+        "<script>setTimeout(function () { window.location.href = '/booking'; }, 2000);</script>")
+    }
+}
+
 
 /*================================================== NEED TO DO ================================================================*/
 /*

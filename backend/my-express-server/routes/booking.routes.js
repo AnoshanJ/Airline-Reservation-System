@@ -42,6 +42,7 @@ router.post('/booking/getseat_customid',function(req,res){
     }
 });
 
+router.post('/booking/createbooking',bookingController.createbooking);
 
 /*================================================== NEED TO DO ================================================================*/
 /*
