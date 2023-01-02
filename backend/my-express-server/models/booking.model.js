@@ -3,10 +3,11 @@ const pool = require("./db.js");
 
 // Booking object create
 var Booking = function(booking){
-    // this.Booking_ID=booking.Booking_ID;
-    this.Customer_ID = booking.Customer_ID;
-    this.FlightSchedule_ID = booking.FlightSchedule_ID;
-    this.seat_name = booking.seat_name;
+    this.Booking_ID=booking.Booking_ID;
+    this.Passport_no = booking.Passport_no;
+    this.Flight_ID = booking.Flight_ID;
+    this.Seat_ID = booking.Seat_ID;
+    this.Model_ID = booking.Model_ID;
     this.Seat_Price = booking.Seat_Price;
     this.Discount = booking.Discount;
     this.Final_Price = booking.Final_Price;
@@ -43,7 +44,7 @@ Booking.findbyid = function(bid, result){
 };
 
 Booking.findbycustomerid = function(cid,result){
-    pool.query("SELECT * FROM booking WHERE passport_no = $1",[cid],function(err,res){
+    pool.query("SELECT * FROM booking WHERE Passport_no = $1",[cid],function(err,res){
         if(err){
             console.log("error: ",err);
             result(err,null);
@@ -53,6 +54,25 @@ Booking.findbycustomerid = function(cid,result){
         }
     });
 };
+
+// Booking.createbooking= function (newseat,result){
+//     pool.query("INSERT INTO booking VALUES (Passport_no,Flight_ID ,Seat_ID,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status)",[newseat.Passport_no,newseat.Flight_ID,newseat.Seat_ID,newseat.Model_ID,newseat.Seat_Price,newseat.Discount,newseat.Final_Price,newseat.Booking_Date],function(err,res){
+//         if(err){
+//             console.log("error: ",err);
+//             return result(err,null);
+//         } else {
+//             console.log(res.rows)
+//             return result(null, res.rows);
+//         }
+//     })
+// }
+
+
+Booking.createbooking = async function(newseat){
+    let booking_id = await pool.query("SELECT insertbooking($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)",[newseat.Passport_no,newseat.Flight_ID,newseat.Passport_name,newseat.Passno,newseat.passDOB,newseat.seatNo,newseat.firstname,newseat.lastname,newseat.gender,newseat.dob,newseat.email,newseat.mobile,newseat.custtype]);
+    console.log("booking id = ",booking_id.rows[0])
+    return booking_id.rows[0];
+}
 
 /*================================================== NEED TO DO ================================================================*/
 /*
