@@ -49,9 +49,9 @@ router.get('/managerDashboard', checkRole('Manager'), (req, res) => {
 router.get('/userDashboard', checkRole('user'), (req, res) => {
   // The user is a user, so allow them to access the route
   try {
-          res.send("User Dashboard");
+          //res.redirect('/userDashboard');
           const formData = req.body;
-            userDashboardController.getUserDetails(formData, res);
+          registrationController.getUserDetails(formData, res);
       
         } catch (err) {
             console.log(err);
