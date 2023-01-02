@@ -2,11 +2,10 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const RegisteredUser = require("../models/registeredUser.model.js");
 const Staff = require("../models/staff.model.js");
-const Staffwork = require("../models/staff_work.model.js")
 
 exports.getUserByEmail = (req, res) => {
-  // Validate request
-  if (!req.body) {
+   // Validate request
+   if (!req.body) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
@@ -30,14 +29,28 @@ exports.getUserByEmail = (req, res) => {
  
         if (result) {
         // Set the user's role in the session and in a cookie
-        req.session.userRole = "user";
-        res.cookie('userRole', 'user', { maxAge: 900000, httpOnly: true });
+        req.session.userRole = data[0].category;
+        res.cookie('userRole', 'data[0].category', { maxAge: 900000, httpOnly: true });
         console.log(req.session.userRole);
-        res.redirect('/userDashboard');
+
+        //res.render("userDashboard", { formData: req, docTitle: "Details of the user",title:"User Dashboard", sampleData : result,action:'list',});
+
+          const email = req.body.email;
+    
+          userDashboard.getUserDetails(email,(err, result) => {
+          if (err) {
+            console.log("Model Error"+err);
+            res.send("2500");
+          } else {
+            //responseValues.revenue = result;
+            res.render("userDashboard", { formData: req, docTitle: "",title:"User Dashboard", sampleData : result,action:'list',});
+            console.log("userDashboard controller")
+          }
+        });  
+        
         return;
         }
-        else {
-        
+        else {        
           req.flash('error', 'Incorrect password');
           res.redirect('/login');
           return;
@@ -47,6 +60,7 @@ exports.getUserByEmail = (req, res) => {
     
   });
 };
+
 exports.getStaffByEmail = (req, res) => {
   // Validate request
   if (!req.body) {
@@ -73,12 +87,10 @@ exports.getStaffByEmail = (req, res) => {
  
         if (result) {
         // Set the user's role in the session and in a cookie
-        // req.session.userRole = data[0].category;
-        // res.cookie('userRole', 'data[0].category', { maxAge: 900000, httpOnly: true });
-        req.session.userRole = "Manager";
-        res.cookie('userRole', "Manager", { maxAge: 900000, httpOnly: true });
+        req.session.userRole = data[0].category;
+        res.cookie('userRole', 'data[0].category', { maxAge: 900000, httpOnly: true });
         console.log(req.session.userRole);
-        res.redirect('/staff_work');
+        res.redirect('/managerDashboard');
         return;
         }
         else {        
