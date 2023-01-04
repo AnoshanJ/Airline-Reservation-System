@@ -10,9 +10,13 @@ const responseValues = {
 
 exports.run = async (req,res, cookies) => {
     try{
-        const flightInfo = await Booking.getflightinfo(req);
-        const seat_info = await Booking.getseats(req);
+        
+        console.log(req.flight_id);
+        const flightInfo = await Booking.getflightinfo(req.flight_id);
+        console.log("TRIED");
+        const seat_info = await Booking.getseats(req.flight_id);
         var arrlst = new Array();
+
         responseValues.seatdetail = [
             {
               booking_id: null,
@@ -32,9 +36,10 @@ exports.run = async (req,res, cookies) => {
 
           console.log("Flight_info",flightInfo[0]);
           console.log("Seat price",flightInfo[1]);
-        res.render("booking", {lst:arrlst ,flightInfo:flightInfo ,seat_info:seat_info, formData: req, docTitle: "BOOKING", data: responseValues, content: 0, userRole: cookies});
+        res.render("booking", {lst:arrlst ,flightInfo:flightInfo ,seat_info:seat_info, formData: req.flight_id, docTitle: "BOOKING", data: responseValues, content: 0, userRole: cookies});
+       
     }catch(err){
-        res.send("500");
+        res.send("1500");
     }
 }
 
@@ -85,11 +90,15 @@ exports.findbycustomerid = (req,res, cookies) => {
     }
 }
 */
-exports.createbooking = (req,res)=>{
+exports.createbooking = (req,res,cookies)=>{
+    const flightInfo =  Booking.getflightinfo(req.flight_id);
+    //console.log("TRIED");
+    const seat_info =  Booking.getseats(req.flight_id);
+    var arrlst = new Array();
     try{
         const booking_id = Booking.createbooking(req.body);
         req.session.booking_id = booking_id.inserbooking;
-        res.render("booking", {lst:arrlst ,flightInfo:flightInfo ,seat_info:seat_info, formData: req, docTitle: "BOOKING", data: responseValues, content: 0, userRole: cookies});
+        res.render("booking", {lst:arrlst ,flightInfo:flightInfo ,seat_info:seat_info, formData: req.flight_id, docTitle: "BOOKING", data: responseValues, content: 0, userRole: cookies});
         alert("Seat Boooked!")
         
         // res.send("<p>createbooking Successfully!</p>" +
@@ -103,6 +112,7 @@ exports.createbooking = (req,res)=>{
 
 
 exports.getbooking = (req,res)=>{
+    
     try{
         let Flight_ID;
         if(typeof req.body.Flight_ID !== 'undefiened'){

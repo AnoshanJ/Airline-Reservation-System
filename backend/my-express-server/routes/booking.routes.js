@@ -9,9 +9,9 @@ const responseValues = {
 
 // Default Booking Page
 router.get('/booking',function(req,res){
-    let flight_id = "F003";
+    const flightid = req.body;
     try{
-        const flightid = flight_id;
+        //const flightid = flight_id;
         bookingController.run(flightid,res,req.cookies.userRole);
     }catch(err){
         console.log(err);
@@ -19,7 +19,16 @@ router.get('/booking',function(req,res){
     }
 })
 
-
+router.post('/booking/flightid',function(req,res){
+     const flightid = req.body;
+    try{
+        //const flightid = flight_id;
+        bookingController.run(flightid,res,req.cookies.userRole);
+    }catch(err){
+        console.log(err);
+        res.send("500");
+    }
+})
 // Retreive a single booked seat by Booking_ID
 /*
 router.post('/booking/geatseat_bookid',function(req,res){

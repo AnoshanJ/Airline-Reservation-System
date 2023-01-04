@@ -38,8 +38,10 @@
     <h2>General information</h2>
     <form action="/booking/createbooking" method="post">        
         <div>
+
             <h3>Flight_ID : <%=formData%></h3>
-            <input name="Flight_ID" id="Flight_ID" value="<%=formData%>" hidden/>
+            <input type="hidden" id="flight_id" value="<%= formData %>">
+            <!-- <input name="Flight_ID" id="Flight_ID" value="<%=formData%>" hidden/> -->
         </div>
         <div>
             <label for="firstname">First Name</label>
