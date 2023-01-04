@@ -2,6 +2,8 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const RegisteredUser = require("../models/registeredUser.model.js");
 const Staff = require("../models/staff.model.js");
+const userDashboard = require("../models/userDashboard.model.js");
+const managerDashboard = require("../models/managerDashboard.model.js");
 
 exports.getUserByEmail = (req, res) => {
    // Validate request
@@ -90,7 +92,17 @@ exports.getStaffByEmail = (req, res) => {
         req.session.userRole = data[0].category;
         res.cookie('userRole', 'data[0].category', { maxAge: 900000, httpOnly: true });
         console.log(req.session.userRole);
-        res.redirect('/managerDashboard');
+        // res.redirect('/managerDashboard');
+        const email = req.body.email;
+        managerDashboard.getStaffByEmail(email,(err,result)=>{
+          if(err){
+            console.log("Model Error"+err);
+            res.send("2500");
+          }else{
+            res.render("managerdashboard", { formData: req, docTitle: "",title:"Managerr Dashboard", sampleData : result,action:'list',});
+            console.log("Manager controller")
+          }
+        });
         return;
         }
         else {        

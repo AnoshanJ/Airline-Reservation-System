@@ -8,9 +8,11 @@ const responseValues = {
     customerseatdetail : 0
   }
 
-exports.run = (req,res, cookies) => {
+exports.run = async (req,res, cookies) => {
     try{
-
+        const flightInfo = await Booking.getflightinfo(req);
+        const seat_info = await Booking.getseats(req);
+        var arrlst = new Array();
         responseValues.seatdetail = [
             {
               booking_id: null,
@@ -24,15 +26,23 @@ exports.run = (req,res, cookies) => {
               booking_date: null
             }
           ];
-        console.log(responseValues.seatdetail)
-        res.render("booking", { formData: req, docTitle: "BOOKING", data: responseValues, content: 0, userRole: cookies});
+          console.log("Capacities : ",seat_info[0]);
+          console.log("Booked seats : ",seat_info[1]);
+          console.log("Model Id : ",seat_info[2]);
+
+          console.log("Flight_info",flightInfo[0]);
+          console.log("Seat price",flightInfo[1]);
+        res.render("booking", {lst:arrlst ,flightInfo:flightInfo ,seat_info:seat_info, formData: req, docTitle: "BOOKING", data: responseValues, content: 0, userRole: cookies});
     }catch(err){
         res.send("500");
     }
 }
 
+/*
 exports.findbyid = (req,res, cookies) => {
     try{
+        const flightInfo =  Booking.getflightinfo(req);
+        const seat_info =  Booking.getseats(req);
         const bid = req.bid;
         Booking.findbyid(bid,(err,result)=>{
             if(err){
@@ -41,7 +51,7 @@ exports.findbyid = (req,res, cookies) => {
             }else{
                 responseValues.seatdetail = result;
                 console.log(responseValues)
-                res.render("booking", { formData: req, docTitle: "BOOKING", data: responseValues, content:1, userRole: cookies});
+                res.render("booking", { flightInfo:flightInfo ,seat_info:seat_info,formData: req, docTitle: "BOOKING", data: responseValues, content:1, userRole: cookies});
 
             }
         });
@@ -51,7 +61,8 @@ exports.findbyid = (req,res, cookies) => {
     }
 
 }
-
+*/
+/*
 exports.findbycustomerid = (req,res, cookies) => {
     try{
         const cid = req.cid;
@@ -60,31 +71,90 @@ exports.findbycustomerid = (req,res, cookies) => {
                 console.log("Model Error"+err);
                 res.send("500");
             }else{
+                
+                const flightInfo = Booking.getflightinfo(Flight_ID);
+                const seat_info = Booking.getseats(Flight_ID);
                 responseValues.customerseatdetail = result;
                 console.log(responseValues)
-                res.render("booking", { formData: req, docTitle: "BOOKING", data: responseValues, content:2, userRole: cookies});
+                res.render("booking", {flightInfo:flightInfo ,seat_info:seat_info, formData: req, docTitle: "BOOKING", data: responseValues, content:2, userRole: cookies});
             }
         });
     }catch(err){
         console.log("Controller Error"+err);
         res.send(500);
     }
-
 }
-
+*/
 exports.createbooking = (req,res)=>{
     try{
         const booking_id = Booking.createbooking(req.body);
         req.session.booking_id = booking_id.inserbooking;
-        res.send("<p>createbooking Successfully!</p>" +
-        "<script>setTimeout(function () { window.location.href = '/booking'; }, 2000);</script>")
+        res.render("booking", {lst:arrlst ,flightInfo:flightInfo ,seat_info:seat_info, formData: req, docTitle: "BOOKING", data: responseValues, content: 0, userRole: cookies});
+        alert("Seat Boooked!")
+        
+        // res.send("<p>createbooking Successfully!</p>" +
+        // "<script>setTimeout(function () { window.location.href = '/booking'; }, 2000);</script>")
         // return res.status(200).send({result: 'redirect', url:'/payment'});
     } catch (err){
         console.log(err)
-        res.send("<p>Error in createbooking!</p>" +
-        "<script>setTimeout(function () { window.location.href = '/booking'; }, 2000);</script>")
+        res.send(500);
     }
 }
+
+
+exports.getbooking = (req,res)=>{
+    try{
+        let Flight_ID;
+        if(typeof req.body.Flight_ID !== 'undefiened'){
+            Flight_ID = req.body.Flight_ID;
+        }
+        else{
+            Flight_ID = req.query.Flight_ID;
+        }
+
+        const flightInfo = Booking.getflightinfo(Flight_ID);
+        const seat_info = Booking.getseats(Flight_ID);
+        responseValues.seatdetail = [
+            {
+              booking_id: null,
+              passport_no: null,
+              flight_id: null,
+              seat_id:null,
+              seat_price: null,
+              discount: null,
+              final_price: null,
+              booking_status: null,
+              booking_date: null
+            }
+          ];
+
+        res.render('booking',{
+            Flight_ID,
+            user : req.session.user,
+            seat_info,
+            firstname : req.query.firstname,
+            lastname : req.query.lastname,
+            dob : req.query.dob,
+            gender : req.query.gender,
+            mobile : req.query.mobile,
+            Passport_no : req.query.Passport_no,
+            email : req.query.email,
+            flightinfo : flightInfo[0],
+            priceinfo: flightInfo[1],
+            formData: req, 
+            docTitle: "BOOKING", 
+            data: responseValues, 
+            content: 0,
+            userRole: cookies 
+        })
+    }catch(err){
+        console.log("Controller Error"+err);
+        res.send(500);
+    }
+}
+
+
+
 
 
 /*================================================== NEED TO DO ================================================================*/

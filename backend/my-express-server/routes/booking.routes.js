@@ -2,25 +2,26 @@ const express = require('express');
 const router = express.Router()
 
 const bookingController = require('../controllers/booking.controller');
-
+// const {checkforflightid} = require('../middleware/booking.middleware');
 const responseValues = {
     seatdetail: 0, 
   }
 
 // Default Booking Page
-router.get('/booking', function(req, res) {
-    
-    try {
-        const formData = req.body;
-        bookingController.run(formData,res, req.cookies.userRole);
-    } catch (err) {
+router.get('/booking',function(req,res){
+    let flight_id = "F003";
+    try{
+        const flightid = flight_id;
+        bookingController.run(flightid,res,req.cookies.userRole);
+    }catch(err){
         console.log(err);
         res.send("500");
     }
-});
+})
 
 
 // Retreive a single booked seat by Booking_ID
+/*
 router.post('/booking/geatseat_bookid',function(req,res){
     try{
         const formData = req.body;
@@ -30,8 +31,9 @@ router.post('/booking/geatseat_bookid',function(req,res){
         res.send("500");
     }
 });
+*/
 
-
+/*
 router.post('/booking/getseat_customid',function(req,res){
     try{
         const formData = req.body;
@@ -41,9 +43,11 @@ router.post('/booking/getseat_customid',function(req,res){
         res.send("500");
     }
 });
+*/
 
 router.post('/booking/createbooking',bookingController.createbooking);
 
+// router.get('/booking',checkforflightid,bookingController.getbooking);
 /*================================================== NEED TO DO ================================================================*/
 /*
 

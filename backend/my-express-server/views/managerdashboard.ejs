@@ -1,0 +1,298 @@
+<%- include ('partials/header') %>
+<%- include ('partials/nav_bar') %>
+<h1 class="HeadTitle ">Manager Dashboard</h1>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+    .HeadTitle {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 3em;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-image: linear-gradient(gold, gold);
+  background-size: 100% 10px;
+  background-repeat: no-repeat;
+  background-position: 100% 0%;
+   transition: background-size .7s, background-position .5s ease-in-out;
+}
+
+.HeadTitle:hover {
+  background-size: 100% 100%;
+  background-position: 0% 100%;
+  transition: background-position .7s, background-size .5s ease-in-out;
+}
+</style>
+<head>
+    <link rel="stylesheet" type="text/css" href="../public/css/userDashboard.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+  </head>
+  
+<div class="managerDetails">
+    <% if(sampleData.length > 0) { sampleData.forEach(function(data){ %>
+      
+
+            
+            <section class="container emp-profile">
+                        <form method="post">
+                            <section class="row">
+                                <section class="col-md-4">
+                                    <section class="profile-img">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                                        <section class="file btn btn-lg btn-primary">
+                                            Change Photo
+                                            <input type="file" name="file"/>
+                                        </section>
+                                    </section>
+                                </section>
+                                <section class="col-md-6">
+                                    <section class="profile-head">
+                                                <h5>
+                                                    <%= data.first_name %> <%= data.last_name %> 
+                                                </h5>
+                                                <h6>
+                                                    <%= data.category%>
+                                                </h6>
+                                                <h6>
+                                                    <%= data.email %>
+                                                </h6>
+                                        
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                            </li>
+                                            
+
+                                        </ul>
+                                    </section>
+                                </section>
+
+                            </section>
+                            <section class="row">
+                                <section class="col-md-4">
+                                    <section class="profile-work">
+                                        <p>Contact info</p>
+                                        <a><%= data.contact %></a><br/>
+                                        <a><%= data.email %></a><br/>
+                                     
+                                    <section class ="Links">
+                                        <a href="/staff_work">Flight management</a><br/>
+                                        <a href="/">Home</a><br/>
+                                    </section>
+                                    </section>
+                                </section>
+                                <section class="col-md-8">
+                                    <section class="tab-content profile-tab" id="myTabContent">
+                                        <section class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                                    <section class="row">
+                                                        <section class="col-md-6">
+                                                            <label>Full name</label>
+                                                        </section>
+                                                        <section class="col-md-6">
+                                                            <p><%= data.first_name %> <%= data.last_name %></p>
+                                                        </section>
+                                                    </section>
+                                                    <section class="row">
+                                                        <section class="col-md-6">
+                                                            <label>Email</label>
+                                                        </section>
+                                                        <section class="col-md-6">
+                                                            <p><%= data.email %></p>
+                                                        </section>
+                                                    </section>
+                                                    <section class="row">
+                                                        <section class="col-md-6">
+                                                            <label>Date of birth</label>
+                                                        </section>
+                                                        <section class="col-md-6">
+                                                            <p><%= new Date(data.dob).toLocaleDateString() %></p>
+                                                        </section>
+                                                    </section>
+                                                    <section class="row">
+                                                        <section class="col-md-6">
+                                                            <label>Gender</label>
+                                                        </section>
+                                                        <section class="col-md-6">
+                                                            <p><%= data.gender %></p>
+                                                        </section>
+                                                    </section>
+                                                    <section class="row">
+                                                        <section class="col-md-6">
+                                                            <label>Assigned Airport</label>
+                                                        </section>
+                                                        <section class="col-md-6">
+                                                            <p><%= data.assigned_airport %></p>
+                                                        </section>
+                                                    </section>
+                                                    <section class="row">
+                                                        <section class="col-md-6">
+                                                            <label>Country</label>
+                                                        </section>
+                                                        <section class="col-md-6">
+                                                            <p><%= data.country %></p>
+                                                        </section>
+                                                    </section>
+                                        </section>
+                                        <section class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                                    <section class="row">
+                                                        <section class="col-md-6">
+                                                            <label>Experience</label>
+                                                        </section>
+                                                        <section class="col-md-6">
+                                                            <p>Expert</p>
+                                                        </section>
+                                                    </section>
+                                                    <section class="row">
+                                                        <section class="col-md-6">
+                                                            <label>Hourly Rate</label>
+                                                        </section>
+                                                        <section class="col-md-6">
+                                                            <p>10$/hr</p>
+                                                        </section>
+                                                    </section>
+                                                    <section class="row">
+                                                        <section class="col-md-6">
+                                                            <label>Total Projects</label>
+                                                        </section>
+                                                        <section class="col-md-6">
+                                                            <p>230</p>
+                                                        </section>
+                                                    </section>
+                                                    <section class="row">
+                                                        <section class="col-md-6">
+                                                            <label>English Level</label>
+                                                        </section>
+                                                        <section class="col-md-6">
+                                                            <p>Expert</p>
+                                                        </section>
+                                                    </section>
+                                                    <section class="row">
+                                                        <section class="col-md-6">
+                                                            <label>Availability</label>
+                                                        </section>
+                                                        <section class="col-md-6">
+                                                            <p>6 months</p>
+                                                        </section>
+                                                    </section>
+                                            <section class="row">
+                                                <section class="col-md-12">
+                                                    <label>Your Bio</label><br/>
+                                                    <p>Your detail description</p>
+                                                </section>
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </form>           
+                    </section>
+        
+            <section class = "name">
+
+
+            </section>
+
+    <% }); }else{%>
+    <tr>
+        <td colspan="5">No Data Found</td>
+    </tr>
+    <% } %>      
+</div>
+
+<div>
+    <form action="/managerdashboard/addstaff" method="post">
+        <h3>Add New Staff</h3>
+        <div>
+            <label for="First_Name">First Name</label>
+            <input type="text" name="First_Name" id="First_Name" required style="display: block"/>
+            <label for="Last_Name">Last Name</label>
+            <input
+              type="text"
+              name="Last_Name"
+              id="Last_Name"
+              required
+              style="display: block"
+              />
+              <br>
+      
+            <label for="Gender">Gender</label>
+              <select name="Gender" id="Gender" required>
+                <option selected disabled>--Choose one--</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+              <br>
+              <br>
+            <label for="DOB">Date of Birth</label>
+            <input type="date" name="DOB" id="DOB" required />
+          </div>
+          <div>
+            <label for="Email">Email</label>
+            <input
+              type="email"
+              name="Email"
+              id="Email"
+              required
+              style="display: block"
+            />
+            <label for="Password">Password</label>
+            <input
+              type="password"
+              name="Password"
+              id="Password"
+              required
+              style="display: block"
+            />
+            <label for="Contact">Mobile</label>
+            <input
+              type="text"
+              name="Contact"
+              id="Contact"
+              required
+              style="display: block"
+              placeholder="(000)-000-0000"
+            >
+            
+            <label for="Assigned_Airport">Assigned_Airport</label>
+            <input type="text" name="Assigned_Airport" id="Assigned_Airport" required style="display: block;"/> 
+            <label for="Country">Country</label>
+            <input type="text" name="Country" id="Country" required style="display: block"/>
+            <br>
+            <label for="Category">Category</label>
+            <select id="Category" name="Category">
+              <option selected disabled>--Choose one--</option>
+              <option value="General">General</option>
+              <option value="Pilot">Pilot</option>
+            </select>
+          </div>
+            <center>
+              <button class="create-account-button type="submit">Register</button>
+            </center>
+    </form>
+</div>
+
+<div>
+    <form action="/managerdashboard/firestaff" method="post">
+        <h3>Fire Staff</h3>
+        <div>
+            <label for="email">Email</label>
+                <input type="text" name="email" id="email" required style="display: block"/>
+                <label for="Category">Category</label>
+            <select id="Category" name="Category">
+                <option selected disabled>--Choose one--</option>
+                <option value="General">General</option>
+                <option value="Pilot">Pilot</option>
+            </select>
+            <center>
+                <button class="create-account-button type="submit">Fire</button>
+            </center>
+        </div>
+    </form>
+</div>
+
+<%- include ('partials/footer') %>
