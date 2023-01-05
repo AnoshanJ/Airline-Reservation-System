@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const RegisteredUser = require("../models/registeredUser.model.js");
 const Staff = require("../models/staff.model.js");
+const userDashboard = require("../models/userDashboard.model.js");
 
 exports.getUserByEmail = (req, res) => {
    // Validate request

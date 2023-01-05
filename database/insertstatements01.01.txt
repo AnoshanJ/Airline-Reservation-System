@@ -109,12 +109,14 @@ INSERT INTO Route(route_id,origin, destination, duration) VALUES ('B064','DMK', 
 
 /* CUSTOMER TABLE*/
 
+
 INSERT INTO Customer(Passport_no, Customer_Type) VALUES('C00002345', 'registered') ;
 INSERT INTO Customer(Passport_no, Customer_Type) VALUES('U0048902', 'registered') ;
 INSERT INTO Customer(Passport_no, Customer_Type) VALUES('E00016545', 'registered') ;
-INSERT INTO Customer(Passport_no, Customer_Type) VALUES('J90005678', 'guest') ;
+INSERT INTO Customer(Passport_no, Customer_Type) VALUES('J90005678', 'registered') ;
 INSERT INTO Customer(Passport_no, Customer_Type) VALUES('G56789088', 'guest') ;
 INSERT INTO Customer(Passport_no, Customer_Type) VALUES('B00987897', 'guest') ;
+
 
 
 /*REGISTERED CUSTOMER ACCOUNT*/
@@ -140,23 +142,10 @@ INSERT INTO Staff(Category,Password,First_Name,Last_Name,Contact,Email,DOB,Gende
 
 /*FLIGHT SCHEDULE*/
 
-INSERT into flight_schedule VALUES ('F001','B021','A001','2022-02-15','08:10:00','2022-02-15','00:00:00','Scheduled');
-INSERT into flight_schedule VALUES ('F002','B004','A002','2022-01-01','04:05:00','2022-01-01','01:00:00','Scheduled');
-INSERT into flight_schedule VALUES ('F003','B009','A003','2022-01-20','08:10:00','2022-01-20','11:50:00','Scheduled');
-INSERT into flight_schedule VALUES ('F004','B014','A001','2022-01-25','12:10:00','2022-01-25','17:50:00','Scheduled');
-
-/* SEAT PRICE*/
-
-INSERT into seat_price values ('B004',1,600);
-INSERT into seat_price values ('B004',2,500);
-INSERT into seat_price values ('B004',3,400);
-INSERT into seat_price values ('B009',1,750);
-INSERT into seat_price values ('B009',2,610);
-INSERT into seat_price values ('B009',3,450);
-INSERT into seat_price values ('B014',1,756);
-INSERT into seat_price values ('B014',2,590);
-INSERT into seat_price values ('B014',3,430);
-
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F001','B021','A001','2022-02-15','00:00:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F002','B004','A002','2022-01-01','01:00:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F003','B009','A003','2022-01-20','11:50:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F004','B014','A001','2022-01-25','17:50:00');
 
 /*BOOKING*/
 
@@ -164,5 +153,83 @@ INSERT into booking (Passport_no,Flight_ID ,Seat_ID,Model_ID,Seat_Price,Discount
 INSERT into booking (Passport_no,Flight_ID ,Seat_ID,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('U0048902','F002','4A',2,500.00,5.00,475.00,'Paid','2022-12-25');
 INSERT into booking (Passport_no,Flight_ID ,Seat_ID,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('G56789088','F003','12A',3,450.00,0.00,450.00,'Paid','2022-12-12');
 INSERT into booking (Passport_no,Flight_ID ,Seat_ID,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('B00987897','F002','1B',2,600.00,0.00,600.00,'Paid','2022-12-02');
+
+/*PASSENGER SEAT*/
+
+INSERT INTO Passenger_Seat VALUES(1, 2, '1A', 600.00, 'Emily Tina','C00002345','1989-12-12');
+INSERT INTO Passenger_Seat VALUES (2, 2, '4A', 475.00, 'Adam Peter','U0048902','1976-02-18');
+INSERT INTO Passenger_Seat VALUES (3, 3, '12A', 450.00, 'Ram Kumar','G56789088','1978-05-09');
+INSERT INTO Passenger_Seat VALUES (4, 2, '1B', 600.00, 'Millie Brown','B00987897','2000-09-05');
+
+
+
+---------------------INSERTING ROUTES-----------------------------
+
+CALL insert_route_price('B001',800,500,145);
+CALL insert_route_price('B002',700,600,161);
+CALL insert_route_price('B003',750,670,166);
+CALL insert_route_price('B004',610,510,147);
+CALL insert_route_price('B005',500,430,135);
+CALL insert_route_price('B006',680,590,192);
+CALL insert_route_price('B007',610,510,144);
+CALL insert_route_price('B008',548,400,116);
+CALL insert_route_price('B009',500,350,105);
+CALL insert_route_price('B010',450,330,97);
+CALL insert_route_price('B011',400,300,90);
+CALL insert_route_price('B012',350,245,63);
+CALL insert_route_price('B013',330,220,57);
+CALL insert_route_price('B014',840,670,203);
+CALL insert_route_price('B015',780,625,195);
+CALL insert_route_price('B016',680,500,165);
+CALL insert_route_price('B017',310,200,49);
+CALL insert_route_price('B018',500,350,92);
+CALL insert_route_price('B019',580,450,153);
+CALL insert_route_price('B020',980,720,297);
+CALL insert_route_price('B021',1100,800,330);
+CALL insert_route_price('B022',600,430,134);
+CALL insert_route_price('B023',510,310,103);
+CALL insert_route_price('B024',520,315,106);
+CALL insert_route_price('B025',280,170,30);
+CALL insert_route_price('B026',580,360,166);
+CALL insert_route_price('B027',820,580,236);
+CALL insert_route_price('B028',1100,810,330);
+CALL insert_route_price('B029',1050,790,320);
+CALL insert_route_price('B030',650,480,149);
+CALL insert_route_price('B031',650,480,149);
+CALL insert_route_price('B032',410,230,59);
+CALL insert_route_price('B033',1050,820,318);
+CALL insert_route_price('B034',780,520,210);
+CALL insert_route_price('B035',620,410,180);
+CALL insert_route_price('B036',420,280,87);
+CALL insert_route_price('B037',430,290,90);
+CALL insert_route_price('B038',512,370,128);
+CALL insert_route_price('B039',730,520,200);
+CALL insert_route_price('B040',880,620,300);
+CALL insert_route_price('B041',730,520,200);
+CALL insert_route_price('B042',480,300,85);
+CALL insert_route_price('B043',500,310,90);
+CALL insert_route_price('B044',680,420,150);
+CALL insert_route_price('B045',580,320,121);
+CALL insert_route_price('B046',590,350,140);
+CALL insert_route_price('B047',480,280,110);
+CALL insert_route_price('B048',480,320,80);
+CALL insert_route_price('B049',470,310,130);
+CALL insert_route_price('B050',480,320,80);
+CALL insert_route_price('B051',580,300,116);
+CALL insert_route_price('B052',520,340,148);
+CALL insert_route_price('B053',510,320,144);
+CALL insert_route_price('B054',650,420,238);
+CALL insert_route_price('B055',420,290,105);
+CALL insert_route_price('B056',610,310,86);
+CALL insert_route_price('B057',380,200,46);
+CALL insert_route_price('B058',430,280,100);
+CALL insert_route_price('B059',620,470,226);
+CALL insert_route_price('B060',530,340,144);
+CALL insert_route_price('B061',640,470,180);
+CALL insert_route_price('B062',660,490,200);
+CALL insert_route_price('B063',560,430,170);
+CALL insert_route_price('B064',390,220,83);
+
+
 
 
