@@ -30,7 +30,7 @@ Booking.bookseat = function(newseat, result){
 };
 */
 
-
+/*
 Booking.findbyid = function(bid, result){
     pool.query("SELECT * FROM booking WHERE Booking_ID = $1",[bid],function(err,res){
         if(err){
@@ -42,7 +42,8 @@ Booking.findbyid = function(bid, result){
         }
     });
 };
-
+*/
+/*
 Booking.findbycustomerid = function(cid,result){
     pool.query("SELECT * FROM booking WHERE Passport_no = $1",[cid],function(err,res){
         if(err){
@@ -53,7 +54,7 @@ Booking.findbycustomerid = function(cid,result){
             result(null,res.rows);
         }
     });
-};
+};*/
 
 // Booking.createbooking= function (newseat,result){
 //     pool.query("INSERT INTO booking VALUES (Passport_no,Flight_ID ,Seat_ID,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status)",[newseat.Passport_no,newseat.Flight_ID,newseat.Seat_ID,newseat.Model_ID,newseat.Seat_Price,newseat.Discount,newseat.Final_Price,newseat.Booking_Date],function(err,res){
@@ -68,11 +69,27 @@ Booking.findbycustomerid = function(cid,result){
 // }
 
 
+
 Booking.createbooking = async function(newseat){
     let booking_id = await pool.query("SELECT insertbooking($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)",[newseat.Passport_no,newseat.Flight_ID,newseat.Passport_name,newseat.Passno,newseat.passDOB,newseat.seatNo,newseat.firstname,newseat.lastname,newseat.gender,newseat.dob,newseat.email,newseat.mobile,newseat.custtype]);
     console.log("booking id = ",booking_id.rows[0])
     return booking_id.rows[0];
 }
+
+Booking.getseats = async function(Flight_ID){
+    let capacities = await pool.query("SELECT Economy_Seat_Capacity, Business_Seat_Capacity, Platinum_Seat_Capacity, E_seats_per_row, B_seats_per_row, P_seats_per_row FROM Plane_Type NATURAL JOIN Flight_Schedule WHERE Flight_ID = $1",[Flight_ID]);
+    let booked_seat = await pool.query("SELECT seat_id FROM Passenger_Seat LEFT JOIN Booking on Passenger_Seat.booking_id=Booking.booking_id Where Flight_ID=$1",[Flight_ID]);
+    let model_id = await pool.query("SELECT model_id FROM Aircraft_Instance NATURAL JOIN Flight_Schedule WHERE Flight_ID=$1",[Flight_ID]);
+    return [capacities.rows[0],booked_seat.rows,model_id.rows[0]];
+}
+
+Booking.getflightinfo = async function(Flight_ID){
+    let flightinfo = await pool.query("SELECT Flight_ID,Route_ID, Departure_Date, Departure_Time, Arrival_Date, Arrival_Time, Route.Origin, Route.Destination, Route.Duration FROM Flight_Schedule NATURAL JOIN Route WHERE Flight_ID=$1",[Flight_ID]);
+    let priceinfo = await pool.query("SELECT Class_ID, price FROM Seat_Price WHERE Route_ID=$1",[flightinfo.rows[0].route_id]);
+    console.log("Flight info = ",flightinfo.rows[0])
+    return [flightinfo.rows[0],priceinfo.rows];        
+}
+
 
 /*================================================== NEED TO DO ================================================================*/
 /*

@@ -1,27 +1,161 @@
 <%- include("partials/header") -%>
 <%- include("partials/nav_bar") -%>
 
-    <br>
+<style>
+    *{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+body{
+    font-family: Helvetica;
+    -webkit-font-smoothing: antialiased;
+    background:linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+    
+}
+h2{
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    padding: 30px 0;
+}
+
+/* Table Styles */
+
+.table-wrapper{
+    margin: 10px 70px 70px;
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+    display:contents ;
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.fl-table td {
+    border-right: 1px solid #f8f8f8;
+    font-size: 14px;
+}
+
+.fl-table thead th {
+    color: #ffffff;
+    background: #4FC3A1;
+}
+
+
+.fl-table thead th:nth-child(odd) {
+    color: #ffffff;
+    background: #324960;
+}
+
+.fl-table tr:nth-child(even) {
+    background: #F8F8F8;
+}
+
+/* Responsive */
+
+@media (max-width: 767px) {
+    .fl-table {
+        display: block;
+        width: 100%;
+    }
+    .table-wrapper:before{
+        content: "Scroll horizontally >";
+        display: block;
+        text-align: right;
+        font-size: 13px;
+        color: white;
+        padding: 0 0 10px;
+    }
+    .fl-table thead, .fl-table tbody, .fl-table thead th {
+        display: block;
+    }
+    .fl-table thead th:last-child{
+        border-bottom: none;
+    }
+    .fl-table thead {
+        float: left;
+    }
+    .fl-table tbody {
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+    }
+    .fl-table td, .fl-table th {
+        padding: 20px .625em .625em .625em;
+        height: 60px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 120px;
+        font-size: 13px;
+        text-overflow: ellipsis;
+    }
+    .fl-table thead th {
+        text-align: left;
+        border-bottom: 1px solid #f7f7f9;
+    }
+    .fl-table tbody tr {
+        display: table-cell;
+    }
+    .fl-table tbody tr:nth-child(odd) {
+        background: none;
+    }
+    .fl-table tr:nth-child(even) {
+        background: transparent;
+    }
+    .fl-table tr td:nth-child(odd) {
+        background: #F8F8F8;
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tr td:nth-child(even) {
+        border-right: 1px solid #E6E4E4;
+    }
+    .fl-table tbody td {
+        display: block;
+        text-align: center;
+    }
+    
+}
+</style>
     <br>
         <script type="application/javascript">
             function tableSearch() {
-                let input1,input2, filter1,filter2, table, tr, td, txtValue;
+                let input1,input2, input3, filter1,filter2,filter3, table, tr, td, txtValue;
     
                 //Intialising Variables
                 input1 = document.getElementById("myInput1");
                 input2 = document.getElementById("myInput2");
+                input3 = document.getElementById("myInput3");
                 filter1 = input1.value.toUpperCase();
                 filter2 = input2.value.toUpperCase();
+                filter3 = input3.value.toUpperCase();
                 table = document.getElementById("myTable");
                 tr = table.getElementsByTagName("tr");
     
                 for (let i = 0; i < tr.length; i++) {
                     td1 = tr[i].getElementsByTagName("td")[1];
                     td2 = tr[i].getElementsByTagName("td")[4];
-                    if (td1 && td2) {
+                    td3 = tr[i].getElementsByTagName("td")[2];
+                    if (td1 && td2 && td3) {
                         txtValue1 = td1.textContent || td1.innerText;
                         txtValue2 = td2.textContent || td2.innerText;
-                        if ((txtValue1.toUpperCase().indexOf(filter1) > -1) && (txtValue2.toUpperCase().indexOf(filter2) > -1)) {
+                        txtValue3 = td3.textContent || td3.innerText;
+                        if ((txtValue1.toUpperCase().indexOf(filter1) > -1) && (txtValue2.toUpperCase().indexOf(filter2) > -1) && (txtValue3.indexOf(filter3) > -1)) {
                             tr[i].style.display = "";
                         } else {
                             tr[i].style.display = "none";
@@ -32,14 +166,15 @@
             }
         </script>
 
-        <div>
+        <div class="table-wrapper">
             <h1><%= title %></h1>
             <input type="text" id="myInput1" onkeyup='tableSearch()' placeholder="Search by origin...">
             <input type="text" id="myInput2" onkeyup='tableSearch()' placeholder="Search by destination...">
+            <input type="text" id="myInput3" onkeyup='tableSearch()' placeholder="Search by deaprture date...">
             <% if(action == 'add') { %>
             <% } else { %>
         
-                    <table class="table table-bordered" id="myTable">
+                    <table class="fl-table" id="myTable">
                         <tr>
                         <th>Flight_ID</th>
                         <th>Origin</th>
@@ -51,16 +186,22 @@
                         <th>Action</th>
                         </tr>
                         <% if(sampleData.length > 0) { sampleData.forEach(function(data){ %>
-                        <tr class="data-row" data-origin="<%= data.origin %>">
+                        <tr  data-origin="<%= data.origin %>">
                             <td><%= data.flight_id %></td>
                             <td><%= data.origin %></td>
-                            <td><%= data.departure_date %></td>
+                            <td><%= new Date(data.departure_date).toLocaleDateString() %></td>
                             <td><%= data.departure_time %></td>
                             <td><%= data.destination %></td>    
-                            <td><%= data.arrival_date %></td>
+                            <td><%= new Date(data.arrival_date).toLocaleDateString() %></td>
                             <td><%= data.arrival_time %></td>
                             <td>
-                                <a href="/Booking"><button class="btn btn-primary">Book</button></a>
+                                <!-- <a href="/Booking"><button class="btn btn-primary">Book</button></a> -->
+                                <form action='/booking/flightid' method=post>
+                                    <section class="btn btn-primary" style="justify-content: center;">
+                                    <button type='submit'
+                                        
+                                   >Book Flight</button><input type='hidden'
+                                        name='flight_id' value='<%=data.flight_id%>'></section></form>
                             
                             </td>
                         </tr>    

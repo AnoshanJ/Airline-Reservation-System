@@ -1,7 +1,7 @@
 
 const pool = require("./db.js");
 
-var Staff = function(staff){
+const Staff = function(staff){
     this.Staff_ID = staff.Staff_ID;
     this.Category = staff.Category;
     this.Password = staff.Password;
@@ -73,19 +73,19 @@ Staff.getStaffByEmail = function(email,result){
   pool.query(sql,queryParams,function(err,res){
       if (err) {
           console.log("error: ", err);
-          result = null;
+          return result(err,null);
       } else {
-          console.log("Retrieved Staff: ", res.rows);
-          result = res.rows;
+          console.log("Retrieved Staff: ", res.rows[0]);
+          return result(null,res.rows);
       }
   });
 };
 
 
 // 
-Staff.firestaff = function(Staff_ID,Category,result){
-  const sql = "DELETE FROM Staff WHERE Staff_ID = $1 and Category = $2";
-  const queryParams = [Staff_ID,Category];
+Staff.firestaff = function(email,Category,result){
+  const sql = "DELETE FROM Staff WHERE email = $1 and Category = $2";
+  const queryParams = [email,Category];
   pool.query(sql,queryParams,function(err,res){
       if(err) {
           console.log("error: ", err);
