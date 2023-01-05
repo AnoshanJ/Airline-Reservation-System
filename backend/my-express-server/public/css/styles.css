@@ -356,7 +356,16 @@ footer .copyright {
 .showcase li small{
   margin-left: 10px
 }
+main {
+  display: flex;
+  justify-content: space-between;
+  margin: 1em;
+}
 
+.passenger-info,
+.flight-info {
+  width: 45%;
+}
 p {
   font-size: 16px;
   line-height: 1.5;

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Airplane Ticket</title>
+  <style>
+    /* Add styles for the ticket here */
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/images/logo.png" alt="Airline logo">
+    <h1>Airplane Ticket</h1>
+  </header>
+
+  <main>
+    <section class="passenger-info">
+      <h2>Passenger Information</h2>
+      <ul>
+        <li>Name: <%= passenger.name %></li>
+        <li>Email: <%= passenger.email %></li>
+        <li>Phone: <%= passenger.phone %></li>
+      </ul>
+    </section>
+    <section class="flight-info">
+      <h2>Flight Information</h2>
+      <ul>
+        <li>Flight Number: <%= flight.number %></li>
+        <li>Departure: <%= flight.departure %></li>
+        <li>Arrival: <%= flight.arrival %></li>
+        <li>Departure Time: <%= flight.departureTime %></li>
+        <li>Arrival Time: <%= flight.arrivalTime %></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Thank you for flying with us!</p>
+  </footer>
+</body>
+</html>
