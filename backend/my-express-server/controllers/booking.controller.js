@@ -44,22 +44,12 @@ exports.run = async (req,res, cookies) => {
 exports.createbooking = async (req,res)=>{
     try{
         const formData = req;
-        var has = "HASSSS"
-        console.log("WHAT :::::::::::::::")
-
         let book_id = await Booking.createbooking(req.body);
-        console.log("formData ::::::::::::::::::::::::::::::::::::: ",formData.body);
-        // console.log("booking_id : ",booking_id);
+        console.log("formData.body : ",formData.body);
         req.session.booking_id = book_id;
         req.session.formData = formData.body;
         console.log("booking_id : ",book_id);
-        // res.render("payment", { booking_id:booking_id,formData: formData.body, docTitle: "BOOKING", content: 0});
         return res.redirect("/payment")
-        // alert("Seat Boooked!")
-        
-        // res.send("<p>createbooking Successfully!</p>" +
-        // "<script>setTimeout(function () { window.location.href = '/booking'; }, 2000);</script>")
-        // return res.status(200).send({result: 'redirect', url:'/payment'});
     } catch (err){
         console.log(err)
         res.send(500);
@@ -76,9 +66,9 @@ exports.getpayment = async (req,res) => {
         if(typeof prices === 'undefined'){
             return res.status(405).render('405');
         }else{
-            console.log("getpayment session::::::::::::::::::::::::::: ",prices);
-            console.log('req.body #################################### ',req.session.formData);
-            console.log('req.body $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ',req.session.booking_id);
+            console.log("prices :  ",prices);
+            console.log('req.session.formData :',req.session.formData);
+            console.log('req.session.booking_id :',req.session.booking_id);
             
             res.render('payment',{
                 docTitle: "PAYMENT",
@@ -90,7 +80,7 @@ exports.getpayment = async (req,res) => {
             })
         }
     }catch(err){
-        console.log("ERROR ::::::: ",err);
+        console.log("ERROR : ",err);
         return res.redirect('/booking/payment')
     }
 }

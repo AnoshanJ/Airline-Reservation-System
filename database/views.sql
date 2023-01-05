@@ -1,8 +1,6 @@
-psql -U postgres -h localhost : to connect to database
-postgres=# CREATE ROLE admin WITH LOGIN PASSWORD '1234';
-GRANT ALL ON ALL TABLES IN SCHEMA public TO admin;
-GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO admin;
-GRANT ALL ON ALL FUNCTIONS IN SCHEMA public TO admin;
+psql -U airline_res -h localhost : to connect to database
+CREATE ROLE admin WITH LOGIN PASSWORD '1234';
+
 
 -- Amrithsagar Search View
 CREATE OR REPLACE VIEW search_table AS 
@@ -33,3 +31,8 @@ RIGHT JOIN booking ON flight_schedule.flight_id = booking.flight_id
 LEFT JOIN customer ON booking.passport_no = customer.passport_no
 LEFT JOIN registered_customer_account ON booking.passport_no = registered_customer_account.passport_no
 LEFT JOIN guest_customer_account ON booking.passport_no = guest_customer_account.passport_no;
+
+
+GRANT ALL ON ALL TABLES IN SCHEMA public TO admin;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO admin;
+GRANT ALL ON ALL FUNCTIONS IN SCHEMA public TO admin;

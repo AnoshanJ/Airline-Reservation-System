@@ -15,7 +15,7 @@ router.get("/account", function (req, res) {
     let role = req.cookies.userRole;
     if (role === "user") {
         // Redirect the user to the user dashboard
-        res.redirect("/userdashboard");
+        res.redirect("/userDashboard");
     } else if (role === "Manager") {
         // Redirect the user to the manager dashboard
         res.redirect("/staff_work");

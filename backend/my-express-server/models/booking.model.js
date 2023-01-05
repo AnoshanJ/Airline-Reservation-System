@@ -14,59 +14,6 @@ var Booking = function(booking){
     this.Booking_Status = booking.Booking_Status;
     this.Booking_Date = new Date();
 };
-/*
-Booking.bookseat = function(newseat, result){
-    console.log(newseat)
-    con.query("INSERT INTO booking SET ?",newseat, function(err,res){
-        if(err){
-            console.log("error: ", err);
-            result(err, null);
-        }
-        else{
-            console.log(res.insertId);
-            result(null,res.insertId);
-        }
-    });   
-};
-*/
-
-/*
-Booking.findbyid = function(bid, result){
-    pool.query("SELECT * FROM booking WHERE Booking_ID = $1",[bid],function(err,res){
-        if(err){
-            console.log("error: ",err);
-            result(err,null);
-        }
-        else{
-            result(null,res.rows);
-        }
-    });
-};
-*/
-/*
-Booking.findbycustomerid = function(cid,result){
-    pool.query("SELECT * FROM booking WHERE Passport_no = $1",[cid],function(err,res){
-        if(err){
-            console.log("error: ",err);
-            result(err,null);
-        }
-        else{
-            result(null,res.rows);
-        }
-    });
-};*/
-
-// Booking.createbooking= function (newseat,result){
-//     pool.query("INSERT INTO booking VALUES (Passport_no,Flight_ID ,Seat_ID,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status)",[newseat.Passport_no,newseat.Flight_ID,newseat.Seat_ID,newseat.Model_ID,newseat.Seat_Price,newseat.Discount,newseat.Final_Price,newseat.Booking_Date],function(err,res){
-//         if(err){
-//             console.log("error: ",err);
-//             return result(err,null);
-//         } else {
-//             console.log(res.rows)
-//             return result(null, res.rows);
-//         }
-//     })
-// }
 
 Booking.getpaymentstatus = async function(bookingid){
     console.log("let see",bookingid)
@@ -101,11 +48,6 @@ Booking.getflightinfo = async function(Flight_ID){
 }
 
 
-// Booking.getbookingdetails = async function(booking_id){
-//     let query = await pool.query("SELECT booking_id,passport_no,flight_id,seat_ids,model_id,seat_price,discount,final_price,booking_status,booking_date FROM booking WHERE booking_id=$1",[booking_id]);
-//     console.log("Booking details : ",query.rows);
-//     return query.rows;
-// }
 Booking.getbookingdetails = async function(booking_id){
     let query = await pool.query("SELECT passenger_seat.name,passenger_seat.passport_no,passenger_seat.seat_id,booking.flight_id,booking.booking_date,plane_type.model_name,plane_type.variant,Route.origin,Route.Destination,Flight_Schedule.departure_date,Flight_Schedule.departure_time,Flight_Schedule.arrival_date,Flight_Schedule.arrival_time FROM booking left join passenger_seat on booking.booking_id=Passenger_seat.booking_id LEFT JOIN plane_type ON plane_type.model_id=booking.model_id LEFT JOIN Flight_Schedule ON Flight_Schedule.flight_id=booking.flight_id LEFT JOIN Route ON FLight_Schedule.route_id=Route.route_id WHERE booking.booking_id=$1",[booking_id]);
     console.log("Booking details : ",query.rows);

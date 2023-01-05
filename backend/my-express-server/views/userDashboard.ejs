@@ -31,10 +31,11 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
   </head>
-  
+  <% console.log(sampleData); %>
 <div class="userDetails">
-    <% if(sampleData.length > 0) { sampleData.forEach(function(data){ %>
-      
+    <% if(sampleData!== 'undefined') { %>
+    {   
+    
 
             
             <section class="container emp-profile">
@@ -52,15 +53,15 @@
                                 <section class="col-md-6">
                                     <section class="profile-head">
                                                 <h5>
-                                                    <%= data.first_name %> <%= data.last_name %> 
+                                                    <%= sampleData.first_name %> <%= sampleData.last_name %> 
                                                 </h5>
                                                 <h6>
-                                                    <%= data.email %>
+                                                    <%= sampleData.email %>
                                                 </h6>
-                                                <p class="proile-rating">BOOKINGS : <span><%= data.no_of_bookings %></span></p>
+                                                <p class="proile-rating">BOOKINGS : <span><%= sampleData.no_of_bookings %></span></p>
                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                                <a class="nav-link active" id="home-tab" sampleData-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                                             </li>
                                             
 
@@ -73,8 +74,8 @@
                                 <section class="col-md-4">
                                     <section class="profile-work">
                                         <p>Contact info</p>
-                                        <a><%= data.mobile %></a><br/>
-                                        <a><%= data.email %></a><br/>
+                                        <a><%= sampleData.mobile %></a><br/>
+                                        <a><%= sampleData.email %></a><br/>
                                      
                                     <section class ="Links">
                                         <a href="/Search">Book a flight</a><br/>
@@ -91,7 +92,7 @@
                                                             <label>Full name</label>
                                                         </section>
                                                         <section class="col-md-6">
-                                                            <p><%= data.first_name %> <%= data.last_name %></p>
+                                                            <p><%= sampleData.first_name %> <%= sampleData.last_name %></p>
                                                         </section>
                                                     </section>
                                                     <section class="row">
@@ -99,7 +100,7 @@
                                                             <label>Gender</label>
                                                         </section>
                                                         <section class="col-md-6">
-                                                            <p><%= data.gender %></p>
+                                                            <p><%= sampleData.gender %></p>
                                                         </section>
                                                     </section>
                                                     <section class="row">
@@ -107,7 +108,7 @@
                                                             <label>Date of birth</label>
                                                         </section>
                                                         <section class="col-md-6">
-                                                            <p><%= new Date(data.dob).toLocaleDateString() %></p>
+                                                            <p><%= new Date(sampleData.dob).toLocaleDateString() %></p>
                                                         </section>
                                                     </section>
                                                     <section class="row">
@@ -115,7 +116,7 @@
                                                             <label>Address</label>
                                                         </section>
                                                         <section class="col-md-6">
-                                                            <p><%= data.address %></p>
+                                                            <p><%= sampleData.address %></p>
                                                         </section>
                                                     </section>
                                                     <section class="row">
@@ -123,7 +124,7 @@
                                                             <label>Country</label>
                                                         </section>
                                                         <section class="col-md-6">
-                                                            <p><%= data.country %></p>
+                                                            <p><%= sampleData.country %></p>
                                                         </section>
                                                     </section>
                                                     <section class="row">
@@ -131,7 +132,7 @@
                                                             <label>Passport No</label>
                                                         </section>
                                                         <section class="col-md-6">
-                                                            <p><%= data.passport_no %></p>
+                                                            <p><%= sampleData.passport_no %></p>
                                                         </section>
                                                     </section>
                                                     <section class="row">
@@ -139,7 +140,7 @@
                                                             <label>Account created on</label>
                                                         </section>
                                                         <section class="col-md-6">
-                                                            <p><%= new Date(data.joined).toLocaleDateString() %></p>
+                                                            <p><%= new Date(sampleData.joined).toLocaleDateString() %></p>
                                                         </section>
                                                     </section>
                                         </section>
@@ -196,14 +197,14 @@
                             </section>
                         </form>           
                     </section>
-            <section class ="imgBx"><%= data.display_photo %></section>
+            <section class ="imgBx"><%= sampleData.display_photo %></section>
             <section class = "name">
 
 
             </section>
 
-    <% }); }else{%>
-    <tr>
+    <% }else{%>
+    <tr>        
         <td colspan="5">No Data Found</td>
     </tr>
     <% } %>      
