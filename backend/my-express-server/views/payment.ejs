@@ -1,0 +1,159 @@
+<%- include ('partials/header') %> 
+<%- include ('partials/nav_bar') %>
+
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  text-align: left;
+  padding: 20px;
+  font-size: 22px;
+  font-weight: 300;
+  color: #797979;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+tr:nth-child(even){
+  background-color: #fafafa;
+}
+
+th {
+  background-color: #010101;
+  color: white;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+td a {
+  display: inline-block;
+  color: #4CAF50;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+td a:hover {
+  color: #555555;
+}
+
+.user-info {
+  list-style: none;
+  margin: 20px 0;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fafafa;
+  padding: 0;
+}
+
+.user-info li {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.info-label {
+  font-size: 18px;
+  font-weight: 500;
+  color: #4CAF50;
+  margin-right: 10px;
+}
+
+.info-value {
+  font-size: 16px;
+  font-weight: 300;
+  color: #797979;
+}
+
+</style>
+
+    <h1>User Details</h1>
+    <ul class="user-info">
+      <li>
+        <span class="info-label">First name:</span>
+        <span class="info-value"><%=formData.firstname%></span>
+      </li>
+      <li>
+        <span class="info-label">Last name:</span>
+        <span class="info-value"><%=formData.lastname%></span>
+      </li>
+      <li>
+        <span class="info-label">Passport no:</span>
+        <span class="info-value"><%=formData.Passport_no%></span>
+      </li>
+      <li>
+        <span class="info-label">Email:</span>
+        <span class="info-value"><%=formData.email%></span>
+      </li>
+    </ul>
+    <%
+    const str1 = formData.Passport_name;
+    const str2 = formData.Passno;
+    const str3 = formData.seatNo;
+    const stripped1 = str1.replace(/[{}"]/g, '');
+    const stripped2 = str2.replace(/[{}"]/g, '');
+    const stripped3 = str3.replace(/[{}"]/g, '');
+    %>
+  <h2>Seat Assigned</h2>
+    <%
+    const names = stripped1.split(',');
+    const passportNos = stripped2.split(',');
+    const seats = stripped3.split(',');
+    %>
+    <table>
+      <tr>
+        <th>Passport name</th>
+        <th>Passport no</th>
+        <th>Seat no</th>
+      </tr>
+      <% for (let i = 0; i < names.length; i++) { %>
+        <tr>
+          <td><%=names[i]%></td>
+          <td><%=passportNos[i]%></td>
+          <td><%=seats[i]%></td>
+        </tr>
+      <% } %>
+    </table>
+
+
+
+<div>
+    
+    <ul class="user-info">
+        <li>
+            <span class="info-label">Initial Price:</span>
+            <span class="info-value"><%=initprices%>$</span>
+        </li>
+        <li>
+            <span class="info-label">Discount:</span>
+            <span class="info-value">
+            <%= -(initprices - finalprice) %>$
+            </span>
+        </li>
+        <li>
+            <span class="info-label">Total Price:</span>
+            <span class="info-value"><%=finalprice%>$</span>
+        </li>
+    </ul>
+
+    <form action="/payment/success" method="post">
+        <!-- <label for="booking_id">Booking_id</label> -->
+        <input type="text"  id="booking_id" required hidden value=<%=booking_id%>>
+        <button type="submit">Proceed</button>
+    </form>
+    <form action="/payment/cancel" method="post">
+      <input type="text" id="booking_id" required hidden value=<%=booking_id%>>
+      <button type="submit">Cancel Booking</button>
+    </form>
+</div>
+
+
+
+<%- include ('partials/footer') %>

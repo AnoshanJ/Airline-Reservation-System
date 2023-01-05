@@ -21,52 +21,40 @@ h2{
     color: white;
     padding: 30px 0;
 }
-
 /* Table Styles */
-
 .table-wrapper{
     margin: 10px 70px 70px;
     box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
     display:contents ;
 }
-
 .fl-table {
     border-radius: 5px;
     font-size: 12px;
     font-weight: normal;
     border: none;
     border-collapse: collapse;
-
     background-color: white;
 }
-
 .fl-table td, .fl-table th {
     text-align: center;
     padding: 8px;
 }
-
 .fl-table td {
     border-right: 1px solid #f8f8f8;
     font-size: 14px;
 }
-
 .fl-table thead th {
     color: #ffffff;
     background: #4FC3A1;
 }
-
-
 .fl-table thead th:nth-child(odd) {
     color: #ffffff;
     background: #324960;
 }
-
 .fl-table tr:nth-child(even) {
     background: #F8F8F8;
 }
-
 /* Responsive */
-
 @media (max-width: 767px) {
     .fl-table {
         display: block;
@@ -200,7 +188,7 @@ h2{
                                     <section class="btn btn-primary" style="justify-content: center;">
                                     <button type='submit'
                                         
-                                   >Book Flight</button><input type='hidden'
+                                   >Book Flight <%=data.flight_id%></button><input type='hidden'
                                         name='flight_id' value='<%=data.flight_id%>'></section></form>
                             
                             </td>
@@ -211,9 +199,7 @@ h2{
                         </tr>
                         <% } %>
                     </table>
-
      
-
             <%  } %>
         </div>
     
