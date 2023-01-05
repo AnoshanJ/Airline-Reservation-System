@@ -31,24 +31,31 @@ exports.getUserByEmail = (req, res) => {
  
         if (result) {
         // Set the user's role in the session and in a cookie
-        req.session.userRole = data[0].category;
-        res.cookie('userRole', 'data[0].category', { maxAge: 900000, httpOnly: true });
-        console.log(req.session.userRole);
+        req.session.userRole = "user";
+        res.cookie('userRole', 'user', { maxAge: 900000, httpOnly: true });
+        res.cookie("user", data[0], { maxAge: 900000, httpOnly: true });
+        // console.log(req.session.userRole);
+        console.log("User Cookies " + req.cookies.user);
+        console.log("User Cookies " + req.cookies.userRole);
+        
+        res.redirect("/userDashboard");
 
         //res.render("userDashboard", { formData: req, docTitle: "Details of the user",title:"User Dashboard", sampleData : result,action:'list',});
 
-          const email = req.body.email;
+        //   const email = req.body.email;
     
-          userDashboard.getUserDetails(email,(err, result) => {
-          if (err) {
-            console.log("Model Error"+err);
-            res.send("2500");
-          } else {
-            //responseValues.revenue = result;
-            res.render("userDashboard", { formData: req, docTitle: "",title:"User Dashboard", sampleData : result,action:'list',});
-            console.log("userDashboard controller")
-          }
-        });  
+        //   userDashboard.getUserDetails(email,(err, result) => {
+        //   if (err) {
+        //     console.log("Model Error"+err);
+        //     res.send("2500");
+        //   } else {
+        //     //responseValues.revenue = result;
+        //     console.log("User Cookies " + req.cookies);
+        //     res.redirect("/userDashboard");
+        //     // res.render("userDashboard", { formData: req, docTitle: "",title:"User Dashboard", sampleData : result,action:'list',});
+        //     // console.log("userDashboard controller")
+        //   }
+        // });  
         
         return;
         }

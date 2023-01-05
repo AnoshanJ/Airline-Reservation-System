@@ -58,18 +58,18 @@ router.get('/managerDashboard', checkRole('Manager'), (req, res) => {
   res.send('Welcome to the manager page!');
 });
 */
-router.get('/userDashboard', checkRole('user'), (req, res) => {
-  // The user is a user, so allow them to access the route
-  try {
-          //res.redirect('/userDashboard');
-          const formData = req.body;
-          registrationController.getUserDetails(formData, res);
+// router.get('/userDashboard', checkRole('user'), (req, res) => {
+//   // The user is a user, so allow them to access the route
+//   try {
+//           //res.redirect('/userDashboard');
+//           const formData = req.body;
+//           registrationController.getUserDetails(formData, res);
       
-        } catch (err) {
-            console.log(err);
-            res.send("1500");
-        }
-});
+//         } catch (err) {
+//             console.log(err);
+//             res.send("1500");
+//         }
+// });
 
 
 module.exports = router;
