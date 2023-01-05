@@ -34,7 +34,7 @@ const Flight = require("../models/flight.model.js");
       });
 
       res.render("report", {
-        formData: req,
+        formData: 0,
         docTitle: "REPORTS",
         data: responseValues,
         userRole: cookies
