@@ -33,7 +33,8 @@
   </head>
   
 <div class="managerDetails">
-    <% if(sampleData.length > 0) { sampleData.forEach(function(data){ %>
+    <% if(sampleData!== 'undefined') { %>
+        {   
       
 
             
@@ -52,18 +53,18 @@
                                 <section class="col-md-6">
                                     <section class="profile-head">
                                                 <h5>
-                                                    <%= data.first_name %> <%= data.last_name %> 
+                                                    <%= sampleData.first_name %> <%= sampleData.last_name %> 
                                                 </h5>
                                                 <h6>
-                                                    <%= data.category%>
+                                                    <%= sampleData.category%>
                                                 </h6>
                                                 <h6>
-                                                    <%= data.email %>
+                                                    <%= sampleData.email %>
                                                 </h6>
                                         
                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                                <a class="nav-link active" id="home-tab" sampleData-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                                             </li>
                                             
 
@@ -76,8 +77,8 @@
                                 <section class="col-md-4">
                                     <section class="profile-work">
                                         <p>Contact info</p>
-                                        <a><%= data.contact %></a><br/>
-                                        <a><%= data.email %></a><br/>
+                                        <a><%= sampleData.contact %></a><br/>
+                                        <a><%= sampleData.email %></a><br/>
                                      
                                     <section class ="Links">
                                         <a href="/staff_work">Flight management</a><br/>
@@ -93,7 +94,7 @@
                                                             <label>Full name</label>
                                                         </section>
                                                         <section class="col-md-6">
-                                                            <p><%= data.first_name %> <%= data.last_name %></p>
+                                                            <p><%= sampleData.first_name %> <%= sampleData.last_name %></p>
                                                         </section>
                                                     </section>
                                                     <section class="row">
@@ -101,7 +102,7 @@
                                                             <label>Email</label>
                                                         </section>
                                                         <section class="col-md-6">
-                                                            <p><%= data.email %></p>
+                                                            <p><%= sampleData.email %></p>
                                                         </section>
                                                     </section>
                                                     <section class="row">
@@ -109,7 +110,7 @@
                                                             <label>Date of birth</label>
                                                         </section>
                                                         <section class="col-md-6">
-                                                            <p><%= new Date(data.dob).toLocaleDateString() %></p>
+                                                            <p><%= new Date(sampleData.dob).toLocaleDateString() %></p>
                                                         </section>
                                                     </section>
                                                     <section class="row">
@@ -117,7 +118,7 @@
                                                             <label>Gender</label>
                                                         </section>
                                                         <section class="col-md-6">
-                                                            <p><%= data.gender %></p>
+                                                            <p><%= sampleData.gender %></p>
                                                         </section>
                                                     </section>
                                                     <section class="row">
@@ -125,7 +126,7 @@
                                                             <label>Assigned Airport</label>
                                                         </section>
                                                         <section class="col-md-6">
-                                                            <p><%= data.assigned_airport %></p>
+                                                            <p><%= sampleData.assigned_airport %></p>
                                                         </section>
                                                     </section>
                                                     <section class="row">
@@ -133,7 +134,7 @@
                                                             <label>Country</label>
                                                         </section>
                                                         <section class="col-md-6">
-                                                            <p><%= data.country %></p>
+                                                            <p><%= sampleData.country %></p>
                                                         </section>
                                                     </section>
                                         </section>
@@ -196,7 +197,7 @@
 
             </section>
 
-    <% }); }else{%>
+    <%}else{%>
     <tr>
         <td colspan="5">No Data Found</td>
     </tr>

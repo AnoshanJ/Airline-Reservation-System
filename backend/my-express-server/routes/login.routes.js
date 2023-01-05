@@ -40,17 +40,17 @@ router.get("/logout", function(req, res){
 //   res.send('Welcome to the admin page!');
 // });
 
-router.get('/managerdashboard',checkRole('Manager'), (req, res) => {
-  // The user is a manager, so allow them to access the route
+// router.get('/managerdashboard',checkRole('Manager'), (req, res) => {
+//   // The user is a manager, so allow them to access the route
   
-  try{
-    const formData = req.body;
-    registrationController.getStaffByEmail(formData,res);
-  }catch (err) {
-    console.log(err);
-    res.send("1500");
-}
-});
+//   try{
+//     const formData = req.body;
+//     registrationController.getStaffByEmail(formData,res);
+//   }catch (err) {
+//     console.log(err);
+//     res.send("1500");
+// }
+// });
 
 /*
 router.get('/managerDashboard', checkRole('Manager'), (req, res) => {

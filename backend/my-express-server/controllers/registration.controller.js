@@ -96,20 +96,24 @@ exports.getStaffByEmail = (req, res) => {
  
         if (result) {
         // Set the user's role in the session and in a cookie
-        req.session.userRole = data[0].category;
-        res.cookie('userRole', 'data[0].category', { maxAge: 900000, httpOnly: true });
+        // req.session.userRole = data[0].category;
+        req.session.userRole = "Manager";
+        // res.cookie('userRole', 'data[0].category', { maxAge: 900000, httpOnly: true });
+        res.cookie('userRole', 'Manager', { maxAge: 900000, httpOnly: true });
+        res.cookie("user", data[0], { maxAge: 900000, httpOnly: true });
         console.log(req.session.userRole);
         // res.redirect('/managerDashboard');
-        const email = req.body.email;
-        managerDashboard.getStaffByEmail(email,(err,result)=>{
-          if(err){
-            console.log("Model Error"+err);
-            res.send("2500");
-          }else{
-            res.render("managerdashboard", { formData: req, docTitle: "",title:"Managerr Dashboard", sampleData : result,action:'list',});
-            console.log("Manager controller")
-          }
-        });
+        // const email = req.body.email;        
+        res.redirect("/managerDashboard");
+        // managerDashboard.getStaffByEmail(email,(err,result)=>{
+        //   if(err){
+        //     console.log("Model Error"+err);
+        //     res.send("2500");
+        //   }else{
+        //     res.render("managerdashboard", { formData: req, docTitle: "",title:"Managerr Dashboard", sampleData : result,action:'list',});
+        //     console.log("Manager controller")
+        //   }
+        // });
         return;
         }
         else {        

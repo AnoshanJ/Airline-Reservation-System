@@ -18,7 +18,7 @@ router.get("/account", function (req, res) {
         res.redirect("/userDashboard");
     } else if (role === "Manager") {
         // Redirect the user to the manager dashboard
-        res.redirect("/staff_work");
+        res.redirect("/managerDashboard");
     } else {
         // Render the home page for guests or users with an unknown role
         res.render("home", { docTitle: "B-Airways", userRole: role });
