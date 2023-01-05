@@ -19,6 +19,17 @@ router.get('/booking',function(req,res){
     }
 })
 
+router.post('/booking/flightid',function(req,res){
+    const flightid = req.body.flight_id;
+    console.log(flightid)
+   try{
+       //const flightid = flight_id;
+       bookingController.run(flightid,res,req.cookies.userRole);
+   }catch(err){
+       console.log(err);
+       res.send("500");
+   }
+})
 
 // Retreive a single booked seat by Booking_ID
 /*
@@ -47,6 +58,11 @@ router.post('/booking/getseat_customid',function(req,res){
 
 router.post('/booking/createbooking',bookingController.createbooking);
 
+router.get('/payment',bookingController.getpayment);
+
+router.post('/payment/success',bookingController.paymentSuccess);
+
+router.post('/payment/cancel',bookingController.cancelbooking)
 // router.get('/booking',checkforflightid,bookingController.getbooking);
 /*================================================== NEED TO DO ================================================================*/
 /*

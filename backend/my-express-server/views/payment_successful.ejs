@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%- include ('partials/nav_bar') %>
+<style>
+    
+/* Navbar styles */
+.navbar {
+  background-color: #333;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+}
+
+.nav-item {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  color: #ccc;
+}
+
+/* Heading styles */
+#heading {
+  color: #333;
+  font-size: 36px;
+  margin-bottom: 0;
+  text-align: center;
+}
+    html {
+  box-sizing: border-box;
+  /*background-color: #60593e;*/
+  min-height: 1000px;
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(-45deg, #eea34e, #f68f53, #f5782f, #000000);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  height: 100vh;
+}
+    body {
+  margin: auto !important;
+
+  /* align all content to center */
+  display: flex;
+
+  flex-direction: column;
+  width: 100%;
+  max-width: 70%;
+  background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+  
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  justify-content: center;
+  align-items: center;
+
+}
+    /* Add your CSS styles here */
+    .ticket {
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 20px auto;
+      overflow: hidden;
+      text-align: center;
+      font-family: "Roboto", sans-serif;
+    }
+
+    .header {
+      background: #040f0d;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .passenger-info {
+      border-bottom: 1px solid #eee;
+      padding: 20px;
+    }
+
+    .passenger-info p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    .flight-info {
+      border-bottom: 1px solid #eee;
+      padding: 20px;
+    }
+
+    .flight-info h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 36px;
+    }
+
+    .flight-info p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    .seat-info {
+      padding: 20px;
+    }
+
+    .seat-info h3 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 30px;
+    }
+
+    .seat-info p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 24px;
+    }
+    .terms p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 18px;
+      color: #999;
+    }
+    
+/* Style the table cells */
+td {
+  /* Add padding and border */
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+/* Style the table header cells */
+th {
+  /* Add background color and font weight */
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+}
+    
+table {
+  /* Center the table */
+
+  width: 100%;
+
+  /* Add border, padding, and background color */
+  border: 1px solid #333;
+  padding: 10px;
+  background-color: #f5f5f5;
+
+  /* Add font size and color */
+  font-size: 16px;
+  color: #333;
+
+  /* Add box shadow */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.myticket {
+      background: rgb(250, 250, 250);
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 20px auto;
+      overflow: hidden;
+      text-align: center;
+      font-family: "Roboto", sans-serif;
+    }
+    .flight-align{
+        text-align: left;
+    }
+
+  </style>
+    <%
+    const ticketcount = bookingDetails.length;
+    var i = 0;
+    var j = 0;
+    while(i <= ticketcount-1){%>
+        <section class="myticket">
+            <div class="container">
+                <div class="header">
+                <h1>E-Ticket</h1>
+                <p>Your ticket to a hassle-free journey</p>
+                </div>
+                <div class="content">
+                <div class="passenger-info">
+                    <h2>Passenger Information</h2>
+                    <p>Name: <%= bookingDetails[i].name %></p>
+                    <p>Passport Number: <%= bookingDetails[i].passport_no %></p>
+                </div>
+                <div class="flight-info">
+                    <h2>Flight Information</h2>
+                    <div class="flight-align">
+                        <p>Flight ID: <%= bookingDetails[i].flight_id %></p>
+                        <p>Seat No: <%=bookingDetails[i].seat_id %></p>
+                        <p>Booking Date: <%= bookingDetails[i].booking_date %></p>
+                        <p>Aircraft: <%= bookingDetails[i].model_name %> (<%= bookingDetails[i].variant %>)</p>
+                    </div>
+                    <table class="flight-details">
+                    <tr>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Departure Date</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Date</th>
+                    <th>Arrival Time</th>
+                    </tr>
+                    <tr>
+                    <td><%= bookingDetails[i].origin %></td>
+                    <td><%= bookingDetails[i].destination %></td>
+                    <td><%= bookingDetails[i].departure_date %></td>
+                    <td><%= bookingDetails[i].departure_time %></td>
+                    <td><%= bookingDetails[i].arrival_date %></td>
+                    <td><%= bookingDetails[i].arrival_time %></td>
+                    </tr>
+                </table>
+                </div>
+                <div class="terms">
+                <p>Please present this e-ticket along with a valid government-issued ID at the airport check-in counter to receive your boarding pass.</p>
+                <p>This e-ticket is non-transferrable and cannot be resold. Any unauthorized use will result in the cancellation of this ticket and the refusal of travel.</p>
+                </div>
+            </div>
+            </div>
+        </section>
+    <%
+    i = i+1;
+    }
+    %>
+    <a href="/"><button class="btn btn-primary">Home</button></a>
+     
+<%- include ('partials/footer') %>
+
+
+

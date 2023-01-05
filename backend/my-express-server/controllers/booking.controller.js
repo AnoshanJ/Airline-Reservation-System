@@ -2,6 +2,7 @@
 
 
 const Booking = require('../models/booking.model');
+const Flight = require('../models/flight.model')
 
 const responseValues = {
     seatdetail: 0, 
@@ -32,65 +33,29 @@ exports.run = async (req,res, cookies) => {
 
           console.log("Flight_info",flightInfo[0]);
           console.log("Seat price",flightInfo[1]);
+          
+
         res.render("booking", {lst:arrlst ,flightInfo:flightInfo ,seat_info:seat_info, formData: req, docTitle: "BOOKING", data: responseValues, content: 0, userRole: cookies});
     }catch(err){
         res.send("500");
     }
 }
 
-/*
-exports.findbyid = (req,res, cookies) => {
+exports.createbooking = async (req,res)=>{
     try{
-        const flightInfo =  Booking.getflightinfo(req);
-        const seat_info =  Booking.getseats(req);
-        const bid = req.bid;
-        Booking.findbyid(bid,(err,result)=>{
-            if(err){
-                console.log("Model Error"+err);
-                res.send("500");
-            }else{
-                responseValues.seatdetail = result;
-                console.log(responseValues)
-                res.render("booking", { flightInfo:flightInfo ,seat_info:seat_info,formData: req, docTitle: "BOOKING", data: responseValues, content:1, userRole: cookies});
+        const formData = req;
+        var has = "HASSSS"
+        console.log("WHAT :::::::::::::::")
 
-            }
-        });
-    }catch(err){
-        console.log("Controller Error"+err);
-        res.send("500");
-    }
-
-}
-*/
-/*
-exports.findbycustomerid = (req,res, cookies) => {
-    try{
-        const cid = req.cid;
-        Booking.findbycustomerid(cid,(err,result)=>{
-            if(err){
-                console.log("Model Error"+err);
-                res.send("500");
-            }else{
-                
-                const flightInfo = Booking.getflightinfo(Flight_ID);
-                const seat_info = Booking.getseats(Flight_ID);
-                responseValues.customerseatdetail = result;
-                console.log(responseValues)
-                res.render("booking", {flightInfo:flightInfo ,seat_info:seat_info, formData: req, docTitle: "BOOKING", data: responseValues, content:2, userRole: cookies});
-            }
-        });
-    }catch(err){
-        console.log("Controller Error"+err);
-        res.send(500);
-    }
-}
-*/
-exports.createbooking = (req,res)=>{
-    try{
-        const booking_id = Booking.createbooking(req.body);
-        req.session.booking_id = booking_id.inserbooking;
-        res.render("booking", {lst:arrlst ,flightInfo:flightInfo ,seat_info:seat_info, formData: req, docTitle: "BOOKING", data: responseValues, content: 0, userRole: cookies});
-        alert("Seat Boooked!")
+        let book_id = await Booking.createbooking(req.body);
+        console.log("formData ::::::::::::::::::::::::::::::::::::: ",formData.body);
+        // console.log("booking_id : ",booking_id);
+        req.session.booking_id = book_id;
+        req.session.formData = formData.body;
+        console.log("booking_id : ",book_id);
+        // res.render("payment", { booking_id:booking_id,formData: formData.body, docTitle: "BOOKING", content: 0});
+        return res.redirect("/payment")
+        // alert("Seat Boooked!")
         
         // res.send("<p>createbooking Successfully!</p>" +
         // "<script>setTimeout(function () { window.location.href = '/booking'; }, 2000);</script>")
@@ -98,6 +63,35 @@ exports.createbooking = (req,res)=>{
     } catch (err){
         console.log(err)
         res.send(500);
+    }
+}
+
+exports.getpayment = async (req,res) => {
+    try{
+        const booking_status = await Booking.getpaymentstatus(req.session.booking_id);
+        if(booking_status.status ==='Paid'){
+            return res.status(405).render('405');
+        }
+        const prices = await Booking.getprice(req.session.booking_id);
+        if(typeof prices === 'undefined'){
+            return res.status(405).render('405');
+        }else{
+            console.log("getpayment session::::::::::::::::::::::::::: ",prices);
+            console.log('req.body #################################### ',req.session.formData);
+            console.log('req.body $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ',req.session.booking_id);
+            
+            res.render('payment',{
+                docTitle: "PAYMENT",
+                booking_id: req.session.booking_id,
+                bookingstatus: booking_status.status,
+                initprices: prices.seat_price,
+                finalprice : prices.final_price,
+                formData:req.session.formData
+            })
+        }
+    }catch(err){
+        console.log("ERROR ::::::: ",err);
+        return res.redirect('/booking/payment')
     }
 }
 
@@ -153,6 +147,49 @@ exports.getbooking = (req,res)=>{
     }
 }
 
+exports.paymentSuccess = async (req, res) => {
+    try {
+        await Booking.successbooking(req.session.booking_id);
+        const bookingDetails = await Booking.getbookingdetails(req.session.booking_id);
+        const flight_id=bookingDetails[0].flight_id;
+        const flight_details = await Booking.getflightinfo(flight_id);
+        console.log("==========================",bookingDetails[0]);
+        console.log("++++++++++++++++++++++++++",bookingDetails[1]);
+        
+        console.log("0000000000000000000",req.session.formData)
+        res.render('payment_successful', {
+            docTitle:"Eticket",
+            flight_details,
+            bookingDetails: bookingDetails,
+            formData:req.session.formData
+        });
+    } catch (error) {
+        console.log(error);
+        return res.redirect('/booking/payment');
+    }
+}
+
+/*
+static async deleteBooking(req, res) {
+    try {
+        await BookingService.cancelBooking(req.body.booking_id);
+        return res.status(200).send({ result: 'redirect', url: '/' });
+    } catch (error) {
+        console.log(error);
+        return res.status(200).send({ result: 'redirect', url: '/' });
+    }
+}*/
+
+exports.cancelbooking = async (req,res) => {
+    try{
+        await Booking.cancelbooking(req.session.booking_id);
+        res.redirect('/')
+    }catch{
+        console.log(error);
+        res.redirect('/')
+    }
+
+}
 
 
 

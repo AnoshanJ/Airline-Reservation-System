@@ -68,12 +68,22 @@ Booking.findbycustomerid = function(cid,result){
 //     })
 // }
 
+Booking.getpaymentstatus = async function(bookingid){
+    console.log("let see",bookingid)
+    let status = await pool.query("SELECT booking_status FROM Booking WHERE booking_id=$1",[bookingid]);
+    console.log("status :::::",status.rows[0])
+    return status.rows[0];
+}
 
+Booking.getprice = async function(bookingid){
+    let prices = await pool.query("SELECT seat_price,final_price FROM Booking WHERE booking_id=$1",[bookingid]);
+    return prices.rows[0];
+}
 
 Booking.createbooking = async function(newseat){
     let booking_id = await pool.query("SELECT insertbooking($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)",[newseat.Passport_no,newseat.Flight_ID,newseat.Passport_name,newseat.Passno,newseat.passDOB,newseat.seatNo,newseat.firstname,newseat.lastname,newseat.gender,newseat.dob,newseat.email,newseat.mobile,newseat.custtype]);
-    console.log("booking id = ",booking_id.rows[0])
-    return booking_id.rows[0];
+    console.log("booking id = ",booking_id.rows[0].insertbooking)
+    return booking_id.rows[0].insertbooking;
 }
 
 Booking.getseats = async function(Flight_ID){
@@ -88,6 +98,29 @@ Booking.getflightinfo = async function(Flight_ID){
     let priceinfo = await pool.query("SELECT Class_ID, price FROM Seat_Price WHERE Route_ID=$1",[flightinfo.rows[0].route_id]);
     console.log("Flight info = ",flightinfo.rows[0])
     return [flightinfo.rows[0],priceinfo.rows];        
+}
+
+
+// Booking.getbookingdetails = async function(booking_id){
+//     let query = await pool.query("SELECT booking_id,passport_no,flight_id,seat_ids,model_id,seat_price,discount,final_price,booking_status,booking_date FROM booking WHERE booking_id=$1",[booking_id]);
+//     console.log("Booking details : ",query.rows);
+//     return query.rows;
+// }
+Booking.getbookingdetails = async function(booking_id){
+    let query = await pool.query("SELECT passenger_seat.name,passenger_seat.passport_no,passenger_seat.seat_id,booking.flight_id,booking.booking_date,plane_type.model_name,plane_type.variant,Route.origin,Route.Destination,Flight_Schedule.departure_date,Flight_Schedule.departure_time,Flight_Schedule.arrival_date,Flight_Schedule.arrival_time FROM booking left join passenger_seat on booking.booking_id=Passenger_seat.booking_id LEFT JOIN plane_type ON plane_type.model_id=booking.model_id LEFT JOIN Flight_Schedule ON Flight_Schedule.flight_id=booking.flight_id LEFT JOIN Route ON FLight_Schedule.route_id=Route.route_id WHERE booking.booking_id=$1",[booking_id]);
+    console.log("Booking details : ",query.rows);
+    return query.rows;
+}
+
+
+
+
+Booking.successbooking = async function(booking_id){
+    let query = await pool.query("UPDATE Booking SET booking_status = 'Paid' WHERE booking_id=$1",[booking_id]);
+}
+
+Booking.cancelbooking = async function(booking_id){
+    let query = await pool.query("DELETE FROM Booking WHERE booking_id=$1 and booking_status = 'Not paid'",[booking_id]);
 }
 
 
