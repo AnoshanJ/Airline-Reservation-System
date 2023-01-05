@@ -87,13 +87,14 @@ Flight.getNextFlight= function(origin, destination, result){
     // console.log("Current Date: "+current_date);
     sql = "SELECT next_flight_view.booking_id, next_flight_view.passport_no,"+    
     "next_flight_view.flight_id, next_flight_view.seat_id, next_flight_view.booking_status,"+
-    "next_flight_view.booking_date, next_flight_view.age "+
+    "next_flight_view.booking_date, next_flight_view.age, next_flight_view.departure_date, next_flight_view.flight_status "+
     "FROM next_flight_view "+
     "WHERE next_flight_view.flight_id IN "+
     "(SELECT flight_schedule.flight_id FROM flight_schedule "+
     "LEFT JOIN route on flight_schedule.route_id=route.route_id "+
     "WHERE route.origin=$1 AND route.destination=$2 AND "+
-    "flight_schedule.departure_date > current_date LIMIT 1);"
+    "flight_schedule.departure_date > CURRENT_DATE LIMIT 1);"
+    // "flight_schedule.departure_date > '2020-05-01' LIMIT 1);"
     const queryParams = [origin,destination];
     pool.query(sql, queryParams, function(err,res){
     if(err){

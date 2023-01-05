@@ -73,10 +73,14 @@
         <form action="/report/pastFlight" method="POST">  
             <label for="name">Select Flight Route</label>
             <% if (data.route.length > 0) { %>
-                <select id="route" name="route2">
+                <select id="route" name="route2" value=<%=formData.route2%>>
                     <% for (let i = 0; i < data.route.length; i++) { %>
+                      <% if (data.route[i].origin + ' to ' + data.route[i].destination === data.pastFlight.route) { %>
+                        <option value="<%= data.route[i].origin %> to <%= data.route[i].destination %>" selected><%= data.route[i].origin %> to <%= data.route[i].destination %></option>    
+                    <% } else { %>
                         <option value="<%= data.route[i].origin %> to <%= data.route[i].destination %>"><%= data.route[i].origin %> to <%= data.route[i].destination %></option>    
                     <% } %>
+                <% } %>
                 </select>
                 <button type="submit">Get Details</button>
             <% } else { %> 
@@ -119,16 +123,31 @@
             <% if (data.route.length > 0) { %>
                 <select id="route" name="route">
                     <% for (let i = 0; i < data.route.length; i++) { %>
+                      <% if (data.route[i].origin + ' to ' + data.route[i].destination === data.nextFlight.route) { %>
+                        <option value="<%= data.route[i].origin %> to <%= data.route[i].destination %>" selected><%= data.route[i].origin %> to <%= data.route[i].destination %></option>    
+                    <% } else { %>
                         <option value="<%= data.route[i].origin %> to <%= data.route[i].destination %>"><%= data.route[i].origin %> to <%= data.route[i].destination %></option>    
                     <% } %>
+                <% } %>
+
                 </select>
                 <button type="submit">Get Count</button>
+
             <% } else { %> 
                 <h4>No Flights Available</h4>
             <% } %>
 
         </form>
+        
         <% if (data.nextFlight.length > 0) { %>
+          <div>
+            <h4>Flight Route: <%= data.nextFlight.route %> </h4>
+            <h4>Flight Number: <%= data.nextFlight[0].flight_id %></h4>
+            <h4>Departure Date: <%= data.nextFlight[0].departure_date %></h4>
+            <h4>Flight Status: <%= data.nextFlight[0].flight_status %></h4>
+            
+  
+    </div>
             <h3>Details of Under 18 Passengers</h3>
             <table>
                 <thead>

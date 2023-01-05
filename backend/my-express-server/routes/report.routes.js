@@ -18,7 +18,6 @@ const responseValues = {
 router.get('/report', checkRole('Manager'),function(req, res) {
     try {
         const formData = req.body;
-        // flightController.getPlaneModelRevenue(formData, res);
         flightController.getDetails(formData, res, req.cookies.userRole);
   
     } catch (err) {
