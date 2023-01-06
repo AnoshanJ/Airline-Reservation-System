@@ -3,7 +3,8 @@ html {
   /*background-color: #60593e;*/
   min-height: 1000px;
   font-family: 'Open Sans', sans-serif;
-  background: linear-gradient(-45deg, #eea34e, #f68f53, #f5782f, #000000);
+  background: linear-gradient(-45deg, #eea34e, #f68f53, #f5782f, #925612);
+  background-blend-mode: overlay;
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   height: 100vh;
@@ -357,7 +358,23 @@ footer .copyright {
 .showcase li small{
   margin-left: 10px
 }
+main {
+  display: flex;
+  justify-content: space-between;
+  margin: 1em;
+}
 
+.passenger-info,
+.flight-info {
+  width: 45%;
+}
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333333;
+  margin: 0 0 1em 0;
+  font-family: Arial, sans-serif;
+}
 p.text{
   margin: 5px 0;
 }

@@ -34,7 +34,7 @@ const Flight = require("../models/flight.model.js");
       });
 
       res.render("report", {
-        formData: req,
+        formData: 0,
         docTitle: "REPORTS",
         data: responseValues,
         userRole: cookies
@@ -106,6 +106,7 @@ const Flight = require("../models/flight.model.js");
           res.send("500");
         } else {
           responseValues.nextFlight = result;
+          responseValues.nextFlight.route = route;
           res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues, userRole: cookies});
 
         }
@@ -128,6 +129,7 @@ const Flight = require("../models/flight.model.js");
           res.send("500");
         } else {
           responseValues.pastFlight = result;
+          responseValues.pastFlight.route = route;
           res.render("report", { formData: req, docTitle: "REPORTS", data: responseValues, userRole: cookies});
 
         }
