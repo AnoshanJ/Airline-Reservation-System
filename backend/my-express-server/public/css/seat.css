@@ -55,6 +55,9 @@ h4 {
 .seat-label {
   display: block;
   height: 100%;
+  width: 130%;
+  bottom: 50%;
+  right: 80%;
   font-size: 0;
   position: relative;
 }
@@ -84,7 +87,6 @@ h4 {
   bottom: 0;
   left: 0;
   background-color: gray;
-  box-shadow: 0px 3px 0 0 #002e7d;
   transform: translateZ(12px) scale(1.05);
   transition: transform 0.24s ease, background-color 0.24s ease;
 }

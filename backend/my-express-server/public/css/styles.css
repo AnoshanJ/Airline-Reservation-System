@@ -285,6 +285,7 @@ footer .copyright {
 /* TJ */
 .book{
   display: flex;
+  background-color: rgba(141, 132, 132, 0.381);
   flex-direction: column;
   font-family: 'Lato', 'sans-serif';
 } 

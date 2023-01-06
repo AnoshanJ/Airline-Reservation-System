@@ -1,46 +1,72 @@
 <%- include("partials/header") -%>
 <%- include("partials/nav_bar") -%>
-<!-- 
-    <div>
-        <form action="/booking/geatseat_bookid" method="post">
-            <label>Booking ID</label>
-            <input type="text" name="bid" id="bid" required value=<%=formData.bid%>>
-            <button type="submit">Find booked seat</button>
-            <% if (content = 1 && data.seatdetail.length>0) { %>
-                <h3>Booked Details</h3>
-                <h4>Passport number : <%=data.seatdetail[0].passport_no%></h4>
-                <h4>Flight ID : <%=data.seatdetail[0].flight_id%></h4>
-                <h4>Seat ID : <%=data.seatdetail[0].seat_id%></h4>
-                <h4>Ticket Price: <%data.seatdetail[0].final_price%></h4>
-                <h4>Booking status : <%=data.seatdetail[0].booking_status%></h4>
-                <h4>Booked date : <%=data.seatdetail[0].booking_date%></h4>
-            <% } %>             
-        </form>
-    </div>
-    <div>
-        <form action="/booking/getseat_customid" method="post">
-            <label>Passport No</label>
-            <input type="text" name="cid" id="cid" required value=<%=formData.cid%>>
-            <button type="submit">Find booked seat</button>
-            <% if (content = 2 && data.customerseatdetail.length>0) { %>
-                <h3>Booked Details</h3>
-                <h4>Passport number : <%=data.customerseatdetail[0].passport_no%></h4>
-                <h4>Flight ID : <%=data.customerseatdetail[0].flight_id%></h4>
-                <h4>Seat ID : <%=data.customerseatdetail[0].seat_id%></h4>
-                <h4>Ticket Price: <%data.customerseatdetail[0].final_price%></h4>
-                <h4>Booking status : <%=data.customerseatdetail[0].booking_status%></h4>
-                <h4>Booked date : <%=data.customerseatdetail[0].booking_date%></h4>
-            <% } %>             
-        </form>
-    </div> -->
+
+<style>
+.fl-det{
+    display: flex;
+    background-color: rgba(255, 255, 252, 0.105);
+    justify-content: center;
+    box-shadow: 2px 5px 0 0 #002e7d;
+}
+.fl-det .len{
+    margin: 20px;
+}
+</style>
 
 <div class="book">
     <h2>General information</h2>
-    <form action="/booking/createbooking" method="post">        
-        <div>
+    <form action="/booking/createbooking" method="post">   
 
-            <h3>Flight_ID : <%=formData%></h3>
+    <%if(userdetail.userRole == 'user'){%>
+     
+            
             <input name="Flight_ID" id="Flight_ID" value="<%=formData%>" hidden/>
+            <div class="fl-det">
+                <h3 class="len">Flight_ID : <%=formData%></h3>
+                <h3 class="len">Origin :<%=flightInfo[0].origin%></h3>
+                <h3 class="len">Destination: <%=flightInfo[0].destination%></h3>
+            </div>
+                
+        
+        <div >
+            <label for="firstname">First Name</label>
+                <input type="text" placeholder="First Name" name="firstname" id="firstname" value="<%=userdetail.user.first_name%>" required style="display: block"/>
+
+            <label for="lastname">Last Name</label>
+                <input type="text" placeholder="Last Name" name="lastname" id="lastname" value="<%=userdetail.user.last_name%>" required style="display: block"/>
+            
+            <label>Date of birth</label>
+                <input type="datetime" name="dob" id="dob" value="<%=userdetail.user.dob%>" disabled style="display: block"/>
+            <br>
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender">
+                <option value="<%=userdetail.user.gender%>"><%=userdetail.user.gender%></option>
+            </select> 
+        </div>
+        <div>
+            <label for="Passport_no">Passport Number</label>
+                <input type="text" name="Passport_no" id="Passport_no" value="<%=userdetail.user.passport_no%>" required style="display: block"/>
+        
+            <label for="mobile">Mobile Number</label>
+                <input type="tel" name="mobile" id="mobile" value="<%=userdetail.user.mobile%>" disabled style="display: block"/>
+
+            <label for="email">Email</label>
+                <input type="email" name="email" id="email" value="<%=userdetail.user.email%>" disabled style="display: block"/>
+            
+            <label for="custtype">Customer Type</label>
+                <select name="custtype" id="custtype">
+                    <option value="registered">Registered</option>
+                </select> 
+        </div>
+    </div>
+    <%}
+    else{%>
+            
+        <input name="Flight_ID" id="Flight_ID" value="<%=formData%>" hidden/>
+        <div class="fl-det">
+            <h3 class="len">Flight_ID : <%=formData%></h3>
+            <h3 class="len">Origin :<%=flightInfo[0].origin%></h3>
+            <h3 class="len">Destination: <%=flightInfo[0].destination%></h3>
         </div>
         <div>
             <label for="firstname">First Name</label>
@@ -51,7 +77,7 @@
             
             <label>Date of birth</label>
                 <input type="date" name="dob" id="dob" required style="display: block"/>
-
+            <br>
             <label for="gender">Gender</label>
             <select name="gender" id="gender">
                 <option selected disabled>--Choose one--</option>
@@ -72,12 +98,11 @@
             
             <label for="custtype">Customer Type</label>
                 <select name="custtype" id="custtype">
-                    <option selected disabled>--Choose one--</option>
                     <option value="guest">Guest</option>
-                    <option value="registered">Registered</option>
                 </select> 
         </div>
-        <!-- <div>
+    <%}%>
+        <div>
             <label for="passengers">No. of Passengers (Max: 4)</label>
             <select for="passengers" class="select-bar" id="passengers" required>
                 <option value="Select" selected disabled>- Select -</option>
@@ -86,23 +111,58 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
             </select>
-        </div> -->
-        <div>
-                <label for="Passport_name">Name in Passport</label>
-                <input type="list" name="Passport_name" id="Passport_name" required style="display: block"/>
-                <label for="Passno">Passport No</label>
-                <input type="list" name="Passno" id="Passno" required style="display: block"/>
-                <label for="passDOB" >DOB in Passport</label>
-                <input type="list" name="passDOB" id="passDOB" required style="display: block"/>
+            <script type="text/javascript">
+            function GetDetail() {
+                var arrname = new Array();
+                var arrpassno = new Array();
+                var arrdob = new Array();
+                
+                var fname = document.getElementById("firstname");
+                var lname = document.getElementById("lastname");
+                var pass_no = document.getElementById("Passport_no");
+                var passdob = document.getElementById("dob");
+                var passcount = document.getElementById("passengers");
+                var confirmation = "Detail Confirmed!";
+                
+                for(var i=0; i < passcount.value;i++ ){
+                    arrname.push('"'+fname.value+' '+lname.value+'"');
+                    arrpassno.push('"'+pass_no.value+'"');
+                    arrdob.push('"'+passdob.value+'"');
+                }
+                if (arrname.length > 0) {
+                    var lst1 = arrname.join(",");
+                    var lst2 = arrpassno.join(",");
+                    var lst3 = arrdob.join(",");
+                    document.getElementById("confirm").value = confirmation;                    
+                }
+                document.getElementById("Passport_name").value = '{'+lst1+'}';
+                document.getElementById("Passno").value = '{'+lst2+'}';
+                document.getElementById("passDOB").value = '{'+lst3+'}';
+
+            };
+           </script>
+        
+        
         </div>
-        
-        
+
+
+        <div>   
+                <input style="background-color: rgba(0, 0, 0, 0.114);" type="button" value="Confirm Details" onclick = "GetDetail()" required style="display: block"/>
+                <input type="list" name="Passport_name" id="Passport_name" value="Confirm" onclick = "GetDetail()" hidden/>
+                <input type="list" name="Passno" id="Passno"  value="Confirm" onclick = "GetDetail()" hidden/>
+                <input type="list" name="passDOB" id="passDOB"  value="Confirm" onclick = "GetDetail()"hidden/>
+                <input style="background-color: rgba(0, 0, 0, 0.114);"  id="confirm" value="" onclick = "GetDetail()"/>
+        </div>
+
+    
 
 
 
         <%- include('seat') %>
         <label for="seatNo">Seat IDs</label>
-        <input name="seatNo" id="seatNo" type ="list" value="GetSelected()" onclick = "GetSelected()" required/>
+        <input style="background-color: rgba(0, 0, 0, 0.114);" type="button" value="Confirm" onclick = "GetSelected()" required style="display: block"/>
+        <input  name="seatNo" id="seatNo" type ="list" value="Confirm Seats" onclick = "GetSelected()" hidden/>
+        <input type="text" style="background-color: rgba(0, 0, 0, 0.114);" id="sure" value="" onclick = "GetSelected()"/>
         <script type="text/javascript">
             function GetSelected() {
                 //Create an Array.
@@ -126,6 +186,7 @@
                     var lst = selected.join(",");
                 }
                 document.getElementById("seatNo").value = '{'+lst+'}';
+                document.getElementById("sure").value = 'Selected seat : '+selected;
             };
         </script>
             <button type="submit">Submit</button>

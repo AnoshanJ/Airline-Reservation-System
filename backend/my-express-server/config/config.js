@@ -1,7 +1,7 @@
 const config = {
     db : {
     host : "localhost",
-    user : "admin",
+    user : "postgres",
     password : "1234",
     database: "airline_res",
     port: 5432},
