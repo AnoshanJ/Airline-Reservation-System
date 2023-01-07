@@ -18,13 +18,26 @@ exports.getUserByEmail = (req, res) => {
   // Check if email and password match those of a registered user
   RegisteredUser.getUserByEmail(email, (err, data) => {
     if (err) {
-      res.status(500).send({ message: "Error retrieving user" });
-      return;
+    // Add this code to display a popup message and redirect to the login page
+    res.status(200).send(`
+      <script>
+        alert('Error retrieving user');
+        window.location.href = '/login';
+      </script>
+    `);
+    return;
     }
 
     if (data.length === 0) {
-      res.status(404).send({ message: "User not found" });
-      return;
+    // Add this code to display a popup message and redirect to the login page
+    res.status(200).send(`
+      <script>
+        alert('Invalid email or password!');
+        window.location.href = '/login';
+        
+      </script>
+    `);
+    return;
     }
     // Check if password matches
       bcrypt.compare(password, data[0].password, function (err, result) {
@@ -39,30 +52,17 @@ exports.getUserByEmail = (req, res) => {
         console.log("User Cookies " + req.cookies.userRole);
         
         res.redirect("/userDashboard");
-
-        //res.render("userDashboard", { formData: req, docTitle: "Details of the user",title:"User Dashboard", sampleData : result,action:'list',});
-
-        //   const email = req.body.email;
-    
-        //   userDashboard.getUserDetails(email,(err, result) => {
-        //   if (err) {
-        //     console.log("Model Error"+err);
-        //     res.send("2500");
-        //   } else {
-        //     //responseValues.revenue = result;
-        //     console.log("User Cookies " + req.cookies);
-        //     res.redirect("/userDashboard");
-        //     // res.render("userDashboard", { formData: req, docTitle: "",title:"User Dashboard", sampleData : result,action:'list',});
-        //     // console.log("userDashboard controller")
-        //   }
-        // });  
-        
+       
         return;
         }
         else {        
-          req.flash('error', 'Incorrect password');
-          res.redirect('/login');
-          return;
+          res.status(200).send(`
+          <script>
+            alert('Invalid password!');
+            window.location.href = '/login';
+            
+          </script>
+        `);
         }
 
     });
@@ -83,13 +83,24 @@ exports.getStaffByEmail = (req, res) => {
   // Check if email and password match those of a registered user
   Staff.getStaffByEmail(email, (err, data) => {
     if (err) {
-      res.status(500).send({ message: "Error retrieving user" });
-      return;
+      res.status(200).send(`
+      <script>
+        alert('Error retrieving user');
+        window.location.href = '/login';
+      </script>
+    `);
+    return;
     }
 
     if (data.length === 0) {
-      res.status(404).send({ message: "User not found" });
-      return;
+      res.status(200).send(`
+      <script>
+        alert('Invalid email or password!');
+        window.location.href = '/login';
+        
+      </script>
+    `);
+    return;
     }
     // Check if password matches
       bcrypt.compare(password, data[0].password, function (err, result) {
@@ -117,9 +128,13 @@ exports.getStaffByEmail = (req, res) => {
         return;
         }
         else {        
-          req.flash('error', 'Incorrect password');
-          res.redirect('/staff_login');
-          return;
+          res.status(200).send(`
+          <script>
+            alert('Invalid password!');
+            window.location.href = '/staff_login';
+            
+          </script>
+        `);
         }
 
     });
