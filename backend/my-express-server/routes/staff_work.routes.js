@@ -45,7 +45,18 @@ router.post('/staff_work/addnewaircraftinstance',function(req,res){
         console.log(err);
         res.send("500");
     }
-})
+});
+
+// Update Flight status
+router.post('/staff_work/updateflightstatus',function(req,res){
+    try{
+        const formData = req;
+        staff_workController.updateflightstatus(formData,res);
+    }catch(err){
+        console.log(err);
+        res.send("500");
+    }
+});
 
 
 module.exports = router;

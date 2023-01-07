@@ -1,7 +1,7 @@
 const pool = require("./db.js");
 
 var Staff_work = function(staffflightwork){
-
+    this.flight = staffflightwork.flight_id;
     this.model_name = staffflightwork.model_name;
     this.Model_ID = staffflightwork.Model_ID;
     this.variant = staffflightwork.variant;
@@ -45,8 +45,18 @@ Staff_work.addnewplanetype = function (newplanetype,result) {
     });
 };
 
-
-
+Staff_work.updateflightstatus = function(flight,result){
+    console.log("MODEL : ", flight)
+    pool.query(" UPDATE flight_schedule SET flight_status = $1 WHERE flight_id = $2 ",[flight.flight[1],flight.flight[0]],function(err,res){
+        if(err){
+            console.log("error: ",err);
+            return result(err,null);
+        }else{
+            console.log(res.rows);
+            return result(null,res.rows);
+        }
+    });
+}
 
 Staff_work.addnewaircraftinstance = function(newaircraft,result){
     pool.query("INSERT INTO aircraft_instance VALUES ($1,$2,$3,$4,$5,$6)" ,[newaircraft.Aircraft_ID,newaircraft.Model_ID,newaircraft.Airline_Name,newaircraft.Aircraft_Status,newaircraft.Maintenance_Date,newaircraft.Purchase_Date],function(err,res){

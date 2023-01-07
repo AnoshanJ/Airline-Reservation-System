@@ -1,6 +1,15 @@
 <%- include ('partials/header') %>
 <%- include ('partials/nav_bar') %>
-<h1 class="HeadTitle ">Manager Dashboard</h1>
+<%if(sampleData.category == 'Manager'){
+    %>
+        <h1 class="HeadTitle ">Manager Dashboard</h1>
+    <%}
+    else if(sampleData.category == 'General'){%>
+        <h1 class="HeadTitle ">Staff Dashboard</h1>
+        <%}
+    else {%>
+        <h1 class="HeadTitle ">Pilot Dashboard</h1>
+    <%}%>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
@@ -79,8 +88,10 @@
                                         <a><%= sampleData.email %></a><br/>
                                      
                                     <section class ="Links">
-                                        <a href="/staff_work">Flight management</a><br/>
-                                        <a href="/report">Reports</a><br/>
+                                        <%if (sampleData.category != 'Pilot'){%>
+                                            <a href="/staff_work">Flight management</a><br/>
+                                            <a href="/report">Reports</a><br/>
+                                        <%}%>
                                         <a href="/">Home</a><br/>
                                     </section>
                                     </section>
@@ -202,7 +213,7 @@
     </tr>
     <% } %>      
 </div>
-
+<%if (sampleData.category == 'Manager'){%>
 <div>
     <form action="/managerdashboard/addstaff" method="post">
         <h3>Add New Staff</h3>
@@ -294,5 +305,5 @@
         </div>
     </form>
 </div>
-
+<%}%>
 <%- include ('partials/footer') %>

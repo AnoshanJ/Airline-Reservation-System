@@ -21,9 +21,11 @@ exports.run = (req,res, cookies) => {
                 departure_time  :null,
                 arrival_date    :null,
                 arrival_time    :null,
-                Duration        :null,
+                duration        :{ hours :null,
+                                   mins  :null},
                 Origin          :null,
-                Destination     :null
+                Destination     :null,
+                flight_status   :null
             }
         ];
         responseValues.planetype = null;
@@ -79,6 +81,32 @@ exports.addnewplanetype = (req,res, cookies) => {
     }catch(err){
         console.log("Controller Error : "+err);
         res.send("500"); 
+    }
+};
+
+exports.updateflightstatus = (req,res, cookies)=>{
+    try{
+        const flight = new Staff_work(req.body);
+        console.log("Controller : ", flight)
+        //handlle null error
+        if(flight.flight_id ===null || flight.flight_status === null){
+            res.status(400).send({ error:true, message: 'Please provide all required field'});
+        }
+        else{
+            Staff_work.updateflightstatus(flight,function(err,flstate){
+                if(err){
+                    res.send("<p>Error in Update State!</p>" +
+                    "<script>setTimeout(function () { window.location.href = '/staff_work'; }, 2000);</script>");
+                }
+                else{
+                    res.send("<p>Flight Status Updated successfully!</p>" +
+                    "<script>setTimeout(function () { window.location.href = '/staff_work'; }, 2000);</script>");
+                }
+            });
+        }
+    }catch(err){
+        console.log("Controller Error : "+err);
+        res.send("500");
     }
 };
 
