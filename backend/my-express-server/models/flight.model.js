@@ -86,7 +86,7 @@ Flight.getNextFlight= function(origin, destination, result){
     // current_date = current_date.toISOString().slice(0,10);
     // console.log("Current Date: "+current_date);
     sql = "SELECT next_flight_view.booking_id, next_flight_view.passport_no,"+    
-    "next_flight_view.flight_id, next_flight_view.seat_id, next_flight_view.booking_status,"+
+    "next_flight_view.flight_id, next_flight_view.seat_ids, next_flight_view.booking_status,"+
     "next_flight_view.booking_date, next_flight_view.age, next_flight_view.departure_date, next_flight_view.flight_status "+
     "FROM next_flight_view "+
     "WHERE next_flight_view.flight_id IN "+

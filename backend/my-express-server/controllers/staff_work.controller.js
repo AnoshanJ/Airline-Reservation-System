@@ -28,7 +28,7 @@ exports.run = (req,res, cookies) => {
         ];
         responseValues.planetype = null;
         console.log(responseValues.arrivalflights);
-        res.render("staff_work",{ formData: req, message:null, docTitle: "STAFF_FLIGHT_WORK", data: responseValues, content:0, userRole: cookies});
+        res.render("staff_work",{ formData: req, message:null, docTitle: "FLIGHT MANAGEMENT", data: responseValues, content:0, userRole: cookies});
     }catch(err){
         res.send("500");
     }
@@ -44,7 +44,7 @@ exports.getbystateFlights = (req,res, cookies) => {
             }else{
                 responseValues.arrivalflights = result;
                 console.log(responseValues.arrivalflights[0]);
-                res.render("staff_work", { formData: req, message:null,docTitle: "STAFF_FLIGHT_WORK", data: responseValues, content:1, userRole: cookies});
+                res.render("staff_work", { formData: req, message:null,docTitle: "FLIGHT MANAGEMENT", data: responseValues, content:1, userRole: cookies});
             }
         });
     }catch(err){
