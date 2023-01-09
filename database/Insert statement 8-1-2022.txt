@@ -1,8 +1,21 @@
-/*AIRLINE TABLE*/
+/*
+  ___  _  _  ___  ___  ___  _____   ___  _____  _  _____  ___  __  __  ___  _  _  _____  ___ 
+ |_ _|| \| |/ __|| __|| _ \|_   _| / __||_   _|/_\|_   _|| __||  \/  || __|| \| ||_   _|/ __|
+  | | | .` |\__ \| _| |   /  | |   \__ \  | | / _ \ | |  | _| | |\/| || _| | .` |  | |  \__ \
+ |___||_|\_||___/|___||_|_\  |_|   |___/  |_|/_/ \_\|_|  |___||_|  |_||___||_|\_|  |_|  |___/
+                                                                                                                                                                                     
+*/
+
+
+
+-----------------------AIRLINE TABLE-----------------------
+
 
 INSERT INTO Airline VALUES ('B Airways','+6223467897','contact@bairways.com','160/132 B Jl Rahmadsyah ,Sumatera Utara', 'Indonesia');
 
-/* AIRPORT TABLE*/
+
+-----------------------AIRPORT TABLE-----------------------
+
 
 INSERT INTO Airport (Code, Country, City, States) VALUES('HRI', 'Sri Lanka', 'Hambantota','Southern Province');
 INSERT INTO Airport (Code, Country, City, States) VALUES('BIA', 'Sri Lanka', 'Katunayaka','Western Province');
@@ -15,31 +28,45 @@ INSERT INTO Airport (Code, Country, City, States) VALUES('BKK', 'Thailand', 'Ban
 INSERT INTO  Airport (Code, Country, City, States) VALUES('DMK', 'Thailand', 'Bangkok', 'Central Thailand');
 INSERT INTO  Airport (Code, Country, City, States) VALUES('SIN', 'Singapore', 'Changi', 'East Region');
 
-/*USER CATEGORY*/
+
+-----------------------USER CATEGORY-----------------------
+
 
 INSERT INTO User_Category(User_Type,Minimum_Bookings,Discount) VALUES ('General',0,0);
 INSERT INTO User_Category(User_Type,Minimum_Bookings,Discount)VALUES ('Frequent',5,5);
 INSERT INTO User_Category(User_Type,Minimum_Bookings,Discount) VALUES ('Gold',10,9);
 
-/*TRAVELLER CLASS*/
+
+-----------------------TRAVELLER CLASS-----------------------
+
 
 INSERT INTO Traveller_Class(class_name) VALUES ('Platinum');
 INSERT INTO Traveller_Class(class_name) VALUES ('Business');
 INSERT INTO Traveller_Class(class_name) VALUES ( 'Economy');
 
-/*PLANE TYPE*/
+
+-----------------------PLANE TYPE-----------------------
+
 
 INSERT INTO Plane_Type( Model_Name, variant, Manufacturer,Economy_Seat_Capacity, Business_Seat_Capacity,Platinum_Seat_Capacity,E_seats_per_row,B_seats_per_row, P_seats_per_row, max_load, fuel_capacity) VALUES ('Boeing 737','MAX 10','Boeing Commercial',150,24,12,6,4,4,88300,25941);
 INSERT INTO Plane_Type( Model_Name, variant, Manufacturer,Economy_Seat_Capacity, Business_Seat_Capacity,Platinum_Seat_Capacity,E_seats_per_row,B_seats_per_row, P_seats_per_row, max_load, fuel_capacity) VALUES ('Boeing 757','300','Boeing Commercial',198,32,12,6,4,4,123830,43400);
 INSERT INTO Plane_Type( Model_Name, variant, Manufacturer,Economy_Seat_Capacity, Business_Seat_Capacity,Platinum_Seat_Capacity,E_seats_per_row,B_seats_per_row, P_seats_per_row, max_load, fuel_capacity) VALUES ('Airbus A380','800','Airbus',500,48,20,10,6,4,575000,323546);
 
-/*AIRCRAFT INSTANCE*/
+
+-----------------------AIRCRAFT INSTANCE-----------------------
+
 
 INSERT INTO aircraft_instance  VALUES ('A001',1,'B Airways','On-Ground','2023-06-15','2022-06-15');
 INSERT INTO aircraft_instance  VALUES ('A002',2,'B Airways','On-Ground','2023-03-10','2020-03-10');
 INSERT INTO aircraft_instance  VALUES ('A003',3,'B Airways','On-Ground','2023-04-25','2021-04-25');
+INSERT INTO aircraft_instance  VALUES ('A004',1,'B Airways','On-Ground','2023-02-24','2020-05-16');
+INSERT INTO aircraft_instance  VALUES ('A005',1,'B Airways','On-Ground','2023-08-21','2021-07-22');
+INSERT INTO aircraft_instance  VALUES ('A006',2,'B Airways','On-Ground','2023-05-02','2021-01-02');
+INSERT INTO aircraft_instance  VALUES ('A007',3,'B Airways','On-Ground','2023-02-12','2020-04-09');
+INSERT INTO aircraft_instance  VALUES ('A008',1,'B Airways','On-Ground','2023-12-23','2021-12-31');
 
-/* ROUTE */
+
+----------------------- ROUTE-----------------------
 
 
 INSERT INTO Route(route_id,origin, destination, duration) VALUES ('B001','BIA', 'BKK', '03:20');
@@ -107,7 +134,8 @@ INSERT INTO Route(route_id,origin, destination, duration) VALUES ('B062','DMK', 
 INSERT INTO Route(route_id,origin, destination, duration) VALUES ('B063','DMK', 'MAA', '03:25');
 INSERT INTO Route(route_id,origin, destination, duration) VALUES ('B064','DMK', 'SIN', '02:20');
 
-/* CUSTOMER TABLE*/
+
+------------------------CUSTOMER TABLE------------------------
 
 
 INSERT INTO Customer(Passport_no, Customer_Type) VALUES('C00002345', 'registered') ;
@@ -116,54 +144,135 @@ INSERT INTO Customer(Passport_no, Customer_Type) VALUES('E00016545', 'registered
 INSERT INTO Customer(Passport_no, Customer_Type) VALUES('J90005678', 'registered') ;
 INSERT INTO Customer(Passport_no, Customer_Type) VALUES('G56789088', 'guest') ;
 INSERT INTO Customer(Passport_no, Customer_Type) VALUES('B00987897', 'guest') ;
+INSERT INTO Customer(Passport_no, Customer_Type) VALUES('E50045673', 'registered') ;
+INSERT INTO Customer(Passport_no, Customer_Type) VALUES('R10003456', 'registered') ;
+INSERT INTO Customer(Passport_no, Customer_Type) VALUES('D00004536', 'registered') ;
+INSERT INTO Customer(Passport_no, Customer_Type) VALUES('A09345262', 'guest') ;
+INSERT INTO Customer(Passport_no, Customer_Type) VALUES('C00986543', 'guest') ;
+INSERT INTO Customer(Passport_no, Customer_Type) VALUES('D34509850', 'guest') ;
 
 
+------------------------REGISTERED CUSTOMER ACCOUNT------------------------
 
-/*REGISTERED CUSTOMER ACCOUNT*/
 
 INSERT INTO Registered_Customer_Account( Password, First_Name, Last_Name, Gender, DOB, Email, Mobile, User_Type, Address, Country, Passport_no, No_of_Bookings, Joined) VALUES ('jzO77wvelMYbRx', 'Emily','Tina' ,'Female', '1989-12-12', 'emily123@gmail.com', '(555) 555-1234', 'General', '148, Hilltop Ave.Far Rockaway, New York' , 'USA' , 'C00002345' , 2 ,'2022-12-24 10:10:53');
 INSERT INTO Registered_Customer_Account( Password, First_Name, Last_Name, Gender, DOB, Email, Mobile, User_Type, Address, Country, Passport_no, No_of_Bookings, Joined) VALUES ( 'iBX3A8p59DBRB', 'Adam','Peter' ,'Male', '1976-02-18', 'adammnb@yahoo.com', '(78) 555-1234', 'Frequent', '56B, Victoria Street, Melbourne' , 'Australia' , 'U0048902' , 6 ,'2022-12-24 11:12:34');
 INSERT INTO Registered_Customer_Account( Password, First_Name, Last_Name, Gender, DOB, Email, Mobile, User_Type, Address, Country, Passport_no, No_of_Bookings, Joined) VALUES ( 'TkVB6JAM684S', 'Chris','Evans', 'Male', '1999-02-22', 'chrisnew@gmail.com', '(202) 588-6500', 'Gold', '148, 45A, Cobblestone Ave.Deland, FL' , 'USA' , 'E00016545' , 12 ,'2022-12-25 08:40:43');
-INSERT INTO Registered_Customer_Account( Password, First_Name, Last_Name, Gender, DOB, Email, Mobile, User_Type, Address, Country, Passport_no, No_of_Bookings, Joined) VALUES ( '2jHO4KTQQfTnVQyt', 'David', 'Warner', 'Male',  '1976-11-08', 'warn30@gmail.com', '(345) 789-6788', 'General', '234, Victoria Street, Sydney' , 'Australia' , 'J90005678' , 3 ,'2022-12-25 09:12:21');
+INSERT INTO Registered_Customer_Account( Password, First_Name, Last_Name, Gender, DOB, Email, Mobile, User_Type, Address, Country, Passport_no, No_of_Bookings, Joined) VALUES ( 'Yhgrt56l@der', 'David', 'Warner', 'Male',  '1976-11-08', 'warn30@gmail.com', '(345) 789-6788', 'General', '234, Victoria Street, Sydney' , 'Australia' , 'J90005678' , 3 ,'2022-12-25 09:12:21');
+INSERT INTO Registered_Customer_Account( Password, First_Name, Last_Name, Gender, DOB, Email, Mobile, User_Type, Address, Country, Passport_no, No_of_Bookings, Joined) VALUES ( '2jHO4KTQQfTnVQt', 'Emma', 'Watson', 'Female',  '2005-12-03', 'emma@yahoo.com', '(234) 234-4532', 'General', '342, Cherry Court, SOUTHAMPTON' , 'UK' , 'E50045673' , 1 ,'2023-01-01 03:15:09');
+INSERT INTO Registered_Customer_Account( Password, First_Name, Last_Name, Gender, DOB, Email, Mobile, User_Type, Address, Country, Passport_no, No_of_Bookings, Joined) VALUES ( 'adFTG54@3JH', 'Albert', 'Einstein', 'Male',  '2006-10-12', 'albeins@gmail.com', '(345) 986-4567', 'General', '813, Howard Street , Chicago' , 'USA' , 'R10003456' , 2 ,'2023-01-02 15:43:11');
+INSERT INTO Registered_Customer_Account( Password, First_Name, Last_Name, Gender, DOB, Email, Mobile, User_Type, Address, Country, Passport_no, No_of_Bookings, Joined) VALUES ( '9GHJ*HJSBad', 'Sheldon', 'George', 'Male',  '2006-02-18', 'sheldon18@gmail.com', '(234) 134-8964', 'General', '45, Shirley Street , Canberra' , 'Australia' , 'D00004536' , 1 ,'2023-01-03 02:34:51');
 
 
-/*GUEST CUSTOMER ACCOUNT*/
+------------------------GUEST CUSTOMER ACCOUNT------------------------
+
 
 INSERT INTO Guest_Customer_Account( First_Name, Last_Name, Gender, DOB, Passport_no, Email, Mobile) VALUES ('Ram', 'Kumar', 'Male', '1978-05-09', 'G56789088', 'ram_new@gmail.com', '(555) 555-1234');
 INSERT INTO Guest_Customer_Account( First_Name, Last_Name, Gender, DOB, Passport_no, Email, Mobile) VALUES ('Millie', 'Brown', 'Female', '2000-09-05','B00987897', 'mill@yahoo.com', '(456) 675-7854');
+INSERT INTO Guest_Customer_Account( First_Name, Last_Name, Gender, DOB, Passport_no, Email, Mobile) VALUES ('Olivia', 'Rodrigo', 'Female', '2006-02-12','A09345262', 'olive12@yahoo.com', '(324) 234-7778');
+INSERT INTO Guest_Customer_Account( First_Name, Last_Name, Gender, DOB, Passport_no, Email, Mobile) VALUES ('Jenna', 'Ortega', 'Female', '2005-12-31','C00986543', 'jennort@yahoo.com', '(432) 675-5412');
+INSERT INTO Guest_Customer_Account( First_Name, Last_Name, Gender, DOB, Passport_no, Email, Mobile) VALUES ('Shawn', 'Mendes', 'Male', '1998-11-05','D34509850', 'shawn_men@gmail.com', '(543) 342-1235');
 
 
-/* STAFF */
 
-INSERT INTO Staff(Category,Password,First_Name,Last_Name,Contact,Email,DOB,Gender,Assigned_Airport,Country) values ('Admin','akZswHrbIA8dzCg','Joseph','Andrew','(456) 675-7854','andrew@bairways.com','1968-6-17','Male','CGK','USA');
+
+
+------------------------STAFF------------------------
+
+
+INSERT INTO Staff(Category,Password,First_Name,Last_Name,Contact,Email,DOB,Gender,Assigned_Airport,Country) values ('Admin','$2b$10$wmlK/FgCEsoX8m3cf.z/ruRIVXFZh8wo6TjqRvlaV9RJkUJ0lkgYG','Joseph','Andrew','(456) 675-7854','andrew@bairways.com','1968-6-17','Male','CGK','USA');
 INSERT INTO Staff(Category,Password,First_Name,Last_Name,Contact,Email,DOB,Gender,Assigned_Airport,Country) values ('Manager','OxtfsvI1TCSOtc1','Kumar','Swami','(852) 675-7854','swami@bairways.com','1972-1-27','Male','CGK','India');
 INSERT INTO Staff(Category,Password,First_Name,Last_Name,Contact,Email,DOB,Gender,Assigned_Airport,Country) values ('General','J42YgQyfMmlgQlH','Gavin','Anotio','(123) 675-7854','antonio@bairways.com','1980-7-29','Male','DMK','Thailand');
 INSERT INTO Staff(Category,Password,First_Name,Last_Name,Contact,Email,DOB,Gender,Assigned_Airport,Country) values ('Pilot','kWyofTsJpWmkFHx','Thomas','Seamus','(65) 675-7854','seamus@bairways.com','1959-8-3','Male','SIN','Singapore');
 
-/*FLIGHT SCHEDULE*/
 
-INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F001','B021','A001','2022-02-15','00:00:00');
-INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F002','B004','A002','2022-01-01','01:00:00');
-INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F003','B009','A003','2022-01-20','11:50:00');
-INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F004','B014','A001','2022-01-25','17:50:00');
+------------------------FLIGHT SCHEDULE------------------------
 
-/*BOOKING*/
+ 
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time,Flight_Status) VALUES ('F001','B021','A001','2022-11-15','00:00:00','Landed');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time,Flight_Status) VALUES ('F002','B004','A002','2022-11-27','01:30:00','Landed');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time,Flight_Status) VALUES ('F003','B009','A003','2022-12-20','02:20:00','Landed');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time,Flight_Status) VALUES ('F004','B014','A006','2022-12-25','02:15:00','Landed');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time,Flight_Status) VALUES ('F005','B021','A005','2022-12-27','01:00:00','Cancelled');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time,Flight_Status) VALUES ('F006','B004','A004','2022-12-30','01:45:00','Landed');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time,Flight_Status) VALUES ('F007','B009','A007','2022-01-06','20:20:00','Cancelled');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time,Flight_Status) VALUES ('F008','B014','A008','2022-01-07','03:15:00','Landed');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F009','B035','A002','2023-01-11','19:00:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F010','B039','A001','2023-01-11','21:10:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F011','B014','A003','2023-01-12','15:30:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F012','B034','A004','2023-01-12','16:15:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F013','B038','A006','2023-01-12','18:50:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F014','B039','A005','2023-01-13','10:55:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F015','B011','A007','2023-01-13','12:10:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F016','B034','A008','2023-01-13','13:05:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F017','B033','A003','2023-01-13','15:20:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F018','B004','A002','2023-01-14','17:25:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F019','B021','A001','2023-01-14','18:30:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F020','B039','A005','2023-01-15','19:45:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F021','B014','A006','2023-01-15','23:00:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F022','B009','A007','2023-01-15','23:10:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F023','B027','A004','2023-01-15','23:15:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F024','B043','A001','2023-01-16','07:20:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F025','B021','A005','2023-01-16','08:35:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F026','B019','A003','2023-01-20','15:50:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F027','B011','A007','2023-01-21','11:10:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F028','B027','A008','2023-01-22','02:15:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F029','B038','A002','2023-02-23','03:00:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F030','B038','A006','2023-01-25','19:40:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F031','B034','A008','2023-01-25','21:45:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F032','B009','A007','2023-01-25','22:00:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F033','B021','A005','2023-01-26','04:05:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F034','B034','A004','2023-01-31','17:40:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F035','B001','A003','2023-02-02','00:15:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F036','B011','A002','2023-02-03','01:10:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F037','B062','A001','2023-02-03','11:05:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F038','B009','A002','2023-02-10','17:30:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F039','B039','A005','2023-02-11','05:00:00');
+INSERT into flight_schedule(Flight_ID,Route_ID,Aircraft_ID,Departure_Date,Departure_Time) VALUES ('F040','B014','A006','2023-02-13','06:10:00');
 
-INSERT into booking (Passport_no,Flight_ID ,Seat_ID,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('C00002345','F002','1A',2,600.00,0.00,600.00,'Paid','2022-12-27');
-INSERT into booking (Passport_no,Flight_ID ,Seat_ID,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('U0048902','F002','4A',2,500.00,5.00,475.00,'Paid','2022-12-25');
-INSERT into booking (Passport_no,Flight_ID ,Seat_ID,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('G56789088','F003','12A',3,450.00,0.00,450.00,'Paid','2022-12-12');
-INSERT into booking (Passport_no,Flight_ID ,Seat_ID,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('B00987897','F002','1B',2,600.00,0.00,600.00,'Paid','2022-12-02');
 
-/*PASSENGER SEAT*/
+---------------------BOOKING------------------------
+
+
+INSERT into booking (Passport_no,Flight_ID ,Seat_IDs,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('C00002345','F002','{"1A"}',2,600.00,0.00,600.00,'Paid','2022-10-27');
+INSERT into booking (Passport_no,Flight_ID ,Seat_IDs,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('U0048902','F002','{"4A"}',2,500.00,5.00,475.00,'Paid','2022-11-05');
+INSERT into booking (Passport_no,Flight_ID ,Seat_IDs,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('G56789088','F003','{"12A","13A"}',3,900.00,0.00,900.00,'Paid','2022-11-12');
+INSERT into booking (Passport_no,Flight_ID ,Seat_IDs,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('B00987897','F002','{"1B"}',2,600.00,0.00,600.00,'Paid','2022-11-02');
+INSERT into booking (Passport_no,Flight_ID ,Seat_IDs,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('D00004536','F001','{"1A"}',1,600.00,0.00,600.00,'Paid','2022-11-04');
+INSERT into booking (Passport_no,Flight_ID ,Seat_IDs,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('R10003456','F002','{"2A"}',2,600.00,0.00,600.00,'Paid','2022-11-05');
+INSERT into booking (Passport_no,Flight_ID ,Seat_IDs,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('A09345262','F032','{"3A"}',2,600.00,0.00,600.00,'Paid','2023-01-25');
+INSERT into booking (Passport_no,Flight_ID ,Seat_IDs,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('C00986543','F035','{"11A"}',2,600.00,0.00,600.00,'Paid','2023-02-02');
+INSERT into booking (Passport_no,Flight_ID ,Seat_IDs,Model_ID,Seat_Price,Discount ,Final_Price,Booking_Status,Booking_Date) values ('D34509850','F037','{"10B"}',2,600.00,0.00,600.00,'Paid','2023-02-03');
+
+
+---------------------PASSENGER SEAT------------------------
+
 
 INSERT INTO Passenger_Seat VALUES(1, 2, '1A', 600.00, 'Emily Tina','C00002345','1989-12-12');
 INSERT INTO Passenger_Seat VALUES (2, 2, '4A', 475.00, 'Adam Peter','U0048902','1976-02-18');
 INSERT INTO Passenger_Seat VALUES (3, 3, '12A', 450.00, 'Ram Kumar','G56789088','1978-05-09');
 INSERT INTO Passenger_Seat VALUES (4, 2, '1B', 600.00, 'Millie Brown','B00987897','2000-09-05');
+INSERT INTO Passenger_Seat VALUES (4, 3, '13A', 450.00, 'Ram Kumar', 'G56789088','1978-05-09');
+INSERT INTO Passenger_Seat VALUES (5, 1, '1A', 600.00, 'Sheldon George', 'D00004536','2006-02-18');
+INSERT INTO Passenger_Seat VALUES (6, 2, '2A', 600.00, 'Albert Einstein', 'R10003456','2006-10-12');
+INSERT INTO Passenger_Seat VALUES (7, 2, '2A', 600.00, 'Olivia Rodrigo', 'A09345262','2006-02-12');
+INSERT INTO Passenger_Seat VALUES (8, 2, '2A', 600.00, 'Jenna Ortega', 'C00986543','2005-12-31');
+INSERT INTO Passenger_Seat VALUES (9, 2, '2A', 600.00, 'Shawn Mendes', 'D34509850','1998-11-05');
 
+
+/*
+
+  ___  ___   ___    ___  ___  ___   _   _  ___  ___    ___    _    _     _     ___ 
+ | _ \| _ \ / _ \  / __|| __||   \ | | | || _ \| __|  / __|  /_\  | |   | |   / __|
+ |  _/|   /| (_) || (__ | _| | |) || |_| ||   /| _|  | (__  / _ \ | |__ | |__ \__ \
+ |_|  |_|_\ \___/  \___||___||___/  \___/ |_|_\|___|  \___|/_/ \_\|____||____||___/
+                                                                                   
+
+*/
 
 
 ---------------------INSERTING ROUTES-----------------------------
+
 
 CALL insert_route_price('B001',800,500,145);
 CALL insert_route_price('B002',700,600,161);

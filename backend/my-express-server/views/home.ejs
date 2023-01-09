@@ -128,8 +128,13 @@
             <h4>LIVE ABOVE THE SKY</h4>
             <h1> PROFESSIONAL & EXPERIENCED </h1>
             <h3 style="color: white;"> WE ARE THE ONE OF THE WORLD'S TOP AIRLINE AGENCIES </h3>
-            <li></li><a href="/login"><button class="btn">Login</button></a></li>
-            <a href="/register"><button class="btn">Register</button></a>
+            <% if (typeof userRole === 'undefined') { %>
+                <li></li><a href="/login"><button class="btn">Login</button></a></li>
+                <a href="/register"><button class="btn">Register</button></a>
+              <% } else { %>
+                <a href="/account"><button class="btn">Dashboard</button></a>
+              <% } %>  
+
         </section>
 
     </section>

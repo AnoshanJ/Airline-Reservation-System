@@ -12,7 +12,15 @@ html {
   animation: gradient 15s ease infinite;
   height: 100vh;
 }
-
+.contact-info {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 20px;
+  text-align: center;
+}
 body {
   margin: auto !important;
 

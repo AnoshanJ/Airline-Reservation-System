@@ -24,5 +24,9 @@ router.get("/account", function (req, res) {
         res.render("home", { docTitle: "B-Airways", userRole: role });
     }
 });
+router.get("/contact", function (req, res) {
+    let role = req.cookies.userRole;
+    res.render("contact", { docTitle: "Contact Us", userRole: role });
+});
 
 module.exports = router;
