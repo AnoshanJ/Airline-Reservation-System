@@ -305,7 +305,7 @@ $$;
 -------------------------Function to create a booking ---------------------------------------------
 
 CREATE OR REPLACE FUNCTION insertBooking(
-  	val_Passport_no varchar(9),
+  	val_Passport_no varchar(10),
     val_flight_id varchar(4),
     passName text[],
     passPassport text[],
@@ -333,15 +333,20 @@ DECLARE
     val_model_id int;
     Final_Price numeric(10,2);
     val_discount_percentage numeric(10,2);
-
+    cust_type customer_category_Enum;
+    var_x varchar(10) := (SELECT customer_type FROM Customer WHERE Passport_no = val_passport_no);
 BEGIN
 
     IF (check_seat_overlaps(val_flight_id, seatNo) = true) THEN
         RAISE EXCEPTION 'The selected seat has been taken. Please select a different seat';
     END IF;
+	
+    SELECT customer_type INTO cust_type FROM Customer WHERE Passport_no = val_passport_no;
+    
+    
 
-    IF (val_type = 'guest') THEN
-        INSERT INTO customer values (val_Passport_no,'guest');
+    IF (val_type = 'guest' AND var_x is null) THEN
+	INSERT INTO customer values (val_Passport_no,'guest');
         INSERT INTO guest_customer_account(First_Name,Last_name,Gender,DOB,Passport_no,Email,Mobile)
         values (val_First_Name, val_Last_Name, val_gender, val_dob, val_passport_no, val_email, val_mobile);
     END IF;
@@ -383,7 +388,7 @@ DECLARE
    cust_type customer_category_Enum;
 BEGIN
     IF (NEW.Booking_Status = 'Paid') THEN
-        SELECT type INTO cust_type FROM Customer WHERE Passport_no = NEW.Passport_no;
+        SELECT customer_type INTO cust_type FROM Customer WHERE Passport_no = NEW.Passport_no;
            IF (cust_type = 'registered') THEN
                UPDATE Registered_Customer_Account SET No_of_Bookings = No_of_Bookings + 1 WHERE Passport_no = NEW.Passport_no;
            END IF;
@@ -726,4 +731,3 @@ $$;
 
 CREATE INDEX INDEX_Schedule_Route_ID ON Flight_Schedule (Route_ID);
 CREATE INDEX INDEX_Booking_Schedule_ID ON Booking (Flight_ID);
-
