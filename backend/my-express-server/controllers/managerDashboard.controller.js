@@ -46,7 +46,7 @@ exports.addstaff = (req, res) => {
     }
     bcrypt.hash(req.body.Password, saltRounds, function (err, hash) {
       // Create a new registered Staff
-      const registerstaff = new Staff({
+      const registerstaff = new managerDashboard({
         Category: req.body.Category,
         Password: hash,
         First_Name: req.body.First_Name,
@@ -63,12 +63,12 @@ exports.addstaff = (req, res) => {
       managerDashboard.registerstaff(registerstaff, (err, data) => {
         if (err) {
   
-          res.status(500).send("<p>There was an error creating the staff. Redirecting to registration page in 3 seconds...</p>" +
+          res.status(500).send("<p>There was an error creating the staff. Redirecting to manager dashboard in 3 seconds...</p>" +
             "<script>setTimeout(function () { window.location.href = '/managerdashboard'; }, 3000);</script>");
         }
         else {
           // Display a successful creation box
-          res.send("<p>staff Added successfully! Redirecting to staff login page in 3 seconds...</p>" +
+          res.send("<p>staff Added successfully...</p>" +
             "<script>setTimeout(function () { window.location.href = '/managerdashboard'; }, 3000);</script>");
         }
       });
