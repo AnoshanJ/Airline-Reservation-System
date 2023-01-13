@@ -82,19 +82,10 @@ Staff.getStaffByEmail = function(email,result){
 };
 
 
-// 
-Staff.firestaff = function(email,Category,result){
+Staff.firestaff = async function(email,Category){
   const sql = "DELETE FROM Staff WHERE email = $1 and Category = $2";
   const queryParams = [email,Category];
-  pool.query(sql,queryParams,function(err,res){
-      if(err) {
-          console.log("error: ", err);
-          result(null, err);
-      }
-      else{
-          result(null, res);
-      }
-  });
+  pool.query(sql,queryParams);
 };
 
 module.exports = Staff;

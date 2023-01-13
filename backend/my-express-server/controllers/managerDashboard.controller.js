@@ -20,22 +20,18 @@ exports.getmanagerdetails = (req,res) =>{
     }
 }
 
-exports.firestaff = (req,res) => {
+exports.firestaff = async (req,res) => {
     try{
-        managerDashboard.firestaff(req.body.email,req.body.Category,(req,res)=>{
-            if(err){
-                console.log("Model Error"+err);
-                res.send("2500");
-            }
-            else{
-                res.render("managerDashboard",{formData: req,docTitle: "Details of the Manager",title:"Manager Dashboard", sampleData : result,action:'list',});
-                console.log("Manager Controller")
-            }
-        })
-    }catch(err){
-        console.log("Controller Error"+err);
-        res.send("3500");   
+      await managerDashboard.firestaff(req.body.email,req.body.Category);
+        res.status(500).send("<p>Staff fired... Redirecting to manager dashboard in 3 seconds...</p>" +
+        "<script>setTimeout(function () { window.location.href = '/managerdashboard'; }, 3000);</script>");
     }
+    catch{
+      console.log(error);
+      res.status(500).send("<p>There was an error creating the staff. Redirecting to manager dashboard in 3 seconds...</p>" +
+      "<script>setTimeout(function () { window.location.href = '/managerdashboard'; }, 3000);</script>");
+
+}
 }
 
 exports.addstaff = (req, res) => {
