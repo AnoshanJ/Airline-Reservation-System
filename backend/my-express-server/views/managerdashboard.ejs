@@ -1,14 +1,8 @@
 <%- include ('partials/header') %>
 <%- include ('partials/nav_bar') %>
-<%if(sampleData.category == 'Manager'){
+<%if(sampleData.category !== 'undefined'){
     %>
-        <h1 class="HeadTitle ">Manager Dashboard</h1>
-    <%}
-    else if(sampleData.category == 'General'){%>
-        <h1 class="HeadTitle ">Staff Dashboard</h1>
-        <%}
-    else {%>
-        <h1 class="HeadTitle ">Pilot Dashboard</h1>
+        <h1 class="HeadTitle "><%=sampleData.category%> Dashboard</h1>
     <%}%>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
@@ -88,11 +82,12 @@
                                         <a><%= sampleData.email %></a><br/>
                                      
                                     <section class ="Links">
-                                        <%if (sampleData.category != 'Pilot'){%>
+                                        <%if (sampleData.category != 'Pilot'){%>             
                                             <a href="/staff_work">Flight management</a><br/>
                                             <a href="/report">Reports</a><br/>
-                                        <%}%>
-                                        <a href="/">Home</a><br/>
+                                        <%}%>    
+                                        
+                                        <a href="/logout">Logout</a><br/>
                                     </section>
                                     </section>
                                 </section>
@@ -213,7 +208,7 @@
     </tr>
     <% } %>      
 </div>
-<%if (sampleData.category == 'Manager'){%>
+<%if (sampleData.category == 'Admin'){%>
 <div>
     <form action="/managerdashboard/addstaff" method="post">
         <h3>Add New Staff</h3>
@@ -289,7 +284,7 @@
 
 <div>
     <form action="/managerdashboard/firestaff" method="post">
-        <h3>Fire Staff</h3>
+        <h3>Dismiss Staff</h3>
         <div>
             <label for="email">Email</label>
                 <input type="text" name="email" id="email" required style="display: block"/>
@@ -300,7 +295,7 @@
                 <option value="Pilot">Pilot</option>
             </select>
             <center>
-                <button class="create-account-button type="submit">Fire</button>
+                <button class="create-account-button type="submit">Dismiss</button>
             </center>
         </div>
     </form>

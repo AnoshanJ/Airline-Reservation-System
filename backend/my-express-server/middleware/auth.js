@@ -9,7 +9,7 @@ function checkRole(role) {
             req.flash('error', 'You are not authorized to view this page');
 
             // Render the unauthorized template and pass the flash messages to it
-            res.render('unauthorized', { docTitle: 'Unauthorized'});
+            res.render('unauthorized', { docTitle: 'Unauthorized', userRole: req.session.userRole});
         }
     }
 }

@@ -34,7 +34,7 @@ exports.run = async (req,res, cookies) => {
           console.log("Flight_info",flightInfo[0]);
           console.log("Seat price",flightInfo[1]);
 
-        res.render("booking", {lst:arrlst ,flightInfo:flightInfo ,seat_info:seat_info, formData: req, docTitle: "BOOKING", data: responseValues, content: 0, userdetail: cookies});
+        res.render("booking", {lst:arrlst ,flightInfo:flightInfo ,seat_info:seat_info, formData: req, docTitle: "BOOKING", data: responseValues, content: 0, userdetail: cookies, userRole: cookies.userRole});
     }catch(err){
         res.send("500");
     }
@@ -75,7 +75,8 @@ exports.getpayment = async (req,res) => {
                 bookingstatus: booking_status.status,
                 initprices: prices.seat_price,
                 finalprice : prices.final_price,
-                formData:req.session.formData
+                formData:req.session.formData,
+                userRole: req.cookies.userRole
             })
         }
     }catch(err){
@@ -147,7 +148,8 @@ exports.paymentSuccess = async (req, res) => {
             docTitle:"Eticket",
             flight_details,
             bookingDetails: bookingDetails,
-            formData:req.session.formData
+            formData:req.session.formData,
+            userRole: req.cookies.userRole
         });
     } catch (error) {
         console.log(error);
