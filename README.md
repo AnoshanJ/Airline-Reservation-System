@@ -1,14 +1,14 @@
 # Airline-Reservation-System
 
-This Simple Airline Reservation system was developed as the semester project of Semester 4 CS3043 Database Systems Module.
+The Airline Reservation system for B-Airways was developed as a fullstack project for Semester 4 CS3043 Database Systems Module.
 
 ## Technology Stack
 
-Front End : HTML, CSS, BOOTSTRAP, EJS
-Back End : Node, Express
-Database : Postgres
-Design Pattern : MVC
-Other Libraries : Bcrypt, Cookie-Parser
+Front End : HTML, CSS, Bootstrap, JavaScript, EJS  
+Back End : Node, Express  
+Database : Postgres  
+Design Pattern : MVC  
+Other Libraries : Dotenv, Bcrypt, Cookie-Parser  
 
 ## Screenshots
 
@@ -75,7 +75,7 @@ cd backend
 npm install
 ```
 
-After that make copy the .env.example, edit the parameters and save it as .env
+After that copy the .env.example, edit the parameters and save it as .env in the config folder.
 
 Then use `nodemon` or `node` to serve the pages.
 
