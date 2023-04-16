@@ -75,6 +75,8 @@ cd backend
 npm install
 ```
 
+After that make copy the .env.example, edit the parameters and save it as .env
+
 Then use `nodemon` or `node` to serve the pages.
 
 ```bash

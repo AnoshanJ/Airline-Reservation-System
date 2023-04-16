@@ -1,5 +1,5 @@
 //jshint esversion:6
-// require("dotenv").config();
+require("dotenv").config({ path: './config/.env' });
 const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require('fs');
@@ -7,7 +7,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
-const port = require("./config/config").port;
+const port = process.env.BACKEND_PORT;
 
 const app = express();
 
