@@ -1,8 +1,4 @@
 # Airline-Reservation-System
-# run npm i
-# navigate to backend\my-express-server and run nodemon server
-
-# Airline-Reservation-System
 
 This Simple Airline Reservation system was developed as the semester project of Semester 4 CS3043 Database Systems Module.
 
