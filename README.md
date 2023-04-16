@@ -12,19 +12,19 @@ Other Libraries : Bcrypt, Cookie-Parser
 
 ## Screenshots
 
-| **Home Page**                                            | **Flight Search Page**                                             |
+| **Home Page**                                            | **Login Page**                                            |
 | -------------------------------------------------------- | -------------------------------------------------------            |
-| ![Home Page](screenshots/homepage.jpeg)                    | ![Flight Search Page](screenshots/guest_search.jpeg)                   |
-| **Login Page**                                         | **User Registration Page**                                        |
-| ![Login Page](screenshots/login.jpeg)              | ![User Registration Page](screenshots/user_registration.jpeg)             |
-| **User Dashboard Page**                                         | **Booking Page**                                        |
-| ![User Dashboard](screenshots/user_dashboard.jpeg)              | ![Booking Page](screenshots/book_flight.jpeg)             |
+| ![Home Page](screenshots/homepage.jpeg)                    | ![Login Page](screenshots/login.jpeg)                     |
+| **User Registration Page**                                      | **User Dashboard Page**                                      |
+| ![User Registration Page](screenshots/user_registration.jpeg)               | ![User Dashboard](screenshots/user_dashboard.jpeg)          |
+| **Flight Search Page**                                        | **Booking Page**                                        |
+| ![Flight Search Page](screenshots/guest_search.jpeg)           | ![Booking Page](screenshots/book_flight.jpeg)             |
 | **Booking Confirmation Page**                                         | **E-Ticket Page**                                        |
 | ![Booking Confirmation Page](screenshots/booking_confirmation.jpeg)              | ![E-Ticket Page](screenshots/eticket.jpeg)             |
-| **Admin Dashboard Page**                                           |**Flight Management Page**                                           |
-| ![Admin Dashboard](screenshots/admin_dashboard.jpeg)                  |   ![Flight Management Page](screenshots/flight_management.jpeg)    |  
-| **Managerial Reports Page**                                           |
-| ![Managerial Reports](screenshots/manager_reports.jpeg)                  | 
+| **Admin Dashboard Page**                                          | **Managerial Reports Page**                                           | 
+| ![Admin Dashboard](screenshots/admin_dashboard.jpeg)                  | ![Managerial Reports](screenshots/manager_reports.jpeg)       |  
+| **Flight Management Page**                                           |
+| ![Flight Management Page](screenshots/flight_management.jpeg)              | 
 
 ## Problem Statement
 
