@@ -75,7 +75,7 @@ Install
  After that go to the project directory and run `npm i`.
 
 ```bash
-cd backend/my-express-server
+cd backend
 npm install
 ```
 
