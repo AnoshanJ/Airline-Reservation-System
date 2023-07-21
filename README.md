@@ -1,6 +1,6 @@
 # Airline-Reservation-System
 
-The Airline Reservation system for B-Airways was developed as a fullstack project for Semester 4 CS3043 Database Systems Module.
+The Airline Reservation system for B-Airways was developed as a fullstack project for Semester 3 CS3043 Database Systems Module.
 
 ## Technology Stack
 
